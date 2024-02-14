@@ -63,17 +63,54 @@ img::EasyImage Blocks(const string &type, const int &w, const int &h, const ini:
     return image;
 }
 
+img::EasyImage QuarterCircle(const string fig, const ini::DoubleTuple backGroundColor, const ini::DoubleTuple lineColor, int nrLines, const int height, const int width) {
+    if (fig == "QuarterCircle") {
+        nrLines = nrLines - 1;
+        int Hs = height / nrLines; //hoogte van het rechthoekje
+        int Ws = width / nrLines; //breedte van het rechthoekje
+
+
+        img::EasyImage image(width, height,
+                             img::Color(backGroundColor[0] * 255, backGroundColor[1] * 255, backGroundColor[2] * 255));
+        int counter = 0;
+        int x0 = 0;
+        int y0 = 0;
+        int x1 = 0;
+        int y1 = height - 1;
+        while (counter <= nrLines) {
+            if (x1 == height){
+                x1 = y1;
+            }
+            if (y0 == height){
+                y0 = y1;
+            }
+
+            if (make_tuple(x0, y0) == make_tuple(x1, y1)) {
+                x0 += Hs;
+                y1 += Ws;
+
+            } else {
+                image.draw_line(x0, y0, x1, y1, img::Color(lineColor[0] * 255, lineColor[1] * 255, lineColor[2] * 255));
+                y0 += Hs;
+                x1 += Ws;
+            }
+
+            counter++;
+        }
+        return image;
+    }
+ }
 img::EasyImage generate_image(const ini::Configuration &confg)
 {
 
     std::string type = confg["General"]["type"].as_string_or_die();
-    int w = confg["ImageProperties"]["width"].as_int_or_die();
-    int h = confg["ImageProperties"]["height"].as_int_or_die();
+    int width = confg["ImageProperties"]["width"].as_int_or_die();
+    int height = confg["ImageProperties"]["height"].as_int_or_die();
 
-    img::EasyImage image(w,h);
+    img::EasyImage image(width, height);
 
     if(type == "IntroColorRectangle"){
-        return ColorRectangle(type, w, h);
+        return ColorRectangle(type, width, height);
     }
     else if (type == "IntroBlocks"){
         ini::DoubleTuple colorWhite = confg["BlockProperties"]["colorWhite"].as_double_tuple_or_die();
@@ -82,7 +119,16 @@ img::EasyImage generate_image(const ini::Configuration &confg)
         int nyB = confg["BlockProperties"]["nrYBlocks"].as_int_or_die();
         bool invert = confg["BlockProperties"]["invertColors"].as_bool_or_die();
 
-        return Blocks(type, w, h, colorWhite, colorBlack, nxB, nyB, invert);
+        return Blocks(type, width, height, colorWhite, colorBlack, nxB, nyB, invert);
+    }
+    else if(type == "IntroLines"){
+        string figure = confg["LineProperties"]["figure"];
+        ini::DoubleTuple backGroundColor = confg["LineProperties"]["backgroundcolor"];
+        ini::DoubleTuple lineColor= confg["LineProperties"]["lineColor"];
+        int nrLines = confg["LineProperties"]["nrLines"];
+        if(figure == "QuarterCircle"){
+            return QuarterCircle(figure, backGroundColor, lineColor, nrLines, height, width);
+        }
     }
     return image;
 }
