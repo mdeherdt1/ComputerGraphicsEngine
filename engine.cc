@@ -176,9 +176,61 @@ img::EasyImage Eye(ini::DoubleTuple backGroundColor, ini::DoubleTuple lineColor,
 }
 
 
+img::EasyImage Diamond(ini::DoubleTuple backGroundColor, ini::DoubleTuple lineColor, int nrLines, int height, int width) {
+    nrLines = nrLines - 1;
+    int Hs = height / (2 * nrLines); //hoogte van het rechthoekje
+    int Ws = width / (2 * nrLines); //breedte van het rechthoekje
 
-img::EasyImage generate_image(const ini::Configuration &confg)
-{
+
+    img::EasyImage image(width, height,
+                         img::Color(backGroundColor[0] * 255, backGroundColor[1] * 255, backGroundColor[2] * 255));
+
+    //horizontaal
+    int x0 = 0;
+    int x4 = width - 1;
+    const int y0 = height / 2;
+
+    //verticaal
+    const int x1 = width / 2;
+    int y1 = height / 2;
+    int y2 = height / 2 ;
+
+    int counter = 0;
+
+    while (counter <= nrLines) {
+        x0 = width/2 + counter * Ws;
+        y1 = height/2 + counter * Hs;
+        y2 = height/2 - counter * Hs;
+        x4 = (width-1) - counter * Ws;
+
+        if(x4 < 0){
+            x4 = 0;
+        }
+        if(x0 == width){
+            x0 = width -1;
+        }
+        if(y1 == height){
+            y1 = height -1;
+        }
+
+        x0 = counter * Ws;
+
+
+        image.draw_line(x0, y0, x1, y1, img::Color(lineColor[0] * 255, lineColor[1] * 255, lineColor[2] * 255));
+        image.draw_line(x4, y0, x1, y1, img::Color(lineColor[0] * 255, lineColor[1] * 255, lineColor[2] * 255));
+
+
+        image.draw_line(x0, y0, x1, y2, img::Color(lineColor[0] * 255, lineColor[1] * 255, lineColor[2] * 255));
+        image.draw_line(x4, y0, x1, y2, img::Color(lineColor[0] * 255, lineColor[1] * 255, lineColor[2] * 255));
+
+        counter ++;
+    }
+    return image;
+}
+
+
+
+img::EasyImage generate_image(const ini::Configuration &confg) {
 
     std::string type = confg["General"]["type"].as_string_or_die();
     int width = confg["ImageProperties"]["width"].as_int_or_die();
@@ -186,10 +238,9 @@ img::EasyImage generate_image(const ini::Configuration &confg)
 
     img::EasyImage image(width, height);
 
-    if(type == "IntroColorRectangle"){
+    if (type == "IntroColorRectangle") {
         return ColorRectangle(type, width, height);
-    }
-    else if (type == "IntroBlocks"){
+    } else if (type == "IntroBlocks") {
         ini::DoubleTuple colorWhite = confg["BlockProperties"]["colorWhite"].as_double_tuple_or_die();
         ini::DoubleTuple colorBlack = confg["BlockProperties"]["colorBlack"].as_double_tuple_or_die();
         int nxB = confg["BlockProperties"]["nrXBlocks"].as_int_or_die();
@@ -197,99 +248,87 @@ img::EasyImage generate_image(const ini::Configuration &confg)
         bool invert = confg["BlockProperties"]["invertColors"].as_bool_or_die();
 
         return Blocks(type, width, height, colorWhite, colorBlack, nxB, nyB, invert);
-    }
-    else if(type == "IntroLines"){
+    } else if (type == "IntroLines") {
         string figure = confg["LineProperties"]["figure"];
         ini::DoubleTuple backGroundColor = confg["LineProperties"]["backgroundcolor"];
-        ini::DoubleTuple lineColor= confg["LineProperties"]["lineColor"];
+        ini::DoubleTuple lineColor = confg["LineProperties"]["lineColor"];
         int nrLines = confg["LineProperties"]["nrLines"];
-        if(figure == "QuarterCircle"){
+        if (figure == "QuarterCircle") {
             return QuarterCircle(backGroundColor, lineColor, nrLines, height, width);
         }
-        if(figure == "Eye"){
+        if (figure == "Eye") {
             return Eye(backGroundColor, lineColor, nrLines, height, width);
         }
+        if (figure == "Diamond") {
+            return Diamond(backGroundColor, lineColor, nrLines, height, width);
+
+        }
+        return image;
     }
-    return image;
 }
 
-
-
-
-int main(int argc, char const* argv[]){
+    int main(int argc, char const *argv[]) {
         int retVal = 0;
-        try
-        {
-                std::vector<std::string> args = std::vector<std::string>(argv+1, argv+argc);
-                if (args.empty()) {
-                        std::ifstream fileIn("filelist");
-                        std::string filelistName;
-                        while (std::getline(fileIn, filelistName)) {
-                                args.push_back(filelistName);
-                        }
+        try {
+            std::vector<std::string> args = std::vector<std::string>(argv + 1, argv + argc);
+            if (args.empty()) {
+                std::ifstream fileIn("filelist");
+                std::string filelistName;
+                while (std::getline(fileIn, filelistName)) {
+                    args.push_back(filelistName);
                 }
-                for(std::string fileName : args)
-                {
-                        ini::Configuration conf;
-                        try
-                        {
-                                std::ifstream fin(fileName);
-                                if (fin.peek() == std::istream::traits_type::eof()) {
-                                    std::cout << "Ini file appears empty. Does '" <<
-                                    fileName << "' exist?" << std::endl;
-                                    continue;
-                                }
-                                fin >> conf;
-                                fin.close();
-                        }
-                        catch(ini::ParseException& ex)
-                        {
-                                std::cerr << "Error parsing file: " << fileName << ": " << ex.what() << std::endl;
-                                retVal = 1;
-                                continue;
-                        }
-
-                        img::EasyImage image = generate_image(conf);
-                        if(image.get_height() > 0 && image.get_width() > 0)
-                        {
-                                std::string::size_type pos = fileName.rfind('.');
-                                if(pos == std::string::npos)
-                                {
-                                        //filename does not contain a '.' --> append a '.bmp' suffix
-                                        fileName += ".bmp";
-                                }
-                                else
-                                {
-                                        fileName = fileName.substr(0,pos) + ".bmp";
-                                }
-                                try
-                                {
-                                        std::ofstream f_out(fileName.c_str(),std::ios::trunc | std::ios::out | std::ios::binary);
-                                        f_out << image;
-
-                                }
-                                catch(std::exception& ex)
-                                {
-                                        std::cerr << "Failed to write image to file: " << ex.what() << std::endl;
-                                        retVal = 1;
-                                }
-                        }
-                        else
-                        {
-                                std::cout << "Could not generate image for " << fileName << std::endl;
-                        }
+            }
+            for (std::string fileName: args) {
+                ini::Configuration conf;
+                try {
+                    std::ifstream fin(fileName);
+                    if (fin.peek() == std::istream::traits_type::eof()) {
+                        std::cout << "Ini file appears empty. Does '" <<
+                                  fileName << "' exist?" << std::endl;
+                        continue;
+                    }
+                    fin >> conf;
+                    fin.close();
                 }
+                catch (ini::ParseException &ex) {
+                    std::cerr << "Error parsing file: " << fileName << ": " << ex.what() << std::endl;
+                    retVal = 1;
+                    continue;
+                }
+
+                img::EasyImage image = generate_image(conf);
+                if (image.get_height() > 0 && image.get_width() > 0) {
+                    std::string::size_type pos = fileName.rfind('.');
+                    if (pos == std::string::npos) {
+                        //filename does not contain a '.' --> append a '.bmp' suffix
+                        fileName += ".bmp";
+                    } else {
+                        fileName = fileName.substr(0, pos) + ".bmp";
+                    }
+                    try {
+                        std::ofstream f_out(fileName.c_str(), std::ios::trunc | std::ios::out | std::ios::binary);
+                        f_out << image;
+
+                    }
+                    catch (std::exception &ex) {
+                        std::cerr << "Failed to write image to file: " << ex.what() << std::endl;
+                        retVal = 1;
+                    }
+                } else {
+                    std::cout << "Could not generate image for " << fileName << std::endl;
+                }
+            }
         }
-        catch(const std::bad_alloc &exception)
-        {
-    		//When you run out of memory this exception is thrown. When this happens the return value of the program MUST be '100'.
-    		//Basically this return value tells our automated test scripts to run your engine on a pc with more memory.
-    		//(Unless of course you are already consuming the maximum allowed amount of memory)
-    		//If your engine does NOT adhere to this requirement you risk losing points because then our scripts will
-		//mark the test as failed while in reality it just needed a bit more memory
-                std::cerr << "Error: insufficient memory" << std::endl;
-                retVal = 100;
+        catch (const std::bad_alloc &exception) {
+            //When you run out of memory this exception is thrown. When this happens the return value of the program MUST be '100'.
+            //Basically this return value tells our automated test scripts to run your engine on a pc with more memory.
+            //(Unless of course you are already consuming the maximum allowed amount of memory)
+            //If your engine does NOT adhere to this requirement you risk losing points because then our scripts will
+            //mark the test as failed while in reality it just needed a bit more memory
+            std::cerr << "Error: insufficient memory" << std::endl;
+            retVal = 100;
         }
 
         return retVal;
-}
+    }
+
