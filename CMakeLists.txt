@@ -18,6 +18,14 @@ set(engine_sources
 	easy_image.cc
 	engine.cc
 	ini_configuration.cc
+        Color.cpp
+        Color.h
+		Point2D.cpp
+		Point2D.h
+		Line2D.cpp
+		Line2D.h
+		introduction.cpp
+		introduction.h
 )
 
 ############################################################

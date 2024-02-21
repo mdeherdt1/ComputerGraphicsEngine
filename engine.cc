@@ -1,5 +1,8 @@
 #include "easy_image.h"
 #include "ini_configuration.h"
+#include "Color.h"
+#include "Point2D.h"
+#include "Line2D.h"
 
 #include <cmath>
 #include <fstream>
@@ -7,225 +10,79 @@
 #include <stdexcept>
 #include <string>
 
+#include "introduction.h"
+
 
 using namespace std;
 
-img::EasyImage ColorRectangle(const string &type,const int &w, const int &h){
-    img::EasyImage image(w,h);
-        for(unsigned int i = 0; i < w; i++)
-        {
-            for(unsigned int j = 0; j < h; j++)
-            {
-                image(i,j).red = i;
-                image(i,j).green = j;
-                image(i,j).blue = (i+j)%256;
-            }
+
+
+img::EasyImage draw2DLines(const Lines2D &lines, const int size){
+    std::vector<double> xjes ;
+    std::vector<double>ytjes;
+
+
+
+    //push alles in de vectoren om min en max te bepalen
+    for (Line2D lijn:lines) {
+        xjes.push_back(lijn.p1.x);
+        xjes.push_back(lijn.p2.x);
+        ytjes.push_back(lijn.p1.y);
+        ytjes.push_back(lijn.p2.y);
+    }
+    double x_min = xjes[0];
+    double y_min = ytjes[0];
+    double x_max = xjes[0];
+    double y_max = ytjes[0];
+
+    for (double x:xjes){
+        if(x <= x_min){
+            x_min = x;
         }
-        return image;
+        if(x >= x_max){
+            x_max = x;
+        }
+    }
+    for(double y:ytjes){
+        if(y <= y_min){
+            y_min = y;
+        }
+        if(y >= y_max){
+            y_max = y;
+        }
+    }
+    double x_range = x_max - x_min;
+    double y_range = y_max - y_min;
+    double width = size * (x_range / (max(x_range,y_range)));
+    double height = size * (y_range / (max(x_range,y_range)));
+
+    img::EasyImage image(width,height);
+
+    double schaalFactor = 0.95 * (width/x_range);
+
+    double DCx = schaalFactor * ((x_min + x_max)/2);
+    double DCy = schaalFactor * ((y_min + y_max)/2);
+
+    double dx = width / 2 - DCx;
+    double dy = height / 2 - DCy;
+
+    for (Line2D lijn:lines) {
+        lijn.p1.x = round(lijn.p1.x * schaalFactor + dx);
+        lijn.p1.y = round(lijn.p1.y * schaalFactor + dy);
+        lijn.p2.x = round(lijn.p2.x * schaalFactor + dx);
+        lijn.p2.y = round(lijn.p2.y * schaalFactor + dy);
+
+        img::Color kleur = img::Color(lijn.color.red*255,lijn.color.green*255,lijn.color.blue*255);
+
+        image.draw_line(lijn.p1.x,lijn.p1.y,lijn.p2.x,lijn.p2.y, kleur);
+
     }
 
 
-img::EasyImage Blocks(const string &type, const int &w, const int &h, const ini::DoubleTuple &cw, const ini::DoubleTuple &cb, const int &nxB, const int &nyB, bool &invert ){
-    int wb = w/nxB;
-    int hb = h/nyB;
-
-    img::EasyImage image(w,h);
-
-    for(unsigned int i = 0; i < w; i++)
-    {
-        for(unsigned int j = 0; j < h; j++)
-        {
-            int Bx = floor(i/wb);
-            int By = floor(j/hb);
-            bool even = true;
-            if((Bx + By) % 2 != 0 ){
-                even = false;
-            }
-            if(!invert){
-                if(even){
-                    even = false;
-                } else{
-                    even = true;
-                }
-            }
-            if(not even){
-                image(i,j).red = cw[0] * 255;
-                image(i,j).green = cw[1] * 255;
-                image(i,j).blue = cw[2] * 255;
-            } else{
-                image(i,j).red = cb[0] * 255;
-                image(i,j).green = cb[1] * 255;
-                image(i,j).blue = cb[2] * 255;
-            }
-        }
-    }
 
     return image;
-}
-
-img::EasyImage QuarterCircle(const ini::DoubleTuple backGroundColor, const ini::DoubleTuple lineColor, int nrLines, const int height, const int width) {
-        nrLines = nrLines - 1;
-        int Hs = height / nrLines; //hoogte van het rechthoekje
-        int Ws = width / nrLines; //breedte van het rechthoekje
 
 
-        img::EasyImage image(width, height,
-                             img::Color(backGroundColor[0] * 255, backGroundColor[1] * 255, backGroundColor[2] * 255));
-        int counter = 0;
-        int x0 = 0;
-        int y0 = 0;
-        int x1 = 0;
-        int y1 = height - 1;
-        while (counter <= nrLines) {
-            if (x1 == height){
-                x1 = height - 1;
-            }
-            if (y0 == height){
-                y0 = height - 1;
-            }
-
-            if (make_tuple(x0, y0) == make_tuple(x1, y1)) {
-                x0 += Hs;
-                y1 += Ws;
-
-            } else {
-                image.draw_line(x0, y0, x1, y1, img::Color(lineColor[0] * 255, lineColor[1] * 255, lineColor[2] * 255));
-                y0 += Hs;
-                x1 += Ws;
-            }
-
-            counter++;
-        }
-        return image;
-    }
-
-
-
-img::EasyImage Eye(ini::DoubleTuple backGroundColor, ini::DoubleTuple lineColor, int nrLines, int height, int width) {
-    nrLines = nrLines - 1;
-    int Hs = height / nrLines; //hoogte van het rechthoekje
-    int Ws = width / nrLines; //breedte van het rechthoekje
-
-
-    img::EasyImage image(width, height,
-                         img::Color(backGroundColor[0] * 255, backGroundColor[1] * 255, backGroundColor[2] * 255));
-    //eerste (linkse)
-    int counter = 0;
-    int x0 = 0;
-    int y0 = 0;
-    int x1 = 0;
-    int y1 = height - 1;
-
-
-
-    while (counter <= nrLines) {
-        if (x1 == width){
-            x1 = width - 1;
-        }
-        if (y0 == height){
-            y0 = height - 1;
-        }
-
-        if (make_tuple(x0, y0) == make_tuple(x1, y1)) {
-            x0 += Hs;
-            y1 += Ws;
-
-        } else {
-            image.draw_line(x0, y0, x1, y1, img::Color(lineColor[0] * 255, lineColor[1] * 255, lineColor[2] * 255));
-            y0 += Hs;
-            x1 += Ws;
-        }
-
-
-        counter++;
-    }
-
-
-//    tweede (rechtse)
-    int counter2 = 0;
-    const int y2 = 0;
-    const int x3 = width -1;
-
-    int x2 = 0;
-    int y3 = 0;
-
-    while (counter2 <= nrLines) {
-        if (x2 == width){
-            x2 = width - 1;
-        }
-        if (y3 == height){
-            y3 = height - 1;
-        }
-
-        if (make_tuple(x2, y2) == make_tuple(x3, y3)) {
-            x2 += Ws;
-            y3 += Hs;
-
-
-        } else {
-            image.draw_line(x2, y2, x3, y3, img::Color(lineColor[0] * 255, lineColor[1] * 255, lineColor[2] * 255));
-            x2 += Ws;
-            y3 += Hs;
-        }
-
-
-        counter2++;
-    }
-
-    return image;
-}
-
-
-img::EasyImage Diamond(ini::DoubleTuple backGroundColor, ini::DoubleTuple lineColor, int nrLines, int height, int width) {
-    nrLines = nrLines - 1;
-    int Hs = height / (2 * nrLines); //hoogte van het rechthoekje
-    int Ws = width / (2 * nrLines); //breedte van het rechthoekje
-
-
-    img::EasyImage image(width, height,
-                         img::Color(backGroundColor[0] * 255, backGroundColor[1] * 255, backGroundColor[2] * 255));
-
-    //horizontaal
-    int x0 = 0;
-    int x4 = width - 1;
-    const int y0 = height / 2;
-
-    //verticaal
-    const int x1 = width / 2;
-    int y1 = height / 2;
-    int y2 = height / 2 ;
-
-    int counter = 0;
-
-    while (counter <= nrLines) {
-        x0 = width/2 + counter * Ws;
-        y1 = height/2 + counter * Hs;
-        y2 = height/2 - counter * Hs;
-        x4 = (width-1) - counter * Ws;
-
-        if(x4 < 0){
-            x4 = 0;
-        }
-        if(x0 == width){
-            x0 = width -1;
-        }
-        if(y1 == height){
-            y1 = height -1;
-        }
-
-        x0 = counter * Ws;
-
-
-        image.draw_line(x0, y0, x1, y1, img::Color(lineColor[0] * 255, lineColor[1] * 255, lineColor[2] * 255));
-        image.draw_line(x4, y0, x1, y1, img::Color(lineColor[0] * 255, lineColor[1] * 255, lineColor[2] * 255));
-
-
-        image.draw_line(x0, y0, x1, y2, img::Color(lineColor[0] * 255, lineColor[1] * 255, lineColor[2] * 255));
-        image.draw_line(x4, y0, x1, y2, img::Color(lineColor[0] * 255, lineColor[1] * 255, lineColor[2] * 255));
-
-        counter ++;
-    }
-    return image;
 }
 
 
@@ -233,12 +90,15 @@ img::EasyImage Diamond(ini::DoubleTuple backGroundColor, ini::DoubleTuple lineCo
 img::EasyImage generate_image(const ini::Configuration &confg) {
 
     std::string type = confg["General"]["type"].as_string_or_die();
-    int width = confg["ImageProperties"]["width"].as_int_or_die();
-    int height = confg["ImageProperties"]["height"].as_int_or_die();
+    int width = 0;
+    int height = 0;
+    img::EasyImage image;
 
-    img::EasyImage image(width, height);
 
     if (type == "IntroColorRectangle") {
+         width = confg["ImageProperties"]["width"].as_int_or_die();
+         height = confg["ImageProperties"]["height"].as_int_or_die();
+        img::EasyImage image(width, height);
         return ColorRectangle(type, width, height);
     } else if (type == "IntroBlocks") {
         ini::DoubleTuple colorWhite = confg["BlockProperties"]["colorWhite"].as_double_tuple_or_die();
@@ -249,9 +109,13 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
 
         return Blocks(type, width, height, colorWhite, colorBlack, nxB, nyB, invert);
     } else if (type == "IntroLines") {
+        width = confg["ImageProperties"]["width"].as_int_or_die();
+        height = confg["ImageProperties"]["height"].as_int_or_die();
+        img::EasyImage image(width, height);
         string figure = confg["LineProperties"]["figure"];
         ini::DoubleTuple backGroundColor = confg["LineProperties"]["backgroundcolor"];
         ini::DoubleTuple lineColor = confg["LineProperties"]["lineColor"];
+
         int nrLines = confg["LineProperties"]["nrLines"];
         if (figure == "QuarterCircle") {
             return QuarterCircle(backGroundColor, lineColor, nrLines, height, width);
@@ -261,11 +125,34 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
         }
         if (figure == "Diamond") {
             return Diamond(backGroundColor, lineColor, nrLines, height, width);
-
         }
+    }
+    else{
+        Color rood = Color(1,0,0);
+        Color groen = Color(0,1,0);
+        Color blauw = Color(0,0,1);
+
+        const Point2D oorsprong = Point2D(0.0,0.0);
+
+        const Point2D pr1 = Point2D(-100.0,100.0);
+        const Point2D pg1 = Point2D(50.0,50.0);
+        const Point2D pb1 = Point2D(300.0,-50.0);
+
+        Line2D lijnRood = Line2D(oorsprong, pr1, rood);
+        Line2D lijnGroen = Line2D(oorsprong, pg1, groen);
+        Line2D lijnBlauw = Line2D(oorsprong, pb1, blauw);
+
+        Lines2D lijnen = {lijnRood,lijnGroen,lijnBlauw};
+
+        const int size = 500;
+
+
+        return draw2DLines(lijnen,size);
+    }
+
+
         return image;
     }
-}
 
     int main(int argc, char const *argv[]) {
         int retVal = 0;
