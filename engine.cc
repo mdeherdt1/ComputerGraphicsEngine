@@ -127,14 +127,14 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
             return Diamond(backGroundColor, lineColor, nrLines, height, width);
         }
     }
-    else{
+    else if (type == "drawLines"){
         Color rood = Color(1,0,0);
         Color groen = Color(0,1,0);
         Color blauw = Color(0,0,1);
 
         const Point2D oorsprong = Point2D(0.0,0.0);
 
-        const Point2D pr1 = Point2D(-100.0,100.0);
+        const Point2D pr1 = Point2D(100.0,100.0);
         const Point2D pg1 = Point2D(50.0,50.0);
         const Point2D pb1 = Point2D(300.0,-50.0);
 
