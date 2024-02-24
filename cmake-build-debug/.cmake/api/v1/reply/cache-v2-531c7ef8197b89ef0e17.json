@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "c:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics - session 0/cmake-build-debug"
+			"value" : "c:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -659,7 +659,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics - session 0/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -731,7 +731,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics - session 0"
+			"value" : "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -1379,7 +1379,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics - session 0/cmake-build-debug"
+			"value" : "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/cmake-build-debug"
 		},
 		{
 			"name" : "engine_IS_TOP_LEVEL",
@@ -1403,7 +1403,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics - session 0"
+			"value" : "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics"
 		}
 	],
 	"kind" : "cache",

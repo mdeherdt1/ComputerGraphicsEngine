@@ -3,21 +3,26 @@
 #include "Color.h"
 #include "Point2D.h"
 #include "Line2D.h"
+#include "introduction.h"
+#include "l_parser.h"
 
+#include <set>
 #include <cmath>
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
+
 #include <string>
 
-#include "introduction.h"
 
 
 using namespace std;
 
+constexpr double PI = 3.14159265358979323846;
 
 
-img::EasyImage draw2DLines(const Lines2D &lines, const int size){
+
+img::EasyImage draw2DLines(const Lines2D &lines, const int size, img::Color background = img::Color(0,0,0)){
     std::vector<double> xjes ;
     std::vector<double>ytjes;
 
@@ -56,7 +61,7 @@ img::EasyImage draw2DLines(const Lines2D &lines, const int size){
     double width = size * (x_range / (max(x_range,y_range)));
     double height = size * (y_range / (max(x_range,y_range)));
 
-    img::EasyImage image(width,height);
+    img::EasyImage image(width,height,background);
 
     double schaalFactor = 0.95 * (width/x_range);
 
@@ -85,13 +90,63 @@ img::EasyImage draw2DLines(const Lines2D &lines, const int size){
 
 }
 
+LParser::LSystem2D DLSystem(const ini::Configuration &confg){
+    std::string inputFile = confg["2DLSystem"]["inputfile"];
 
+    LParser::LSystem2D l_system;
+    std::ifstream input_stream(inputFile);
+    input_stream >> l_system;
+    input_stream.close();
 
+    return l_system;
+}
+
+Lines2D drawLSystem(const LParser::LSystem2D &l_system, Color lijnKleur = Color(255,255,255)){
+    Lines2D lijnen;
+    double x = 0, y = 0; // Startpositie
+    double angle = l_system.get_angle() * (PI / 180.0); // Omrekenen naar radialen
+    double currentAngle = l_system.get_starting_angle() * (PI / 180.0); // Start hoek in radialen
+    unsigned int iterations = l_system.get_nr_iterations();
+    std::string currentString = l_system.get_initiator();
+    set<char> alfabet = l_system.get_alphabet();
+
+    // Bereken de string voor het gegeven aantal iteraties
+    for(unsigned int i = 0; i < iterations; ++i){
+        std::string nextString = "";
+        for(char c: currentString){
+            if(alfabet.find(c) != alfabet.end()){ // Controleer of c in het alfabet zit
+                nextString += l_system.get_replacement(c);
+            } else {
+                nextString += c; // Behoud het originele karakter als het niet tot het alfabet behoort
+            }
+        }
+        currentString = nextString;
+    }
+
+    // Loop door de finale string om lijnen te tekenen
+    for(char c: currentString){
+        if(c == 'F'){ // Tekenen
+            double newX = x + cos(currentAngle);
+            double newY = y + sin(currentAngle);
+            lijnen.push_back(Line2D(Point2D(x, y), Point2D(newX, newY), lijnKleur));
+            x = newX;
+            y = newY;
+        } else if(c == '+'){ // Draai rechts
+            currentAngle += angle;
+        } else if(c == '-'){ // Draai links
+            currentAngle -= angle;
+        }
+        // Update de huidige hoek en zorg dat deze binnen 0 en 2PI blijft
+        currentAngle = fmod(currentAngle, 2 * PI);
+    }
+    return lijnen;
+}
 img::EasyImage generate_image(const ini::Configuration &confg) {
 
     std::string type = confg["General"]["type"].as_string_or_die();
     int width = 0;
     int height = 0;
+    int size = 0;
     img::EasyImage image;
 
 
@@ -100,7 +155,8 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
          height = confg["ImageProperties"]["height"].as_int_or_die();
         img::EasyImage image(width, height);
         return ColorRectangle(type, width, height);
-    } else if (type == "IntroBlocks") {
+    }
+    else if (type == "IntroBlocks") {
         ini::DoubleTuple colorWhite = confg["BlockProperties"]["colorWhite"].as_double_tuple_or_die();
         ini::DoubleTuple colorBlack = confg["BlockProperties"]["colorBlack"].as_double_tuple_or_die();
         int nxB = confg["BlockProperties"]["nrXBlocks"].as_int_or_die();
@@ -115,8 +171,8 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
         string figure = confg["LineProperties"]["figure"];
         ini::DoubleTuple backGroundColor = confg["LineProperties"]["backgroundcolor"];
         ini::DoubleTuple lineColor = confg["LineProperties"]["lineColor"];
-
         int nrLines = confg["LineProperties"]["nrLines"];
+
         if (figure == "QuarterCircle") {
             return QuarterCircle(backGroundColor, lineColor, nrLines, height, width);
         }
@@ -148,6 +204,17 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
 
 
         return draw2DLines(lijnen,size);
+    }
+    else if(type == "2DLSystem" ){
+        size = confg["General"]["size"];
+        std::vector<int> BackGroundINI = confg["General"]["backgroundcolor"];
+        img::Color backGroundColor = img::Color(BackGroundINI[0]*255, BackGroundINI[1]*255, BackGroundINI[2]*255);
+        std::vector<int> LSystemINI = confg["2DLSystem"]["color"];
+        Color LSystemColor = Color(LSystemINI[0]*255, LSystemINI[1]*255, LSystemINI[2]*255);
+
+        LParser::LSystem2D l_system = DLSystem(confg);
+        vector<Line2D> lines = drawLSystem(l_system,LSystemColor);
+        return draw2DLines(lines,size,backGroundColor);
     }
 
 

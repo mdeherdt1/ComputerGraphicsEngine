@@ -17,7 +17,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 36,
+				"line" : 37,
 				"parent" : 0
 			}
 		]
@@ -27,7 +27,7 @@
 		{
 			"backtrace" : 1,
 			"component" : "Unspecified",
-			"destination" : "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics - session 0",
+			"destination" : "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics",
 			"paths" : 
 			[
 				"engine.exe"

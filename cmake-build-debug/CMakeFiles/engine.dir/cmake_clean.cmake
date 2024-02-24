@@ -13,6 +13,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/engine.dir/ini_configuration.cc.obj.d"
   "CMakeFiles/engine.dir/introduction.cpp.obj"
   "CMakeFiles/engine.dir/introduction.cpp.obj.d"
+  "CMakeFiles/engine.dir/l_parser.cc.obj"
+  "CMakeFiles/engine.dir/l_parser.cc.obj.d"
   "engine.exe"
   "engine.exe.manifest"
   "engine.pdb"

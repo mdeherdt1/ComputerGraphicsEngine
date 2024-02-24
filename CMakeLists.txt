@@ -26,6 +26,7 @@ set(engine_sources
 		Line2D.h
 		introduction.cpp
 		introduction.h
+		l_parser.cc
 )
 
 ############################################################

@@ -7,7 +7,7 @@
 				{
 					"build" : ".",
 					"hasInstallRule" : true,
-					"jsonFile" : "directory-.-Debug-da0bb7c7653cb283fd06.json",
+					"jsonFile" : "directory-.-Debug-ce5e576f81656614866a.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.5"
@@ -40,7 +40,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "engine::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-engine-Debug-89d9f2f42f71189f4fc3.json",
+					"jsonFile" : "target-engine-Debug-47c9ade06863c01a0c79.json",
 					"name" : "engine",
 					"projectIndex" : 0
 				}
@@ -50,8 +50,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics - session 0/cmake-build-debug",
-		"source" : "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics - session 0"
+		"build" : "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/cmake-build-debug",
+		"source" : "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics"
 	},
 	"version" : 
 	{

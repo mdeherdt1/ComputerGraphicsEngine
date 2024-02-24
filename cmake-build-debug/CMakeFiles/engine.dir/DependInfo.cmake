@@ -8,13 +8,14 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics - session 0/Color.cpp" "CMakeFiles/engine.dir/Color.cpp.obj" "gcc" "CMakeFiles/engine.dir/Color.cpp.obj.d"
-  "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics - session 0/Line2D.cpp" "CMakeFiles/engine.dir/Line2D.cpp.obj" "gcc" "CMakeFiles/engine.dir/Line2D.cpp.obj.d"
-  "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics - session 0/Point2D.cpp" "CMakeFiles/engine.dir/Point2D.cpp.obj" "gcc" "CMakeFiles/engine.dir/Point2D.cpp.obj.d"
-  "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics - session 0/easy_image.cc" "CMakeFiles/engine.dir/easy_image.cc.obj" "gcc" "CMakeFiles/engine.dir/easy_image.cc.obj.d"
-  "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics - session 0/engine.cc" "CMakeFiles/engine.dir/engine.cc.obj" "gcc" "CMakeFiles/engine.dir/engine.cc.obj.d"
-  "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics - session 0/ini_configuration.cc" "CMakeFiles/engine.dir/ini_configuration.cc.obj" "gcc" "CMakeFiles/engine.dir/ini_configuration.cc.obj.d"
-  "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics - session 0/introduction.cpp" "CMakeFiles/engine.dir/introduction.cpp.obj" "gcc" "CMakeFiles/engine.dir/introduction.cpp.obj.d"
+  "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/Color.cpp" "CMakeFiles/engine.dir/Color.cpp.obj" "gcc" "CMakeFiles/engine.dir/Color.cpp.obj.d"
+  "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/Line2D.cpp" "CMakeFiles/engine.dir/Line2D.cpp.obj" "gcc" "CMakeFiles/engine.dir/Line2D.cpp.obj.d"
+  "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/Point2D.cpp" "CMakeFiles/engine.dir/Point2D.cpp.obj" "gcc" "CMakeFiles/engine.dir/Point2D.cpp.obj.d"
+  "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/easy_image.cc" "CMakeFiles/engine.dir/easy_image.cc.obj" "gcc" "CMakeFiles/engine.dir/easy_image.cc.obj.d"
+  "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/engine.cc" "CMakeFiles/engine.dir/engine.cc.obj" "gcc" "CMakeFiles/engine.dir/engine.cc.obj.d"
+  "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/ini_configuration.cc" "CMakeFiles/engine.dir/ini_configuration.cc.obj" "gcc" "CMakeFiles/engine.dir/ini_configuration.cc.obj.d"
+  "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/introduction.cpp" "CMakeFiles/engine.dir/introduction.cpp.obj" "gcc" "CMakeFiles/engine.dir/introduction.cpp.obj.d"
+  "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/l_parser.cc" "CMakeFiles/engine.dir/l_parser.cc.obj" "gcc" "CMakeFiles/engine.dir/l_parser.cc.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

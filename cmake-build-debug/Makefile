@@ -56,10 +56,10 @@ RM = "C:\Program Files\JetBrains\CLion 2023.3.1\bin\cmake\win\x64\bin\cmake.exe"
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics - session 0"
+CMAKE_SOURCE_DIR = "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics - session 0\cmake-build-debug"
+CMAKE_BINARY_DIR = "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\cmake-build-debug"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -131,9 +131,9 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics - session 0\cmake-build-debug\CMakeFiles" "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics - session 0\cmake-build-debug\\CMakeFiles\progress.marks"
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\cmake-build-debug\CMakeFiles" "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\cmake-build-debug\\CMakeFiles\progress.marks"
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics - session 0\cmake-build-debug\CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\cmake-build-debug\CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
@@ -341,6 +341,30 @@ introduction.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/introduction.cpp.s
 .PHONY : introduction.cpp.s
 
+l_parser.obj: l_parser.cc.obj
+.PHONY : l_parser.obj
+
+# target to build an object file
+l_parser.cc.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/l_parser.cc.obj
+.PHONY : l_parser.cc.obj
+
+l_parser.i: l_parser.cc.i
+.PHONY : l_parser.i
+
+# target to preprocess a source file
+l_parser.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/l_parser.cc.i
+.PHONY : l_parser.cc.i
+
+l_parser.s: l_parser.cc.s
+.PHONY : l_parser.s
+
+# target to generate assembly for a file
+l_parser.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/l_parser.cc.s
+.PHONY : l_parser.cc.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -375,6 +399,9 @@ help:
 	@echo ... introduction.obj
 	@echo ... introduction.i
 	@echo ... introduction.s
+	@echo ... l_parser.obj
+	@echo ... l_parser.i
+	@echo ... l_parser.s
 .PHONY : help
 
 
