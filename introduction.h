@@ -4,9 +4,9 @@
 
 #ifndef ENGINE_INTRODUCTION_H
 #define ENGINE_INTRODUCTION_H
-#include "easy_image.h";
+#include "easy_image.h"
 #include "ini_configuration.h"
-#include "iostream";
+#include "iostream"
 #include "string"
 
 

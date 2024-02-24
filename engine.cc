@@ -11,6 +11,7 @@
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
+#include <stack>
 
 #include <string>
 
@@ -109,6 +110,8 @@ Lines2D drawLSystem(const LParser::LSystem2D &l_system, Color lijnKleur = Color(
     unsigned int iterations = l_system.get_nr_iterations();
     std::string currentString = l_system.get_initiator();
     set<char> alfabet = l_system.get_alphabet();
+    std::stack<std::pair<double, double>> positionStack;
+    std::stack<double> angleStack;
 
     // Bereken de string voor het gegeven aantal iteraties
     for(unsigned int i = 0; i < iterations; ++i){
@@ -125,7 +128,7 @@ Lines2D drawLSystem(const LParser::LSystem2D &l_system, Color lijnKleur = Color(
 
     // Loop door de finale string om lijnen te tekenen
     for(char c: currentString){
-        if(c == 'F'){ // Tekenen
+        if(alfabet.find(c) != alfabet.end()){ // Controleer of c in het alfabet zit
             double newX = x + cos(currentAngle);
             double newY = y + sin(currentAngle);
             lijnen.push_back(Line2D(Point2D(x, y), Point2D(newX, newY), lijnKleur));
@@ -135,8 +138,21 @@ Lines2D drawLSystem(const LParser::LSystem2D &l_system, Color lijnKleur = Color(
             currentAngle += angle;
         } else if(c == '-'){ // Draai links
             currentAngle -= angle;
+        } else if(c == '('){ // Sla huidige positie en hoek op
+            positionStack.push({x, y});
+            angleStack.push(currentAngle);
+        } else if(c == ')'){ // Herstel de laatst opgeslagen positie en hoek
+            if (!positionStack.empty() && !angleStack.empty()) {
+                auto position = positionStack.top();
+                positionStack.pop();
+                x = position.first;
+                y = position.second;
+
+                currentAngle = angleStack.top();
+                angleStack.pop();
+            }
         }
-        // Update de huidige hoek en zorg dat deze binnen 0 en 2PI blijft
+        // Zorg dat de hoek binnen het bereik van 0 tot 2PI blijft
         currentAngle = fmod(currentAngle, 2 * PI);
     }
     return lijnen;
@@ -207,10 +223,10 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
     }
     else if(type == "2DLSystem" ){
         size = confg["General"]["size"];
-        std::vector<int> BackGroundINI = confg["General"]["backgroundcolor"];
+        std::vector<double> BackGroundINI = confg["General"]["backgroundcolor"];
         img::Color backGroundColor = img::Color(BackGroundINI[0]*255, BackGroundINI[1]*255, BackGroundINI[2]*255);
-        std::vector<int> LSystemINI = confg["2DLSystem"]["color"];
-        Color LSystemColor = Color(LSystemINI[0]*255, LSystemINI[1]*255, LSystemINI[2]*255);
+        std::vector<double> LSystemINI = confg["2DLSystem"]["color"];
+        Color LSystemColor = Color(LSystemINI[0], LSystemINI[1], LSystemINI[2]);
 
         LParser::LSystem2D l_system = DLSystem(confg);
         vector<Line2D> lines = drawLSystem(l_system,LSystemColor);
