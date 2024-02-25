@@ -26,3 +26,8 @@ StartingAngle = 0.0
 
 #Het Aantal keer dat een Symbool door zijn Replacement moet worden vervangen
 Iterations = 6
+
+ReplacementStochastic = {
+    F -> 0.5,
+    G -> 0.5
+}

@@ -110,6 +110,7 @@ Lines2D drawLSystem(const LParser::LSystem2D &l_system, Color lijnKleur = Color(
     unsigned int iterations = l_system.get_nr_iterations();
     std::string currentString = l_system.get_initiator();
     set<char> alfabet = l_system.get_alphabet();
+    std::map<char,double> stochastic = l_system.getReplacementStochastic();
     std::stack<std::pair<double, double>> positionStack;
     std::stack<double> angleStack;
 
@@ -118,7 +119,21 @@ Lines2D drawLSystem(const LParser::LSystem2D &l_system, Color lijnKleur = Color(
         std::string nextString = "";
         for(char c: currentString){
             if(alfabet.find(c) != alfabet.end()){ // Controleer of c in het alfabet zit
-                nextString += l_system.get_replacement(c);
+                // Vervang c door de bijbehorende string houd rekening met de kans van voorkomen de kans van voorkomen is de double in de map: stochastic
+                if(stochastic.find(c) != stochastic.end()){
+                    double random = (double)rand() / RAND_MAX;
+                    double sum = 0;
+                    for(auto it = stochastic.begin(); it != stochastic.end(); ++it){
+                        sum += it->second;
+                        if(random <= sum){
+                            nextString += l_system.get_replacement(it->first);
+                            break;
+                        }
+                    }
+                }
+                else if(stochastic.find(c) == stochastic.end()){
+                    nextString += l_system.get_replacement(c);
+                }
             } else {
                 nextString += c; // Behoud het originele karakter als het niet tot het alfabet behoort
             }

@@ -112,10 +112,17 @@ namespace
 			{
 				for (char const* i = chars.c_str(); *i != 0x0; i++)
 				{
-					if (getChar() != *i)
-						throw LParser::ParserException(std::string("Did not find expected string\"") + chars + "\"", line, col);
+                    if (in.eof()){
+                        throw LParser::ParserException(std::string("Did not find expected string\"") + chars + "\"", line, col);
+                    }
+					if (getChar() != *i){
+                        throw LParser::ParserException(std::string("Did not find expected string\"") + chars + "\"", line, col);
+                    }
 				}
 			}
+
+            //assertDouble leest de karakters en maakt hier een map van met char en double
+
 			std::string readQuotedString()
 			{
 				if (((char) getChar()) != '"')
@@ -417,6 +424,51 @@ namespace
 			throw LParser::ParserException("Number of iterations should not be negative", parser.getLine(), parser.getCol());
 		return nrIterations;
 	}
+
+    void parse_stochast(std::set<char> const& alphabet, std::map<char, double>& ReplacementStochastic, stream_parser& parser)
+    {
+        parser.skip_comments_and_whitespace();
+        try{
+            parser.assertChars("ReplacementStochastic");
+        }
+        catch (LParser::ParserException &e){
+            return;
+        }
+        parser.skip_comments_and_whitespace();
+        parser.assertChars("=");
+        parser.skip_comments_and_whitespace();
+        parser.assertChars("{");
+        parser.skip_comments_and_whitespace();
+        ReplacementStochastic.clear();
+        char c = parser.getChar();
+        while (true)
+        {
+            if (!std::isalpha(c))
+                throw LParser::ParserException("Invalid Alphabet character", parser.getLine(), parser.getCol());
+            if (alphabet.find(c) == alphabet.end())
+                throw LParser::ParserException(std::string("ReplacementStochastic specified for char '") + c + "' which is not part of the alphabet. ", parser.getLine(), parser.getCol());
+            if (ReplacementStochastic.find(c) != ReplacementStochastic.end())
+                throw LParser::ParserException(std::string("Double entry '") + c + "' in ReplacementStochastic specification ", parser.getLine(), parser.getCol());
+            char alphabet_char = c;
+            parser.skip_comments_and_whitespace();
+            parser.assertChars("->");
+            parser.skip_comments_and_whitespace();
+            double value = parser.readDouble();
+            if (value < 0 || value > 1)
+                throw LParser::ParserException(std::string("Invalid ReplacementStochastic specification for entry '") + alphabet_char + "' in ReplacementStochastic specification", parser.getLine(), parser.getCol());
+            ReplacementStochastic[alphabet_char] = value;
+            parser.skip_comments_and_whitespace();
+            c = parser.getChar();
+            if (c == '}')
+                break;
+            else if (c != ',')
+                throw LParser::ParserException("Expected ','", parser.getLine(), parser.getCol());
+            parser.skip_comments_and_whitespace();
+            c = parser.getChar();
+        }
+    }
+
+
 }
 
 LParser::ParserException::ParserException(std::string const& msg, unsigned int line, unsigned int pos) :
@@ -501,6 +553,10 @@ unsigned int LParser::LSystem::get_nr_iterations() const
 	return nrIterations;
 }
 
+const std::map<char, double> &LParser::LSystem::getReplacementStochastic() const {
+    return ReplacementStochastic;
+}
+
 LParser::LSystem2D::LSystem2D() :
 	LSystem(), startingAngle(0.0)
 {
@@ -545,8 +601,10 @@ std::istream& LParser::operator>>(std::istream& in, LParser::LSystem2D& system)
 	system.angle = parse_angle(parser, "Angle");
 	system.startingAngle = parse_angle(parser, "StartingAngle");
 	system.nrIterations = parse_iterations(parser);
+    parse_stochast(system.alphabet, system.ReplacementStochastic, parser);
 
-	return in;
+
+    return in;
 }
 
 std::ostream& LParser::operator<<(std::ostream&out, LParser::LSystem3D const& system)

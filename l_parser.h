@@ -188,7 +188,12 @@ namespace LParser
 		         * \brief the number of replacements of the l-system
 		         */
 			unsigned int nrIterations;
-	};
+
+        std::map<char, double> ReplacementStochastic;
+    public:
+        const std::map<char, double> &getReplacementStochastic() const;
+
+    };
 
 
 	class LSystem2D;
@@ -260,6 +265,8 @@ namespace LParser
 			 * \brief the starting angle of the 2D-LSystem
 			*/
 			double startingAngle;
+
+
 	};
 
 	class LSystem3D;
