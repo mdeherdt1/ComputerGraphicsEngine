@@ -18,6 +18,7 @@
 
 #include "l_parser.h"
 
+
 #include <assert.h>
 #include <iostream>
 #include <iomanip>
@@ -425,13 +426,11 @@ namespace
 		return nrIterations;
 	}
 
-    void parse_stochast(std::set<char> const& alphabet, std::map<char, double>& ReplacementStochastic, stream_parser& parser)
-    {
+    void parse_stochast(const std::set<char>& alphabet, std::map<char, std::vector<StochasticRule>>& ReplacementStochastic, stream_parser& parser) {
         parser.skip_comments_and_whitespace();
         try{
-            parser.assertChars("ReplacementStochastic");
-        }
-        catch (LParser::ParserException &e){
+            parser.assertChars("StochasticRules");
+        } catch (LParser::ParserException &e){
             return;
         }
         parser.skip_comments_and_whitespace();
@@ -439,39 +438,62 @@ namespace
         parser.skip_comments_and_whitespace();
         parser.assertChars("{");
         parser.skip_comments_and_whitespace();
-        ReplacementStochastic.clear();
-        char c = parser.getChar();
-        while (true)
-        {
-            if (!std::isalpha(c))
-                throw LParser::ParserException("Invalid Alphabet character", parser.getLine(), parser.getCol());
-            if (alphabet.find(c) == alphabet.end())
-                throw LParser::ParserException(std::string("ReplacementStochastic specified for char '") + c + "' which is not part of the alphabet. ", parser.getLine(), parser.getCol());
-            if (ReplacementStochastic.find(c) != ReplacementStochastic.end())
-                throw LParser::ParserException(std::string("Double entry '") + c + "' in ReplacementStochastic specification ", parser.getLine(), parser.getCol());
-            char alphabet_char = c;
+
+        while (parser.peekChar() !=
+               '}') { // Veronderstelt dat peekChar() beschikbaar is om het volgende karakter te bekijken zonder het te consumeren
+            char alphabet_char = parser.getChar();
+            if (!std::isalpha(alphabet_char) || alphabet.find(alphabet_char) == alphabet.end()) {
+                throw LParser::ParserException("Invalid or undefined alphabet character", parser.getLine(),
+                                               parser.getCol());
+            }
+
             parser.skip_comments_and_whitespace();
             parser.assertChars("->");
             parser.skip_comments_and_whitespace();
-            double value = parser.readDouble();
-            if (value < 0 || value > 1)
-                throw LParser::ParserException(std::string("Invalid ReplacementStochastic specification for entry '") + alphabet_char + "' in ReplacementStochastic specification", parser.getLine(), parser.getCol());
-            ReplacementStochastic[alphabet_char] = value;
+            parser.assertChars("{");
             parser.skip_comments_and_whitespace();
-            c = parser.getChar();
-            if (c == '}')
-                break;
-            else if (c != ',')
-                throw LParser::ParserException("Expected ','", parser.getLine(), parser.getCol());
+
+            std::vector<StochasticRule> rules;
+            while (parser.peekChar() != '}') {
+                std::string rule = parser.readQuotedString();
+                parser.skip_comments_and_whitespace();
+                parser.assertChars(":");
+                parser.skip_comments_and_whitespace();
+                double probability = parser.readDouble();
+
+                rules.push_back({rule, probability});
+
+                parser.skip_comments_and_whitespace();
+                if (parser.peekChar() == ',') {
+                    parser.getChar(); // Verbruik de komma
+                    parser.skip_comments_and_whitespace();
+                }
+            }
+            parser.getChar(); // Verbruik de afsluitende '}'
+            ReplacementStochastic[alphabet_char] = std::move(rules);
+
             parser.skip_comments_and_whitespace();
-            c = parser.getChar();
+            if (parser.peekChar() == ',') {
+                parser.getChar(); // Verbruik de komma tussen de stochastische regels
+                parser.skip_comments_and_whitespace();
+            }
+        }
+        parser.getChar(); // Verbruik de afsluitende '}' van het geheel
+        for (auto const& [key, value] : ReplacementStochastic) {
+            double sum = 0;
+            for (auto const& rule : value) {
+                sum += rule.probability;
+            }
+            if (sum != 1) {
+                throw LParser::ParserException("The sum of the probabilities of the stochastic rules should be 1", parser.getLine(), parser.getCol());
+            }
         }
     }
-
+    //ga nu na of dat de kans van de stochastische regels optelt tot 1
 
 }
 
-LParser::ParserException::ParserException(std::string const& msg, unsigned int line, unsigned int pos) :
+    LParser::ParserException::ParserException(std::string const& msg, unsigned int line, unsigned int pos) :
 	std::exception(), message()
 {
 	std::stringstream s;
@@ -553,7 +575,7 @@ unsigned int LParser::LSystem::get_nr_iterations() const
 	return nrIterations;
 }
 
-const std::map<char, double> &LParser::LSystem::getReplacementStochastic() const {
+const std::map<char, std::vector<StochasticRule>> &LParser::LSystem::getReplacementStochastic() const {
     return ReplacementStochastic;
 }
 

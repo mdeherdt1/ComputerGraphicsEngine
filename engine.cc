@@ -12,6 +12,9 @@
 #include <iostream>
 #include <stdexcept>
 #include <stack>
+#include <ctime>
+
+
 
 #include <string>
 
@@ -102,73 +105,79 @@ LParser::LSystem2D DLSystem(const ini::Configuration &confg){
     return l_system;
 }
 
-Lines2D drawLSystem(const LParser::LSystem2D &l_system, Color lijnKleur = Color(255,255,255)){
+Lines2D drawLSystem(const LParser::LSystem2D &l_system, Color lijnKleur = Color(255,255,255)) {
+    srand(static_cast<unsigned int>(time(0)));
     Lines2D lijnen;
     double x = 0, y = 0; // Startpositie
     double angle = l_system.get_angle() * (PI / 180.0); // Omrekenen naar radialen
     double currentAngle = l_system.get_starting_angle() * (PI / 180.0); // Start hoek in radialen
     unsigned int iterations = l_system.get_nr_iterations();
     std::string currentString = l_system.get_initiator();
-    set<char> alfabet = l_system.get_alphabet();
-    std::map<char,double> stochastic = l_system.getReplacementStochastic();
+    std::set<char> alfabet = l_system.get_alphabet();
+    std::map<char, std::vector<StochasticRule>> stochastic = l_system.getReplacementStochastic();
     std::stack<std::pair<double, double>> positionStack;
     std::stack<double> angleStack;
 
     // Bereken de string voor het gegeven aantal iteraties
-    for(unsigned int i = 0; i < iterations; ++i){
-        std::string nextString = "";
-        for(char c: currentString){
-            if(alfabet.find(c) != alfabet.end()){ // Controleer of c in het alfabet zit
-                // Vervang c door de bijbehorende string houd rekening met de kans van voorkomen de kans van voorkomen is de double in de map: stochastic
-                if(stochastic.find(c) != stochastic.end()){
-                    double random = (double)rand() / RAND_MAX;
-                    double sum = 0;
-                    for(auto it = stochastic.begin(); it != stochastic.end(); ++it){
-                        sum += it->second;
-                        if(random <= sum){
-                            nextString += l_system.get_replacement(it->first);
-                            break;
-                        }
+    for (unsigned int i = 0; i < iterations; i++) {
+        std::string newString;
+        for (char c : currentString) {
+            if (stochastic.find(c) != stochastic.end()) { // Controleer of c in de stochastic rules zit
+                double random = static_cast<double>(rand()) / RAND_MAX;
+                double cumulative = 0.0;
+                for (const StochasticRule &rule : stochastic.at(c)) {
+                    cumulative += rule.probability;
+                    if (random <= cumulative) {
+                        newString += rule.outcome;
+                        break;
                     }
                 }
-                else if(stochastic.find(c) == stochastic.end()){
-                    nextString += l_system.get_replacement(c);
-                }
-            } else {
-                nextString += c; // Behoud het originele karakter als het niet tot het alfabet behoort
+            }
+            //controleer of er een normale replacement rule is voor c
+            else if(c != '(' && c != ')' && alfabet.find(c) != alfabet.end()){
+                newString += l_system.get_replacement(c);
+            }
+            else{
+                newString += c;
             }
         }
-        currentString = nextString;
+        currentString = newString;
     }
 
     // Loop door de finale string om lijnen te tekenen
-    for(char c: currentString){
-        if(alfabet.find(c) != alfabet.end()){ // Controleer of c in het alfabet zit
-            double newX = x + cos(currentAngle);
-            double newY = y + sin(currentAngle);
-            lijnen.push_back(Line2D(Point2D(x, y), Point2D(newX, newY), lijnKleur));
-            x = newX;
-            y = newY;
-        } else if(c == '+'){ // Draai rechts
-            currentAngle += angle;
-        } else if(c == '-'){ // Draai links
-            currentAngle -= angle;
-        } else if(c == '('){ // Sla huidige positie en hoek op
-            positionStack.push({x, y});
-            angleStack.push(currentAngle);
-        } else if(c == ')'){ // Herstel de laatst opgeslagen positie en hoek
-            if (!positionStack.empty() && !angleStack.empty()) {
-                auto position = positionStack.top();
-                positionStack.pop();
-                x = position.first;
-                y = position.second;
-
-                currentAngle = angleStack.top();
-                angleStack.pop();
-            }
+    for (char c : currentString) {
+        switch (c) {
+            case '+': // Draai rechts
+                currentAngle += angle;
+                break;
+            case '-': // Draai links
+                currentAngle -= angle;
+                break;
+            case '(': // Sla huidige positie en hoek op
+                positionStack.push({x, y});
+                angleStack.push(currentAngle);
+                break;
+            case ')': // Herstel de laatst opgeslagen positie en hoek
+                if (!positionStack.empty() && !angleStack.empty()) {
+                    auto position = positionStack.top(); positionStack.pop();
+                    x = position.first;
+                    y = position.second;
+                    currentAngle = angleStack.top(); angleStack.pop();
+                }
+                break;
+            default:
+                if (alfabet.find(c) != alfabet.end()) { // Teken een lijn als het karakter in het alfabet zit
+                    double newX = x + cos(currentAngle);
+                    double newY = y + sin(currentAngle);
+                    lijnen.push_back(Line2D(Point2D(x, y), Point2D(newX, newY), lijnKleur));
+                    x = newX;
+                    y = newY;
+                }
+                break;
         }
         // Zorg dat de hoek binnen het bereik van 0 tot 2PI blijft
         currentAngle = fmod(currentAngle, 2 * PI);
+        if (currentAngle < 0) currentAngle += 2 * PI; // Corrigeer negatieve hoek
     }
     return lijnen;
 }

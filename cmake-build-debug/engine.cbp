@@ -140,6 +140,9 @@
 		<Unit filename="C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/Point2D.h">
 			<Option target="engine"/>
 		</Unit>
+		<Unit filename="C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/StochasticRule.cpp">
+			<Option target="engine"/>
+		</Unit>
 		<Unit filename="C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/easy_image.cc">
 			<Option target="engine"/>
 		</Unit>

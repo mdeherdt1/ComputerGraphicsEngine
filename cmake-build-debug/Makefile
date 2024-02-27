@@ -245,6 +245,30 @@ Point2D.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/Point2D.cpp.s
 .PHONY : Point2D.cpp.s
 
+StochasticRule.obj: StochasticRule.cpp.obj
+.PHONY : StochasticRule.obj
+
+# target to build an object file
+StochasticRule.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/StochasticRule.cpp.obj
+.PHONY : StochasticRule.cpp.obj
+
+StochasticRule.i: StochasticRule.cpp.i
+.PHONY : StochasticRule.i
+
+# target to preprocess a source file
+StochasticRule.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/StochasticRule.cpp.i
+.PHONY : StochasticRule.cpp.i
+
+StochasticRule.s: StochasticRule.cpp.s
+.PHONY : StochasticRule.s
+
+# target to generate assembly for a file
+StochasticRule.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/StochasticRule.cpp.s
+.PHONY : StochasticRule.cpp.s
+
 easy_image.obj: easy_image.cc.obj
 .PHONY : easy_image.obj
 
@@ -387,6 +411,9 @@ help:
 	@echo ... Point2D.obj
 	@echo ... Point2D.i
 	@echo ... Point2D.s
+	@echo ... StochasticRule.obj
+	@echo ... StochasticRule.i
+	@echo ... StochasticRule.s
 	@echo ... easy_image.obj
 	@echo ... easy_image.i
 	@echo ... easy_image.s

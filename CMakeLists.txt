@@ -27,6 +27,7 @@ set(engine_sources
 		introduction.cpp
 		introduction.h
 		l_parser.cc
+		StochasticRule.cpp
 )
 
 ############################################################

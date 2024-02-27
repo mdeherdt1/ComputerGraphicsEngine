@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/engine.dir/Line2D.cpp.obj.d"
   "CMakeFiles/engine.dir/Point2D.cpp.obj"
   "CMakeFiles/engine.dir/Point2D.cpp.obj.d"
+  "CMakeFiles/engine.dir/StochasticRule.cpp.obj"
+  "CMakeFiles/engine.dir/StochasticRule.cpp.obj.d"
   "CMakeFiles/engine.dir/easy_image.cc.obj"
   "CMakeFiles/engine.dir/easy_image.cc.obj.d"
   "CMakeFiles/engine.dir/engine.cc.obj"

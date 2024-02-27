@@ -23,6 +23,8 @@
 #include <string>
 #include <set>
 #include <exception>
+#include "StochasticRule.cpp"
+#include <vector>
 
 
 
@@ -189,9 +191,9 @@ namespace LParser
 		         */
 			unsigned int nrIterations;
 
-        std::map<char, double> ReplacementStochastic;
+        std::map<char, std::vector<StochasticRule>> ReplacementStochastic;
     public:
-        const std::map<char, double> &getReplacementStochastic() const;
+        const std::map<char, std::vector<StochasticRule>> &getReplacementStochastic() const;
 
     };
 
