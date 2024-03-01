@@ -5,6 +5,9 @@
 #include "Line2D.h"
 #include "introduction.h"
 #include "l_parser.h"
+#include "vector3d.h"
+#include "Figure.h"
+#include "Face.h"
 
 #include <set>
 #include <cmath>
@@ -20,7 +23,6 @@
 
 
 
-using namespace std;
 
 constexpr double PI = 3.14159265358979323846;
 
@@ -62,8 +64,8 @@ img::EasyImage draw2DLines(const Lines2D &lines, const int size, img::Color back
     }
     double x_range = x_max - x_min;
     double y_range = y_max - y_min;
-    double width = size * (x_range / (max(x_range,y_range)));
-    double height = size * (y_range / (max(x_range,y_range)));
+    double width = size * (x_range / (std::max(x_range,y_range)));
+    double height = size * (y_range / (std::max(x_range,y_range)));
 
     img::EasyImage image(width,height,background);
 
@@ -181,6 +183,7 @@ Lines2D drawLSystem(const LParser::LSystem2D &l_system, Color lijnKleur = Color(
     }
     return lijnen;
 }
+
 img::EasyImage generate_image(const ini::Configuration &confg) {
 
     std::string type = confg["General"]["type"].as_string_or_die();
@@ -208,7 +211,7 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
         width = confg["ImageProperties"]["width"].as_int_or_die();
         height = confg["ImageProperties"]["height"].as_int_or_die();
         img::EasyImage image(width, height);
-        string figure = confg["LineProperties"]["figure"];
+        std::string figure = confg["LineProperties"]["figure"];
         ini::DoubleTuple backGroundColor = confg["LineProperties"]["backgroundcolor"];
         ini::DoubleTuple lineColor = confg["LineProperties"]["lineColor"];
         int nrLines = confg["LineProperties"]["nrLines"];
@@ -253,8 +256,49 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
         Color LSystemColor = Color(LSystemINI[0], LSystemINI[1], LSystemINI[2]);
 
         LParser::LSystem2D l_system = DLSystem(confg);
-        vector<Line2D> lines = drawLSystem(l_system,LSystemColor);
+        std::vector<Line2D> lines = drawLSystem(l_system,LSystemColor);
         return draw2DLines(lines,size,backGroundColor);
+    }
+    else if(type == "Wireframe"){
+        size = confg["General"]["size"];
+        ini::DoubleTuple BackGroundINI = confg["General"]["backgroundcolor"];
+        img::Color backGroundColor = img::Color(BackGroundINI[0]*255, BackGroundINI[1]*255, BackGroundINI[2]*255);
+        int nrOfFigures = confg["General"]["nrFigures"].as_int_or_die();
+        ini::DoubleTuple eyeCordsINI = confg["General"]["eye"];
+        Vector3D eyeCords = Vector3D::point(eyeCordsINI[0], eyeCordsINI[1], eyeCordsINI[2]);
+
+        Figures3D figures3D;
+
+        for (unsigned int i = 0; i < nrOfFigures; ++i) {
+            std::string figureString = "Figure" + std::to_string(i);
+            std::string type2 = confg[figureString]["type"];
+
+            Figure figure = Figure(Color(confg[figureString]["color"].as_double_tuple_or_die()[0], confg[figureString]["color"].as_double_tuple_or_die()[1], confg[figureString]["color"].as_double_tuple_or_die()[2]));
+
+            if(type2 == "LineDrawing"){
+                int rotateX = confg[figureString]["rotateX"].as_int_or_die();
+                int rotateY = confg[figureString]["rotateY"].as_int_or_die();
+                int rotateZ = confg[figureString]["rotateZ"].as_int_or_die();
+                double scale = confg[figureString]["scale"].as_double_or_die();
+                Color figureColor = Color(confg[figureString]["color"].as_double_tuple_or_die()[0], confg[figureString]["color"].as_double_tuple_or_die()[1], confg[figureString]["color"].as_double_tuple_or_die()[2]);
+                Vector3D center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0], confg[figureString]["center"].as_double_tuple_or_die()[1], confg[figureString]["center"].as_double_tuple_or_die()[2]);
+                int nrPoints = confg[figureString]["nrPoints"].as_int_or_die();
+                int nrLines = confg[figureString]["nrLines"].as_int_or_die();
+                for(int j = 0; j < nrPoints; ++j){
+                    std::string point = "point" + std::to_string(j);
+                    figure.points.push_back(Vector3D::point(confg[figureString][point].as_double_tuple_or_die()[0], confg[figureString][point].as_double_tuple_or_die()[1], confg[figureString][point].as_double_tuple_or_die()[2]));
+                }
+                for(int j = 0; j < nrLines; ++j){
+                    std::string Line = "line" + std::to_string(j);
+                    std::vector<int> pointIndexes = {};
+                    confg[figureString][Line].as_int_tuple_or_die();
+                    pointIndexes.push_back(confg[figureString][Line].as_int_tuple_or_die()[0]);
+                    pointIndexes.push_back(confg[figureString][Line].as_int_tuple_or_die()[1]);
+                    figure.faces.push_back(Face(pointIndexes));
+                }
+
+            }
+        }
     }
 
 

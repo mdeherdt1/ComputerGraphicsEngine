@@ -28,6 +28,11 @@ set(engine_sources
 		introduction.h
 		l_parser.cc
 		StochasticRule.cpp
+        Figure.cpp
+        Figure.h
+		Face.cpp
+		Face.h
+		vector3d.cc
 )
 
 ############################################################
