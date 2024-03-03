@@ -21,13 +21,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="08afa348-ef0d-4fc7-84fe-6d077204407f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/StochasticRule.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ini/sierpinski_arrowhead_with_stochast.L2D" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-25088ba63b33bf5aab3e.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/directory-.-Debug-ce5e576f81656614866a.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/index-2024-02-24T16-15-29-0503.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-engine-Debug-47c9ade06863c01a0c79.json" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/line_drawings/filelistCOPY" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-e414f48110b589a1d53f.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/directory-.-Debug-3b467cd4ded7d29ae4aa.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/index-2024-02-27T16-37-13-0466.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-engine-Debug-284e3a2acdd44d8a237d.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/DependInfo.cmake" afterDir="false" />
@@ -37,8 +36,6 @@
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/compiler_depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/compiler_depend.make" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/engine.cc.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/engine.cc.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/engine.cc.obj.d" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/engine.cc.obj.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/l_parser.cc.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/l_parser.cc.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/l_parser.cc.obj.d" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/l_parser.cc.obj.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/objects.a" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/objects.a" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/objects1.rsp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/objects1.rsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/progress.make" afterDir="false" />
@@ -48,18 +45,8 @@
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/engine.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/engine.cbp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/engine.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/engine.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/engine.cc" beforeDir="false" afterPath="$PROJECT_DIR$/engine.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ini/circles.L2D" beforeDir="false" afterPath="$PROJECT_DIR$/ini/circles.L2D" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ini/filelist" beforeDir="false" afterPath="$PROJECT_DIR$/ini/filelist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ini/grass.L2D" beforeDir="false" afterPath="$PROJECT_DIR$/ini/grass.L2D" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ini/l_systems004.bmp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ini/l_systems007.bmp" beforeDir="false" afterPath="$PROJECT_DIR$/ini/l_systems007.bmp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ini/l_systems010.bmp" beforeDir="false" afterPath="$PROJECT_DIR$/ini/l_systems010.bmp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ini/l_systems011.bmp" beforeDir="false" afterPath="$PROJECT_DIR$/ini/l_systems011.bmp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ini/l_systems012.bmp" beforeDir="false" afterPath="$PROJECT_DIR$/ini/l_systems012.bmp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ini/l_systems020.bmp" beforeDir="false" afterPath="$PROJECT_DIR$/ini/l_systems020.bmp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ini/sierpinski_arrowhead.L2D" beforeDir="false" afterPath="$PROJECT_DIR$/ini/sierpinski_arrowhead.L2D" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/l_parser.cc" beforeDir="false" afterPath="$PROJECT_DIR$/l_parser.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/l_parser.h" beforeDir="false" afterPath="$PROJECT_DIR$/l_parser.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ini/circles_stochast.L2D" beforeDir="false" afterPath="$PROJECT_DIR$/ini/circles_stochast.L2D" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/line_drawings/filelist" beforeDir="false" afterPath="$PROJECT_DIR$/line_drawings/filelist" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +70,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "CMake Application.engine.executor": "Run",
+    "CMake Application.engine.executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
@@ -92,7 +79,7 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/student/Downloads/ComputerGraphics---session-0-main",
+    "last_opened_file_path": "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -110,12 +97,7 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="engine" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" WORKING_DIR="file://../ini" PASS_PARENT_ENVS_2="true" PROJECT_NAME="engine" TARGET_NAME="engine" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="engine" RUN_TARGET_NAME="engine">
+    <configuration name="engine" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" WORKING_DIR="file://../line_drawings" PASS_PARENT_ENVS_2="true" PROJECT_NAME="engine" TARGET_NAME="engine" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="engine" RUN_TARGET_NAME="engine">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -137,7 +119,14 @@
       <workItem from="1708873394874" duration="6523000" />
       <workItem from="1708891478865" duration="66000" />
       <workItem from="1708893044004" duration="1181000" />
-      <workItem from="1709051137736" duration="6113000" />
+      <workItem from="1709051137736" duration="6599000" />
+      <workItem from="1709062385673" duration="128000" />
+      <workItem from="1709308231181" duration="3034000" />
+      <workItem from="1709406424068" duration="66000" />
+      <workItem from="1709407584867" duration="219000" />
+      <workItem from="1709408261113" duration="37000" />
+      <workItem from="1709408657052" duration="6000" />
+      <workItem from="1709415688469" duration="10778000" />
     </task>
     <servers />
   </component>
@@ -153,9 +142,14 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/l_parser.cc</url>
-          <line>561</line>
-          <option name="timeStamp" value="69" />
+          <url>file://$PROJECT_DIR$/engine.cc</url>
+          <line>305</line>
+          <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/engine.cc</url>
+          <line>261</line>
+          <option name="timeStamp" value="41" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

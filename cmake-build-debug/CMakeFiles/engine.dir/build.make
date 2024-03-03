@@ -194,6 +194,48 @@ CMakeFiles/engine.dir/StochasticRule.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/engine.dir/StochasticRule.cpp.s"
 	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\StochasticRule.cpp" -o CMakeFiles\engine.dir\StochasticRule.cpp.s
 
+CMakeFiles/engine.dir/Figure.cpp.obj: CMakeFiles/engine.dir/flags.make
+CMakeFiles/engine.dir/Figure.cpp.obj: C:/Users/DH\ Services\ BVBA/Documents/GitHub/ComputerGraphics/Figure.cpp
+CMakeFiles/engine.dir/Figure.cpp.obj: CMakeFiles/engine.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/engine.dir/Figure.cpp.obj"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/engine.dir/Figure.cpp.obj -MF CMakeFiles\engine.dir\Figure.cpp.obj.d -o CMakeFiles\engine.dir\Figure.cpp.obj -c "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\Figure.cpp"
+
+CMakeFiles/engine.dir/Figure.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/engine.dir/Figure.cpp.i"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\Figure.cpp" > CMakeFiles\engine.dir\Figure.cpp.i
+
+CMakeFiles/engine.dir/Figure.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/engine.dir/Figure.cpp.s"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\Figure.cpp" -o CMakeFiles\engine.dir\Figure.cpp.s
+
+CMakeFiles/engine.dir/Face.cpp.obj: CMakeFiles/engine.dir/flags.make
+CMakeFiles/engine.dir/Face.cpp.obj: C:/Users/DH\ Services\ BVBA/Documents/GitHub/ComputerGraphics/Face.cpp
+CMakeFiles/engine.dir/Face.cpp.obj: CMakeFiles/engine.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/engine.dir/Face.cpp.obj"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/engine.dir/Face.cpp.obj -MF CMakeFiles\engine.dir\Face.cpp.obj.d -o CMakeFiles\engine.dir\Face.cpp.obj -c "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\Face.cpp"
+
+CMakeFiles/engine.dir/Face.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/engine.dir/Face.cpp.i"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\Face.cpp" > CMakeFiles\engine.dir\Face.cpp.i
+
+CMakeFiles/engine.dir/Face.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/engine.dir/Face.cpp.s"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\Face.cpp" -o CMakeFiles\engine.dir\Face.cpp.s
+
+CMakeFiles/engine.dir/vector3d.cc.obj: CMakeFiles/engine.dir/flags.make
+CMakeFiles/engine.dir/vector3d.cc.obj: C:/Users/DH\ Services\ BVBA/Documents/GitHub/ComputerGraphics/vector3d.cc
+CMakeFiles/engine.dir/vector3d.cc.obj: CMakeFiles/engine.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/engine.dir/vector3d.cc.obj"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/engine.dir/vector3d.cc.obj -MF CMakeFiles\engine.dir\vector3d.cc.obj.d -o CMakeFiles\engine.dir\vector3d.cc.obj -c "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\vector3d.cc"
+
+CMakeFiles/engine.dir/vector3d.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/engine.dir/vector3d.cc.i"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\vector3d.cc" > CMakeFiles\engine.dir\vector3d.cc.i
+
+CMakeFiles/engine.dir/vector3d.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/engine.dir/vector3d.cc.s"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\vector3d.cc" -o CMakeFiles\engine.dir\vector3d.cc.s
+
 # Object files for target engine
 engine_OBJECTS = \
 "CMakeFiles/engine.dir/easy_image.cc.obj" \
@@ -204,7 +246,10 @@ engine_OBJECTS = \
 "CMakeFiles/engine.dir/Line2D.cpp.obj" \
 "CMakeFiles/engine.dir/introduction.cpp.obj" \
 "CMakeFiles/engine.dir/l_parser.cc.obj" \
-"CMakeFiles/engine.dir/StochasticRule.cpp.obj"
+"CMakeFiles/engine.dir/StochasticRule.cpp.obj" \
+"CMakeFiles/engine.dir/Figure.cpp.obj" \
+"CMakeFiles/engine.dir/Face.cpp.obj" \
+"CMakeFiles/engine.dir/vector3d.cc.obj"
 
 # External object files for target engine
 engine_EXTERNAL_OBJECTS =
@@ -218,11 +263,14 @@ engine.exe: CMakeFiles/engine.dir/Line2D.cpp.obj
 engine.exe: CMakeFiles/engine.dir/introduction.cpp.obj
 engine.exe: CMakeFiles/engine.dir/l_parser.cc.obj
 engine.exe: CMakeFiles/engine.dir/StochasticRule.cpp.obj
+engine.exe: CMakeFiles/engine.dir/Figure.cpp.obj
+engine.exe: CMakeFiles/engine.dir/Face.cpp.obj
+engine.exe: CMakeFiles/engine.dir/vector3d.cc.obj
 engine.exe: CMakeFiles/engine.dir/build.make
 engine.exe: CMakeFiles/engine.dir/linkLibs.rsp
 engine.exe: CMakeFiles/engine.dir/objects1.rsp
 engine.exe: CMakeFiles/engine.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable engine.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_13) "Linking CXX executable engine.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\engine.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

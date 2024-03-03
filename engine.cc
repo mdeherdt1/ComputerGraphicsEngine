@@ -125,7 +125,7 @@ Lines2D drawLSystem(const LParser::LSystem2D &l_system, Color lijnKleur = Color(
         std::string newString;
         for (char c : currentString) {
             if (stochastic.find(c) != stochastic.end()) { // Controleer of c in de stochastic rules zit
-                double random = static_cast<double>(rand()) / RAND_MAX;
+                double random = static_cast<double>(rand()) / RAND_MAX; 
                 double cumulative = 0.0;
                 for (const StochasticRule &rule : stochastic.at(c)) {
                     cumulative += rule.probability;
@@ -183,6 +183,145 @@ Lines2D drawLSystem(const LParser::LSystem2D &l_system, Color lijnKleur = Color(
     }
     return lijnen;
 }
+
+Matrix scaleFigure(const double scale){
+    Matrix scaleMatrix = Matrix(); //matrix() maakt een 4x4 matrix aan met alle waarden op 0
+    scaleMatrix(1,1) = scale;
+    scaleMatrix(2,2) = scale;
+    scaleMatrix(3,3) = scale;
+    scaleMatrix(4,4) = 1;
+    return scaleMatrix;
+}
+Matrix RotateX(const double angle){
+    double radians = angle * (PI / 180.0);
+    Matrix rotateMatrix = Matrix();
+    rotateMatrix(1,1) = 1;
+    rotateMatrix(2,2) = cos(radians);
+    rotateMatrix(2,3) = sin(radians);
+    rotateMatrix(3,2) = -sin(radians);
+    rotateMatrix(3,3) = cos(radians);
+    rotateMatrix(4,4) = 1;
+    return rotateMatrix;
+}
+
+Matrix RotateY(const double angle){
+    double radians = angle * (PI / 180.0);
+    Matrix rotateMatrix = Matrix();
+    rotateMatrix(1,1) = cos(radians);
+    rotateMatrix(1,3) = -sin(radians);
+    rotateMatrix(2,2) = 1;
+    rotateMatrix(3,1) = sin(radians);
+    rotateMatrix(3,3) = cos(radians);
+    rotateMatrix(4,4) = 1;
+    return rotateMatrix;
+}
+
+Matrix RotateZ(const double angle){
+    double radians = angle * (PI / 180.0);
+    Matrix rotateMatrix = Matrix();
+    rotateMatrix(1,1) = cos(radians);
+    rotateMatrix(1,2) = sin(radians);
+    rotateMatrix(2,1) = -sin(radians);
+    rotateMatrix(2,2) = cos(radians);
+    rotateMatrix(3,3) = 1;
+    rotateMatrix(4,4) = 1;
+    return rotateMatrix;
+}
+
+Matrix translate(const Vector3D &vector){
+    Matrix translateMatrix = Matrix();
+    translateMatrix(1,1) = 1;
+    translateMatrix(2,2) = 1;
+    translateMatrix(3,3) = 1;
+    translateMatrix(4,4) = 1;
+    translateMatrix(1,4) = vector.x;
+    translateMatrix(2,4) = vector.y;
+    translateMatrix(3,4) = vector.z;
+    return translateMatrix;
+}
+
+void applyTransformation(Figure &fig, const Matrix &m) {
+for(auto &point:fig.points){
+    Matrix newMatrix = m * translate(point);
+    point.x = newMatrix(1,4);
+    point.y = newMatrix(2,4);
+    point.z = newMatrix(3,4);
+}
+}
+void toPolar(const Vector3D &point, double &r, double &theta, double &phi){
+    r = sqrt(pow(point.x,2) + pow(point.y,2) + pow(point.z,2));
+    theta = atan2(point.y,point.x);
+    phi = acos(point.z/r);
+}
+
+Matrix eyePointTrans(const Vector3D &eyepoint){
+    Matrix eyePointMatrix = Matrix(); // Aanname: Matrix() initialiseert een 4x4 matrix met alle elementen op 0.
+    double theta;
+    double phi;
+    double r;
+    toPolar(eyepoint, r, theta, phi);
+    eyePointMatrix(1,1) = -sin(theta);
+    eyePointMatrix(1,2) = -cos(theta) * cos(phi);
+    eyePointMatrix(1,3) = cos(theta) * sin(phi);
+    eyePointMatrix(2,1) = cos(theta);
+    eyePointMatrix(2,2) = -sin(theta) * cos(phi);
+    eyePointMatrix(2,3) = sin(theta) * sin(phi);
+    eyePointMatrix(3,2) = sin(phi);
+    eyePointMatrix(3,3) = cos(phi);
+    eyePointMatrix(4,3) = -r;
+    eyePointMatrix(4,4) = 1;
+    return eyePointMatrix;
+
+
+}
+
+void applyTransformation(Figures3D &figs, const Matrix &m){
+    for(Figure &fig:figs){
+        applyTransformation(fig, m);
+    }
+}
+
+Point2D doProjection(const Vector3D &point, const double d = 1.0){
+    return Point2D(point.x * d / point.z, point.y * d / point.z);
+}
+Lines2D doProjection(const Figures3D &fig){
+    Lines2D lines;
+    for(const Figure &figure:fig){
+        for(const Face &face:figure.faces){
+            for(int i = 0; i < face.point_indexes.size(); ++i){
+                Vector3D point1 = figure.points[face.point_indexes[i]];
+                Vector3D point2 = figure.points[face.point_indexes[(i+1)%face.point_indexes.size()]];
+                lines.push_back(Line2D(Point2D(point1.x,point1.y),Point2D(point2.x,point2.y),figure.color));
+            }
+        }
+    }
+    return lines;
+}
+
+
+img::EasyImage Wireframe(const int size, const img::Color &background, const Vector3D &eye, Figures3D &figures, const int rotateX, const int rotateY, const int rotateZ, const double scale, const Vector3D &center) {
+    // Voor elke figuur in de lijst van figuren
+    for (auto &fig : figures) {
+        // Maak de transformatiematrices aan
+        Matrix scaleMatrix = scaleFigure(scale);
+        Matrix rotateXMatrix = RotateX(rotateX); // Gebruik de meegegeven hoek
+        Matrix rotateYMatrix = RotateY(rotateY); // Gebruik de meegegeven hoek
+        Matrix rotateZMatrix = RotateZ(rotateZ); // Gebruik de meegegeven hoek
+        Matrix translateToCenterMatrix = translate(-center); // Verplaats naar het centrum voor rotatie
+        Matrix translateBackMatrix = translate(center); // Verplaats terug na rotatie
+        Matrix translateMatrix = eyePointTrans(eye); // Verplaats naar de oogpositie
+
+        // Combineer de transformaties
+        Matrix totalMatrix = translateBackMatrix * rotateXMatrix * rotateYMatrix * rotateZMatrix * scaleMatrix * translateToCenterMatrix * translateMatrix;
+
+        // Pas de gecombineerde transformatie toe op de figuur
+        applyTransformation(fig, totalMatrix);
+    }
+
+    // Projecteer de 3D-figuren naar 2D-lijnen en teken ze
+    return draw2DLines(doProjection(figures), size, background);
+}
+
 
 img::EasyImage generate_image(const ini::Configuration &confg) {
 
@@ -268,7 +407,11 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
         Vector3D eyeCords = Vector3D::point(eyeCordsINI[0], eyeCordsINI[1], eyeCordsINI[2]);
 
         Figures3D figures3D;
-
+        int rotateX;
+        int rotateY;
+        int rotateZ;
+        double scale;
+        Vector3D center;
         for (unsigned int i = 0; i < nrOfFigures; ++i) {
             std::string figureString = "Figure" + std::to_string(i);
             std::string type2 = confg[figureString]["type"];
@@ -276,12 +419,12 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
             Figure figure = Figure(Color(confg[figureString]["color"].as_double_tuple_or_die()[0], confg[figureString]["color"].as_double_tuple_or_die()[1], confg[figureString]["color"].as_double_tuple_or_die()[2]));
 
             if(type2 == "LineDrawing"){
-                int rotateX = confg[figureString]["rotateX"].as_int_or_die();
-                int rotateY = confg[figureString]["rotateY"].as_int_or_die();
-                int rotateZ = confg[figureString]["rotateZ"].as_int_or_die();
-                double scale = confg[figureString]["scale"].as_double_or_die();
+                 rotateX = confg[figureString]["rotateX"].as_int_or_die();
+                 rotateY = confg[figureString]["rotateY"].as_int_or_die();
+                 rotateZ = confg[figureString]["rotateZ"].as_int_or_die();
+                 scale = confg[figureString]["scale"].as_double_or_die();
                 Color figureColor = Color(confg[figureString]["color"].as_double_tuple_or_die()[0], confg[figureString]["color"].as_double_tuple_or_die()[1], confg[figureString]["color"].as_double_tuple_or_die()[2]);
-                Vector3D center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0], confg[figureString]["center"].as_double_tuple_or_die()[1], confg[figureString]["center"].as_double_tuple_or_die()[2]);
+                 center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0], confg[figureString]["center"].as_double_tuple_or_die()[1], confg[figureString]["center"].as_double_tuple_or_die()[2]);
                 int nrPoints = confg[figureString]["nrPoints"].as_int_or_die();
                 int nrLines = confg[figureString]["nrLines"].as_int_or_die();
                 for(int j = 0; j < nrPoints; ++j){
@@ -296,9 +439,11 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
                     pointIndexes.push_back(confg[figureString][Line].as_int_tuple_or_die()[1]);
                     figure.faces.push_back(Face(pointIndexes));
                 }
-
+                figures3D.push_back(figure);
             }
+
         }
+        return Wireframe(size, backGroundColor, eyeCords, figures3D, rotateX, rotateY, rotateZ, scale, center);
     }
 
 

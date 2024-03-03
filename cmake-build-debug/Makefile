@@ -197,6 +197,54 @@ Color.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/Color.cpp.s
 .PHONY : Color.cpp.s
 
+Face.obj: Face.cpp.obj
+.PHONY : Face.obj
+
+# target to build an object file
+Face.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/Face.cpp.obj
+.PHONY : Face.cpp.obj
+
+Face.i: Face.cpp.i
+.PHONY : Face.i
+
+# target to preprocess a source file
+Face.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/Face.cpp.i
+.PHONY : Face.cpp.i
+
+Face.s: Face.cpp.s
+.PHONY : Face.s
+
+# target to generate assembly for a file
+Face.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/Face.cpp.s
+.PHONY : Face.cpp.s
+
+Figure.obj: Figure.cpp.obj
+.PHONY : Figure.obj
+
+# target to build an object file
+Figure.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/Figure.cpp.obj
+.PHONY : Figure.cpp.obj
+
+Figure.i: Figure.cpp.i
+.PHONY : Figure.i
+
+# target to preprocess a source file
+Figure.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/Figure.cpp.i
+.PHONY : Figure.cpp.i
+
+Figure.s: Figure.cpp.s
+.PHONY : Figure.s
+
+# target to generate assembly for a file
+Figure.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/Figure.cpp.s
+.PHONY : Figure.cpp.s
+
 Line2D.obj: Line2D.cpp.obj
 .PHONY : Line2D.obj
 
@@ -389,6 +437,30 @@ l_parser.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/l_parser.cc.s
 .PHONY : l_parser.cc.s
 
+vector3d.obj: vector3d.cc.obj
+.PHONY : vector3d.obj
+
+# target to build an object file
+vector3d.cc.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/vector3d.cc.obj
+.PHONY : vector3d.cc.obj
+
+vector3d.i: vector3d.cc.i
+.PHONY : vector3d.i
+
+# target to preprocess a source file
+vector3d.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/vector3d.cc.i
+.PHONY : vector3d.cc.i
+
+vector3d.s: vector3d.cc.s
+.PHONY : vector3d.s
+
+# target to generate assembly for a file
+vector3d.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/vector3d.cc.s
+.PHONY : vector3d.cc.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -405,6 +477,12 @@ help:
 	@echo ... Color.obj
 	@echo ... Color.i
 	@echo ... Color.s
+	@echo ... Face.obj
+	@echo ... Face.i
+	@echo ... Face.s
+	@echo ... Figure.obj
+	@echo ... Figure.i
+	@echo ... Figure.s
 	@echo ... Line2D.obj
 	@echo ... Line2D.i
 	@echo ... Line2D.s
@@ -429,6 +507,9 @@ help:
 	@echo ... l_parser.obj
 	@echo ... l_parser.i
 	@echo ... l_parser.s
+	@echo ... vector3d.obj
+	@echo ... vector3d.i
+	@echo ... vector3d.s
 .PHONY : help
 
 

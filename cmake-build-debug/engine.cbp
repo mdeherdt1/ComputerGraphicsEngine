@@ -128,6 +128,18 @@
 		<Unit filename="C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/Color.h">
 			<Option target="engine"/>
 		</Unit>
+		<Unit filename="C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/Face.cpp">
+			<Option target="engine"/>
+		</Unit>
+		<Unit filename="C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/Face.h">
+			<Option target="engine"/>
+		</Unit>
+		<Unit filename="C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/Figure.cpp">
+			<Option target="engine"/>
+		</Unit>
+		<Unit filename="C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/Figure.h">
+			<Option target="engine"/>
+		</Unit>
 		<Unit filename="C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/Line2D.cpp">
 			<Option target="engine"/>
 		</Unit>
@@ -168,6 +180,12 @@
 			<Option target="engine"/>
 		</Unit>
 		<Unit filename="C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/l_parser.h">
+			<Option target="engine"/>
+		</Unit>
+		<Unit filename="C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/vector3d.cc">
+			<Option target="engine"/>
+		</Unit>
+		<Unit filename="C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/vector3d.h">
 			<Option target="engine"/>
 		</Unit>
 		<Unit filename="C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/CMakeLists.txt">
