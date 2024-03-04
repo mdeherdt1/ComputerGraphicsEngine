@@ -192,37 +192,38 @@ Matrix scaleFigure(const double scale){
     scaleMatrix(4,4) = 1;
     return scaleMatrix;
 }
+
 Matrix RotateX(const double angle){
-    double radians = angle * (PI / 180.0);
+    double rad = angle * (PI / 180.0);
     Matrix rotateMatrix = Matrix();
     rotateMatrix(1,1) = 1;
-    rotateMatrix(2,2) = cos(radians);
-    rotateMatrix(2,3) = sin(radians);
-    rotateMatrix(3,2) = -sin(radians);
-    rotateMatrix(3,3) = cos(radians);
+    rotateMatrix(2,2) = cos(angle);
+    rotateMatrix(2,3) = sin(angle);
+    rotateMatrix(3,2) = -sin(angle);
+    rotateMatrix(3,3) = cos(angle);
     rotateMatrix(4,4) = 1;
     return rotateMatrix;
 }
 
 Matrix RotateY(const double angle){
-    double radians = angle * (PI / 180.0);
+    double rad = angle * (PI / 180.0);
     Matrix rotateMatrix = Matrix();
-    rotateMatrix(1,1) = cos(radians);
-    rotateMatrix(1,3) = -sin(radians);
+    rotateMatrix(1,1) = cos(angle);
+    rotateMatrix(1,3) = -sin(angle);
     rotateMatrix(2,2) = 1;
-    rotateMatrix(3,1) = sin(radians);
-    rotateMatrix(3,3) = cos(radians);
+    rotateMatrix(3,1) = sin(angle);
+    rotateMatrix(3,3) = cos(angle);
     rotateMatrix(4,4) = 1;
     return rotateMatrix;
 }
 
 Matrix RotateZ(const double angle){
-    double radians = angle * (PI / 180.0);
+    double rad = angle * (PI / 180.0);
     Matrix rotateMatrix = Matrix();
-    rotateMatrix(1,1) = cos(radians);
-    rotateMatrix(1,2) = sin(radians);
-    rotateMatrix(2,1) = -sin(radians);
-    rotateMatrix(2,2) = cos(radians);
+    rotateMatrix(1,1) = cos(angle);
+    rotateMatrix(1,2) = sin(angle);
+    rotateMatrix(2,1) = -sin(angle);
+    rotateMatrix(2,2) = cos(angle);
     rotateMatrix(3,3) = 1;
     rotateMatrix(4,4) = 1;
     return rotateMatrix;
@@ -242,10 +243,7 @@ Matrix translate(const Vector3D &vector){
 
 void applyTransformation(Figure &fig, const Matrix &m) {
 for(auto &point:fig.points){
-    Matrix newMatrix = m * translate(point);
-    point.x = newMatrix(1,4);
-    point.y = newMatrix(2,4);
-    point.z = newMatrix(3,4);
+    point=  point * m;
 }
 }
 void toPolar(const Vector3D &point, double &r, double &theta, double &phi){
@@ -254,25 +252,22 @@ void toPolar(const Vector3D &point, double &r, double &theta, double &phi){
     phi = acos(point.z/r);
 }
 
-Matrix eyePointTrans(const Vector3D &eyepoint){
-    Matrix eyePointMatrix = Matrix(); // Aanname: Matrix() initialiseert een 4x4 matrix met alle elementen op 0.
-    double theta;
-    double phi;
-    double r;
+Matrix eyePointTrans(const Vector3D &eyepoint, const int rotateX, const int rotateY, const int rotateZ, const Vector3D &center){
+    double r, theta, phi;
     toPolar(eyepoint, r, theta, phi);
-    eyePointMatrix(1,1) = -sin(theta);
-    eyePointMatrix(1,2) = -cos(theta) * cos(phi);
-    eyePointMatrix(1,3) = cos(theta) * sin(phi);
-    eyePointMatrix(2,1) = cos(theta);
-    eyePointMatrix(2,2) = -sin(theta) * cos(phi);
-    eyePointMatrix(2,3) = sin(theta) * sin(phi);
-    eyePointMatrix(3,2) = sin(phi);
-    eyePointMatrix(3,3) = cos(phi);
-    eyePointMatrix(4,3) = -r;
-    eyePointMatrix(4,4) = 1;
-    return eyePointMatrix;
-
-
+    // Creëer een identiteitsmatrix voor eyePointMatrix
+    Matrix eyePointMatrix2 = Matrix();
+    eyePointMatrix2(1,1) = -sin(theta);
+    eyePointMatrix2(1,2) = -cos(theta)*cos(phi);
+    eyePointMatrix2(1,3) = cos(theta)*sin(phi);
+    eyePointMatrix2(2,1) = cos(theta);
+    eyePointMatrix2(2,2) = -sin(theta)*cos(phi);
+    eyePointMatrix2(2,3) = sin(theta)*sin(phi);
+    eyePointMatrix2(3,2) = sin(phi);
+    eyePointMatrix2(3,3) = cos(phi);
+    eyePointMatrix2(4,3) = -r;
+    eyePointMatrix2(4,4) = 1;
+    return  eyePointMatrix2 ;
 }
 
 void applyTransformation(Figures3D &figs, const Matrix &m){
@@ -282,16 +277,17 @@ void applyTransformation(Figures3D &figs, const Matrix &m){
 }
 
 Point2D doProjection(const Vector3D &point, const double d = 1.0){
-    return Point2D(point.x * d / point.z, point.y * d / point.z);
+    return Point2D(-point.x * d / point.z, -point.y * d / point.z);
 }
-Lines2D doProjection(const Figures3D &fig){
+
+Lines2D doProjection(const Figures3D &figures){
     Lines2D lines;
-    for(const Figure &figure:fig){
-        for(const Face &face:figure.faces){
-            for(int i = 0; i < face.point_indexes.size(); ++i){
-                Vector3D point1 = figure.points[face.point_indexes[i]];
-                Vector3D point2 = figure.points[face.point_indexes[(i+1)%face.point_indexes.size()]];
-                lines.push_back(Line2D(Point2D(point1.x,point1.y),Point2D(point2.x,point2.y),figure.color));
+    for(const Figure &fig:figures){
+        for(const Face &face:fig.faces){
+            for(unsigned int i = 0; i < face.point_indexes.size(); ++i){
+                Point2D startPoint = doProjection(fig.points[face.point_indexes[0]]);
+                Point2D endPoint = doProjection(fig.points[face.point_indexes[(1)]]);
+                lines.push_back(Line2D(startPoint, endPoint, fig.color));
             }
         }
     }
@@ -299,26 +295,10 @@ Lines2D doProjection(const Figures3D &fig){
 }
 
 
+
 img::EasyImage Wireframe(const int size, const img::Color &background, const Vector3D &eye, Figures3D &figures, const int rotateX, const int rotateY, const int rotateZ, const double scale, const Vector3D &center) {
-    // Voor elke figuur in de lijst van figuren
-    for (auto &fig : figures) {
-        // Maak de transformatiematrices aan
-        Matrix scaleMatrix = scaleFigure(scale);
-        Matrix rotateXMatrix = RotateX(rotateX); // Gebruik de meegegeven hoek
-        Matrix rotateYMatrix = RotateY(rotateY); // Gebruik de meegegeven hoek
-        Matrix rotateZMatrix = RotateZ(rotateZ); // Gebruik de meegegeven hoek
-        Matrix translateToCenterMatrix = translate(-center); // Verplaats naar het centrum voor rotatie
-        Matrix translateBackMatrix = translate(center); // Verplaats terug na rotatie
-        Matrix translateMatrix = eyePointTrans(eye); // Verplaats naar de oogpositie
 
-        // Combineer de transformaties
-        Matrix totalMatrix = translateBackMatrix * rotateXMatrix * rotateYMatrix * rotateZMatrix * scaleMatrix * translateToCenterMatrix * translateMatrix;
 
-        // Pas de gecombineerde transformatie toe op de figuur
-        applyTransformation(fig, totalMatrix);
-    }
-
-    // Projecteer de 3D-figuren naar 2D-lijnen en teken ze
     return draw2DLines(doProjection(figures), size, background);
 }
 
@@ -423,6 +403,7 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
                  rotateY = confg[figureString]["rotateY"].as_int_or_die();
                  rotateZ = confg[figureString]["rotateZ"].as_int_or_die();
                  scale = confg[figureString]["scale"].as_double_or_die();
+
                 Color figureColor = Color(confg[figureString]["color"].as_double_tuple_or_die()[0], confg[figureString]["color"].as_double_tuple_or_die()[1], confg[figureString]["color"].as_double_tuple_or_die()[2]);
                  center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0], confg[figureString]["center"].as_double_tuple_or_die()[1], confg[figureString]["center"].as_double_tuple_or_die()[2]);
                 int nrPoints = confg[figureString]["nrPoints"].as_int_or_die();
@@ -439,9 +420,16 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
                     pointIndexes.push_back(confg[figureString][Line].as_int_tuple_or_die()[1]);
                     figure.faces.push_back(Face(pointIndexes));
                 }
+                Matrix scaleMatrix = scaleFigure(scale);
+                Matrix rotateXMatrix = RotateX(rotateX);
+                Matrix rotateYMatrix = RotateY(rotateY);
+                Matrix rotateZMatrix = RotateZ(rotateZ);
+                Matrix eyepointTrans = eyePointTrans(eyeCords, rotateX, rotateY, rotateZ, center);
+                Matrix totalMatrix = eyepointTrans * rotateZMatrix * rotateYMatrix * rotateXMatrix  * scaleMatrix ;
+                applyTransformation(figure, totalMatrix);
+
                 figures3D.push_back(figure);
             }
-
         }
         return Wireframe(size, backGroundColor, eyeCords, figures3D, rotateX, rotateY, rotateZ, scale, center);
     }
