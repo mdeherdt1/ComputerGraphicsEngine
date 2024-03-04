@@ -28,7 +28,7 @@ constexpr double PI = 3.14159265358979323846;
 
 
 
-img::EasyImage draw2DLines(const Lines2D &lines, const int size, img::Color background = img::Color(0,0,0)){
+img::EasyImage draw2DLines(const Lines2D &lines, const int size, img::Color background = img::Color(0, 0, 0)){
     std::vector<double> xjes ;
     std::vector<double>ytjes;
 
@@ -197,10 +197,10 @@ Matrix RotateX(const double angle){
     double rad = angle * (PI / 180.0);
     Matrix rotateMatrix = Matrix();
     rotateMatrix(1,1) = 1;
-    rotateMatrix(2,2) = cos(angle);
-    rotateMatrix(2,3) = sin(angle);
-    rotateMatrix(3,2) = -sin(angle);
-    rotateMatrix(3,3) = cos(angle);
+    rotateMatrix(2,2) = cos(rad);
+    rotateMatrix(2,3) = sin(rad);
+    rotateMatrix(3,2) = -sin(rad);
+    rotateMatrix(3,3) = cos(rad);
     rotateMatrix(4,4) = 1;
     return rotateMatrix;
 }
@@ -208,11 +208,11 @@ Matrix RotateX(const double angle){
 Matrix RotateY(const double angle){
     double rad = angle * (PI / 180.0);
     Matrix rotateMatrix = Matrix();
-    rotateMatrix(1,1) = cos(angle);
-    rotateMatrix(1,3) = -sin(angle);
+    rotateMatrix(1,1) = cos(rad);
+    rotateMatrix(1,3) = -sin(rad);
     rotateMatrix(2,2) = 1;
-    rotateMatrix(3,1) = sin(angle);
-    rotateMatrix(3,3) = cos(angle);
+    rotateMatrix(3,1) = sin(rad);
+    rotateMatrix(3,3) = cos(rad);
     rotateMatrix(4,4) = 1;
     return rotateMatrix;
 }
@@ -243,7 +243,7 @@ Matrix translate(const Vector3D &vector){
 
 void applyTransformation(Figure &fig, const Matrix &m) {
 for(auto &point:fig.points){
-    point=  point * m;
+    point =  point * m;
 }
 }
 void toPolar(const Vector3D &point, double &r, double &theta, double &phi){
@@ -252,7 +252,7 @@ void toPolar(const Vector3D &point, double &r, double &theta, double &phi){
     phi = acos(point.z/r);
 }
 
-Matrix eyePointTrans(const Vector3D &eyepoint, const int rotateX, const int rotateY, const int rotateZ, const Vector3D &center){
+Matrix eyePointTrans(const Vector3D &eyepoint){
     double r, theta, phi;
     toPolar(eyepoint, r, theta, phi);
     // Creëer een identiteitsmatrix voor eyePointMatrix
@@ -294,13 +294,17 @@ Lines2D doProjection(const Figures3D &figures){
     return lines;
 }
 
-
-
-img::EasyImage Wireframe(const int size, const img::Color &background, const Vector3D &eye, Figures3D &figures, const int rotateX, const int rotateY, const int rotateZ, const double scale, const Vector3D &center) {
-
-
-    return draw2DLines(doProjection(figures), size, background);
+img::EasyImage createWireFrame(int size, img::Color color, Vector3D eyeCords, Figures3D vector1){
+    for(Figure &fig:vector1) {
+        applyTransformation(fig, eyePointTrans(eyeCords));
+    }
+    return draw2DLines(doProjection(vector1), size, color);
 }
+
+
+
+
+
 
 
 img::EasyImage generate_image(const ini::Configuration &confg) {
@@ -403,7 +407,6 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
                  rotateY = confg[figureString]["rotateY"].as_int_or_die();
                  rotateZ = confg[figureString]["rotateZ"].as_int_or_die();
                  scale = confg[figureString]["scale"].as_double_or_die();
-
                 Color figureColor = Color(confg[figureString]["color"].as_double_tuple_or_die()[0], confg[figureString]["color"].as_double_tuple_or_die()[1], confg[figureString]["color"].as_double_tuple_or_die()[2]);
                  center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0], confg[figureString]["center"].as_double_tuple_or_die()[1], confg[figureString]["center"].as_double_tuple_or_die()[2]);
                 int nrPoints = confg[figureString]["nrPoints"].as_int_or_die();
@@ -420,25 +423,26 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
                     pointIndexes.push_back(confg[figureString][Line].as_int_tuple_or_die()[1]);
                     figure.faces.push_back(Face(pointIndexes));
                 }
-                Matrix scaleMatrix = scaleFigure(scale);
-                Matrix rotateXMatrix = RotateX(rotateX);
-                Matrix rotateYMatrix = RotateY(rotateY);
-                Matrix rotateZMatrix = RotateZ(rotateZ);
-                Matrix eyepointTrans = eyePointTrans(eyeCords, rotateX, rotateY, rotateZ, center);
-                Matrix totalMatrix = eyepointTrans * rotateZMatrix * rotateYMatrix * rotateXMatrix  * scaleMatrix ;
-                applyTransformation(figure, totalMatrix);
+                applyTransformation(figure, translate(center));
+                applyTransformation(figure, RotateX(rotateX));
+                applyTransformation(figure, RotateY(rotateY));
+                applyTransformation(figure, RotateZ(rotateZ));
+                applyTransformation(figure, scaleFigure(scale));
 
                 figures3D.push_back(figure);
             }
+
         }
-        return Wireframe(size, backGroundColor, eyeCords, figures3D, rotateX, rotateY, rotateZ, scale, center);
+        return createWireFrame(size, backGroundColor, eyeCords, figures3D);
     }
 
 
         return image;
     }
 
-    int main(int argc, char const *argv[]) {
+
+
+int main(int argc, char const *argv[]) {
         int retVal = 0;
         try {
             std::vector<std::string> args = std::vector<std::string>(argv + 1, argv + argc);
