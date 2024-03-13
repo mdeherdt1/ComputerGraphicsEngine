@@ -33,6 +33,10 @@ set(engine_sources
 		Face.cpp
 		Face.h
 		vector3d.cc
+        PlatonischeLichamen.cpp
+        PlatonischeLichamen.h
+		translations.cpp
+		translations.h
 )
 
 ############################################################
