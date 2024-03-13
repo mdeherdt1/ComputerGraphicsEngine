@@ -470,7 +470,7 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
                 center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0], confg[figureString]["center"].as_double_tuple_or_die()[1], confg[figureString]["center"].as_double_tuple_or_die()[2]);
                 int n = confg[figureString]["n"].as_int_or_die();
                 int m = confg[figureString]["m"].as_int_or_die();
-                int R = confg[figureString]["R"].as_double_or_die();
+                double R = confg[figureString]["R"].as_double_or_die();
                 int r = confg[figureString]["r"].as_int_or_die();
 
                 createTorus(figure,n,m,R,r);
