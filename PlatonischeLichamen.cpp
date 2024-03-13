@@ -1,7 +1,7 @@
 //
 // Created by student on 13/03/24.
 //
-
+#define _USE_MATH_DEFINES
 #include "PlatonischeLichamen.h"
 
 
@@ -75,17 +75,16 @@ void createOctahedron(Figure &figure) {
 
 void createIcosahedron(Figure &figure) {
     for(int i = 1; i <= 12; i++) {
-        if(i == 1){
-             figure.points.push_back(Vector3D::point(0, 0, sqrt(5) / 2));
-         }
-        else if(i <= 6){
+        if (i == 1) {
+            figure.points.push_back(Vector3D::point(0, 0, sqrt(5) / 2));
+        } else if (i <= 6) {
             figure.points.push_back(Vector3D::point(cos((i - 2) * 2 * M_PI / 5), sin((i - 2) * 2 * M_PI / 5), 0.5));
-        }
-        else if(i == 12) {
+        } else if (i == 12) {
             figure.points.push_back(Vector3D::point(0, 0, -sqrt(5) / 2));
-        }
-        else{
-            figure.points.push_back(Vector3D::point(cos(M_PI/5 + (i - 7) * 2 * M_PI / 5), sin(M_PI/5 + (i - 7) * 2 * M_PI / 5), -0.5));
+        } else {
+            figure.points.push_back(
+                    Vector3D::point(cos(M_PI / 5 + (i - 7) * 2 * M_PI / 5), sin(M_PI / 5 + (i - 7) * 2 * M_PI / 5),
+                                    -0.5));
         }
 
         /*
@@ -100,7 +99,7 @@ void createIcosahedron(Figure &figure) {
          * [11,7,6] [11,8,7] [11,9,10] [11,10,9] [11,6,10]
          *
          */
-
+    }
         figure.faces.push_back(Face({0,1,2}));
         figure.faces.push_back(Face({0,2,3}));
         figure.faces.push_back(Face({0,3,4}));
@@ -118,12 +117,11 @@ void createIcosahedron(Figure &figure) {
         figure.faces.push_back(Face({1,10,6}));
         figure.faces.push_back(Face({11,7,6}));
         figure.faces.push_back(Face({11,8,7}));
-        figure.faces.push_back(Face({11,9,10}));
+        figure.faces.push_back(Face({11,9,8}));
         figure.faces.push_back(Face({11,10,9}));
         figure.faces.push_back(Face({11,6,10}));
 
 
-    }
 
 }
 
@@ -131,20 +129,22 @@ void createDodecahedron(Figure &figure) {
     createIcosahedron(figure);
     std::vector<Vector3D> newPoints;
 
+
     for(auto &intPoint : figure.faces) {
         double x = 0;
         double y = 0;
         double z = 0;
-        for(auto &point : intPoint.point_indexes) {
+        for(auto point : intPoint.point_indexes) {
             x += figure.points[point].x;
             y += figure.points[point].y;
             z += figure.points[point].z;
         }
-        x /= 3;
-        y /= 3;
-        z /= 3;
+        x = x/3;
+        y = y/3;
+        z = z/3;
         newPoints.push_back(Vector3D::point(x, y, z));
     }
+
 
     figure.points = newPoints;
     figure.faces.clear();
@@ -160,8 +160,5 @@ void createDodecahedron(Figure &figure) {
     figure.faces.push_back(Face({17,10,9,8,16}));
     figure.faces.push_back(Face({16,8,7,6,15}));
     figure.faces.push_back(Face({15,6,5,14,19}));
-
-
-
 
 }

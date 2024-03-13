@@ -73,3 +73,5 @@ obj/
 
 # Note: The ! prefix before a pattern negates the ignore rule,
 # allowing files that match the pattern to be tracked by Git.
+# GitHub Copilot persisted chat sessions
+/copilot/chatSessions

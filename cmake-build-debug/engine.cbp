@@ -146,6 +146,12 @@
 		<Unit filename="C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/Line2D.h">
 			<Option target="engine"/>
 		</Unit>
+		<Unit filename="C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/PlatonischeLichamen.cpp">
+			<Option target="engine"/>
+		</Unit>
+		<Unit filename="C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/PlatonischeLichamen.h">
+			<Option target="engine"/>
+		</Unit>
 		<Unit filename="C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/Point2D.cpp">
 			<Option target="engine"/>
 		</Unit>
@@ -180,6 +186,12 @@
 			<Option target="engine"/>
 		</Unit>
 		<Unit filename="C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/l_parser.h">
+			<Option target="engine"/>
+		</Unit>
+		<Unit filename="C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/translations.cpp">
+			<Option target="engine"/>
+		</Unit>
+		<Unit filename="C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/translations.h">
 			<Option target="engine"/>
 		</Unit>
 		<Unit filename="C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/vector3d.cc">

@@ -12,6 +12,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/Face.cpp" "CMakeFiles/engine.dir/Face.cpp.obj" "gcc" "CMakeFiles/engine.dir/Face.cpp.obj.d"
   "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/Figure.cpp" "CMakeFiles/engine.dir/Figure.cpp.obj" "gcc" "CMakeFiles/engine.dir/Figure.cpp.obj.d"
   "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/Line2D.cpp" "CMakeFiles/engine.dir/Line2D.cpp.obj" "gcc" "CMakeFiles/engine.dir/Line2D.cpp.obj.d"
+  "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/PlatonischeLichamen.cpp" "CMakeFiles/engine.dir/PlatonischeLichamen.cpp.obj" "gcc" "CMakeFiles/engine.dir/PlatonischeLichamen.cpp.obj.d"
   "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/Point2D.cpp" "CMakeFiles/engine.dir/Point2D.cpp.obj" "gcc" "CMakeFiles/engine.dir/Point2D.cpp.obj.d"
   "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/StochasticRule.cpp" "CMakeFiles/engine.dir/StochasticRule.cpp.obj" "gcc" "CMakeFiles/engine.dir/StochasticRule.cpp.obj.d"
   "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/easy_image.cc" "CMakeFiles/engine.dir/easy_image.cc.obj" "gcc" "CMakeFiles/engine.dir/easy_image.cc.obj.d"
@@ -19,6 +20,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/ini_configuration.cc" "CMakeFiles/engine.dir/ini_configuration.cc.obj" "gcc" "CMakeFiles/engine.dir/ini_configuration.cc.obj.d"
   "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/introduction.cpp" "CMakeFiles/engine.dir/introduction.cpp.obj" "gcc" "CMakeFiles/engine.dir/introduction.cpp.obj.d"
   "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/l_parser.cc" "CMakeFiles/engine.dir/l_parser.cc.obj" "gcc" "CMakeFiles/engine.dir/l_parser.cc.obj.d"
+  "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/translations.cpp" "CMakeFiles/engine.dir/translations.cpp.obj" "gcc" "CMakeFiles/engine.dir/translations.cpp.obj.d"
   "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/vector3d.cc" "CMakeFiles/engine.dir/vector3d.cc.obj" "gcc" "CMakeFiles/engine.dir/vector3d.cc.obj.d"
   )
 

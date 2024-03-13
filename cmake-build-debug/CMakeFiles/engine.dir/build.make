@@ -236,6 +236,34 @@ CMakeFiles/engine.dir/vector3d.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/engine.dir/vector3d.cc.s"
 	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\vector3d.cc" -o CMakeFiles\engine.dir\vector3d.cc.s
 
+CMakeFiles/engine.dir/PlatonischeLichamen.cpp.obj: CMakeFiles/engine.dir/flags.make
+CMakeFiles/engine.dir/PlatonischeLichamen.cpp.obj: C:/Users/DH\ Services\ BVBA/Documents/GitHub/ComputerGraphics/PlatonischeLichamen.cpp
+CMakeFiles/engine.dir/PlatonischeLichamen.cpp.obj: CMakeFiles/engine.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/engine.dir/PlatonischeLichamen.cpp.obj"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/engine.dir/PlatonischeLichamen.cpp.obj -MF CMakeFiles\engine.dir\PlatonischeLichamen.cpp.obj.d -o CMakeFiles\engine.dir\PlatonischeLichamen.cpp.obj -c "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\PlatonischeLichamen.cpp"
+
+CMakeFiles/engine.dir/PlatonischeLichamen.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/engine.dir/PlatonischeLichamen.cpp.i"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\PlatonischeLichamen.cpp" > CMakeFiles\engine.dir\PlatonischeLichamen.cpp.i
+
+CMakeFiles/engine.dir/PlatonischeLichamen.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/engine.dir/PlatonischeLichamen.cpp.s"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\PlatonischeLichamen.cpp" -o CMakeFiles\engine.dir\PlatonischeLichamen.cpp.s
+
+CMakeFiles/engine.dir/translations.cpp.obj: CMakeFiles/engine.dir/flags.make
+CMakeFiles/engine.dir/translations.cpp.obj: C:/Users/DH\ Services\ BVBA/Documents/GitHub/ComputerGraphics/translations.cpp
+CMakeFiles/engine.dir/translations.cpp.obj: CMakeFiles/engine.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/engine.dir/translations.cpp.obj"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/engine.dir/translations.cpp.obj -MF CMakeFiles\engine.dir\translations.cpp.obj.d -o CMakeFiles\engine.dir\translations.cpp.obj -c "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\translations.cpp"
+
+CMakeFiles/engine.dir/translations.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/engine.dir/translations.cpp.i"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\translations.cpp" > CMakeFiles\engine.dir\translations.cpp.i
+
+CMakeFiles/engine.dir/translations.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/engine.dir/translations.cpp.s"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\translations.cpp" -o CMakeFiles\engine.dir\translations.cpp.s
+
 # Object files for target engine
 engine_OBJECTS = \
 "CMakeFiles/engine.dir/easy_image.cc.obj" \
@@ -249,7 +277,9 @@ engine_OBJECTS = \
 "CMakeFiles/engine.dir/StochasticRule.cpp.obj" \
 "CMakeFiles/engine.dir/Figure.cpp.obj" \
 "CMakeFiles/engine.dir/Face.cpp.obj" \
-"CMakeFiles/engine.dir/vector3d.cc.obj"
+"CMakeFiles/engine.dir/vector3d.cc.obj" \
+"CMakeFiles/engine.dir/PlatonischeLichamen.cpp.obj" \
+"CMakeFiles/engine.dir/translations.cpp.obj"
 
 # External object files for target engine
 engine_EXTERNAL_OBJECTS =
@@ -266,11 +296,13 @@ engine.exe: CMakeFiles/engine.dir/StochasticRule.cpp.obj
 engine.exe: CMakeFiles/engine.dir/Figure.cpp.obj
 engine.exe: CMakeFiles/engine.dir/Face.cpp.obj
 engine.exe: CMakeFiles/engine.dir/vector3d.cc.obj
+engine.exe: CMakeFiles/engine.dir/PlatonischeLichamen.cpp.obj
+engine.exe: CMakeFiles/engine.dir/translations.cpp.obj
 engine.exe: CMakeFiles/engine.dir/build.make
 engine.exe: CMakeFiles/engine.dir/linkLibs.rsp
 engine.exe: CMakeFiles/engine.dir/objects1.rsp
 engine.exe: CMakeFiles/engine.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_13) "Linking CXX executable engine.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_15) "Linking CXX executable engine.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\engine.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

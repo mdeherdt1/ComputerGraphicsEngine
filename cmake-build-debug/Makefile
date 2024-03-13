@@ -269,6 +269,30 @@ Line2D.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/Line2D.cpp.s
 .PHONY : Line2D.cpp.s
 
+PlatonischeLichamen.obj: PlatonischeLichamen.cpp.obj
+.PHONY : PlatonischeLichamen.obj
+
+# target to build an object file
+PlatonischeLichamen.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/PlatonischeLichamen.cpp.obj
+.PHONY : PlatonischeLichamen.cpp.obj
+
+PlatonischeLichamen.i: PlatonischeLichamen.cpp.i
+.PHONY : PlatonischeLichamen.i
+
+# target to preprocess a source file
+PlatonischeLichamen.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/PlatonischeLichamen.cpp.i
+.PHONY : PlatonischeLichamen.cpp.i
+
+PlatonischeLichamen.s: PlatonischeLichamen.cpp.s
+.PHONY : PlatonischeLichamen.s
+
+# target to generate assembly for a file
+PlatonischeLichamen.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/PlatonischeLichamen.cpp.s
+.PHONY : PlatonischeLichamen.cpp.s
+
 Point2D.obj: Point2D.cpp.obj
 .PHONY : Point2D.obj
 
@@ -437,6 +461,30 @@ l_parser.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/l_parser.cc.s
 .PHONY : l_parser.cc.s
 
+translations.obj: translations.cpp.obj
+.PHONY : translations.obj
+
+# target to build an object file
+translations.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/translations.cpp.obj
+.PHONY : translations.cpp.obj
+
+translations.i: translations.cpp.i
+.PHONY : translations.i
+
+# target to preprocess a source file
+translations.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/translations.cpp.i
+.PHONY : translations.cpp.i
+
+translations.s: translations.cpp.s
+.PHONY : translations.s
+
+# target to generate assembly for a file
+translations.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/translations.cpp.s
+.PHONY : translations.cpp.s
+
 vector3d.obj: vector3d.cc.obj
 .PHONY : vector3d.obj
 
@@ -486,6 +534,9 @@ help:
 	@echo ... Line2D.obj
 	@echo ... Line2D.i
 	@echo ... Line2D.s
+	@echo ... PlatonischeLichamen.obj
+	@echo ... PlatonischeLichamen.i
+	@echo ... PlatonischeLichamen.s
 	@echo ... Point2D.obj
 	@echo ... Point2D.i
 	@echo ... Point2D.s
@@ -507,6 +558,9 @@ help:
 	@echo ... l_parser.obj
 	@echo ... l_parser.i
 	@echo ... l_parser.s
+	@echo ... translations.obj
+	@echo ... translations.i
+	@echo ... translations.s
 	@echo ... vector3d.obj
 	@echo ... vector3d.i
 	@echo ... vector3d.s

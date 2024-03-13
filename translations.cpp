@@ -1,7 +1,7 @@
 //
 // Created by student on 13/03/24.
 //
-
+#define _USE_MATH_DEFINES
 #include "translations.h"
 
 
