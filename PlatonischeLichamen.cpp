@@ -120,9 +120,6 @@ void createIcosahedron(Figure &figure) {
         figure.faces.push_back(Face({11,9,8}));
         figure.faces.push_back(Face({11,10,9}));
         figure.faces.push_back(Face({11,6,10}));
-
-
-
 }
 
 void createDodecahedron(Figure &figure) {
@@ -162,3 +159,170 @@ void createDodecahedron(Figure &figure) {
     figure.faces.push_back(Face({15,6,5,14,19}));
 
 }
+
+void createCone(Figure &figure, const int n, const double h) {
+    figure.points.clear();
+    figure.faces.clear();
+
+    for (int i = 0; i < n; ++i) {
+        double angle = 2 * M_PI * i / n;
+        Vector3D point = Vector3D::point(cos(angle), sin(angle), 0);
+        figure.points.push_back(point);
+    }
+
+    Vector3D topPoint = Vector3D::point(0, 0, h);
+    figure.points.push_back(topPoint);
+
+    for (int i = 0; i < n; ++i) {
+        std::vector<int> facePoints = {i, (i + 1) % n, n}; // n is the index of the top point
+        figure.faces.push_back(Face(facePoints));
+    }
+
+    std::vector<int> basePoints;
+    for (int i = 0; i < n; ++i) {
+        basePoints.push_back(i);
+    }
+
+    figure.faces.push_back(Face(basePoints));
+}
+
+void createCylinder(Figure &figure, const int n, const double h) {
+    // Wis bestaande punten en vlakken in de figuur
+    figure.points.clear();
+    figure.faces.clear();
+
+    // Genereer n punten voor het grondvlak van de cilinder
+    for (int i = 0; i < n; ++i) {
+        double angle = 2 * M_PI * i / n;
+        Vector3D bottomPoint = Vector3D::point(cos(angle), sin(angle), 0);
+        figure.points.push_back(bottomPoint);
+    }
+
+    // Genereer n punten voor het bovenvlak van de cilinder
+    for (int i = 0; i < n; ++i) {
+        double angle = 2 * M_PI * i / n;
+        Vector3D topPoint = Vector3D::point(cos(angle), sin(angle), h);
+        figure.points.push_back(topPoint);
+    }
+
+    // Maak zijvlakken (vierhoeken)
+    for (int i = 0; i < n; ++i) {
+        std::vector<int> facePoints = {
+                i,
+                (i + 1) % n,
+                (i + 1) % n + n,
+                i + n
+        };
+        figure.faces.push_back(Face(facePoints));
+    }
+
+    // Maak het grondvlak
+    std::vector<int> bottomFacePoints;
+    for (int i = 0; i < n; ++i) {
+        bottomFacePoints.push_back(i);
+    }
+    figure.faces.push_back(Face(bottomFacePoints));
+
+    // Maak het bovenvlak
+    std::vector<int> topFacePoints;
+    for (int i = n; i < 2*n; ++i) {
+        topFacePoints.push_back(i);
+    }
+    figure.faces.push_back(Face(topFacePoints));
+}
+
+int findOrAddPoint(Figure &figure, Vector3D point) {
+    point.normalise(); // Normaliseer het punt voordat het wordt vergeleken of toegevoegd
+    for (size_t i = 0; i < figure.points.size(); ++i) {
+        if (figure.points[i].x == point.x && figure.points[i].y == point.y && figure.points[i].z == point.z) {
+            return i;
+        }
+    }
+    figure.points.push_back(point);
+    return figure.points.size() - 1;
+}
+
+void subdivide(Figure &figure, int n) {
+    if (n <= 0) return;
+
+    std::vector<Face> newFaces;
+
+    for (auto &face : figure.faces) {
+        // Voorbeeld van puntindexen voor een enkele driehoek
+        int i1 = face.point_indexes[0];
+        int i2 = face.point_indexes[1];
+        int i3 = face.point_indexes[2];
+
+        // Bereken middenpunten voor elke zijde van de driehoek
+        Vector3D m1 = Vector3D::point((figure.points[i1].x + figure.points[i2].x) / 2,
+                                      (figure.points[i1].y + figure.points[i2].y) / 2,
+                                      (figure.points[i1].z + figure.points[i2].z) / 2);
+
+        Vector3D m2 = Vector3D::point((figure.points[i2].x + figure.points[i3].x) / 2,
+                                      (figure.points[i2].y + figure.points[i3].y) / 2,
+                                      (figure.points[i2].z + figure.points[i3].z) / 2);
+
+        Vector3D m3 = Vector3D::point((figure.points[i1].x + figure.points[i3].x) / 2,
+                                      (figure.points[i1].y + figure.points[i3].y) / 2,
+                                      (figure.points[i1].z + figure.points[i3].z) / 2);
+
+        // Voeg middenpunten toe of vind hun indexen
+        int m1i = findOrAddPoint(figure, m1);
+        int m2i = findOrAddPoint(figure, m2);
+        int m3i = findOrAddPoint(figure, m3);
+
+        // Voeg nieuwe driehoeken toe
+        newFaces.push_back(Face({i1, m1i, m3i}));
+        newFaces.push_back(Face({i2, m2i, m1i}));
+        newFaces.push_back(Face({i3, m3i, m2i}));
+        newFaces.push_back(Face({m1i, m2i, m3i}));
+    }
+
+    // Vervang oude vlakken door nieuwe
+    figure.faces = newFaces;
+
+    // Recursieve aanroep voor de volgende subdivisie
+    subdivide(figure, n - 1);
+}
+
+void createSphere(Figure &figure, const int n) {
+    // Begin met een icosahedron
+    createIcosahedron(figure);
+
+    // Voer de subdivisie n keer uit
+    subdivide(figure, n);
+
+    // Normaliseer alle punten direct (correctie)
+    for (auto &point : figure.points) {
+        point.normalise();
+    }
+}
+
+void createTorus(Figure &figure, const int n, const int m, const double R, const double r) {
+    figure.points.clear();
+    figure.faces.clear();
+
+    // Bereken punten op de torus
+    for (int i = 0; i < n; ++i) {
+        double u = 2 * M_PI * i / n;
+        for (int j = 0; j < m; ++j) {
+            double v = 2 * M_PI * j / m;
+            double x = (R + r * cos(v)) * cos(u);
+            double y = (R + r * cos(v)) * sin(u);
+            double z = r * sin(v);
+            figure.points.push_back(Vector3D::point(x, y, z));
+        }
+    }
+
+    // Genereer de oppervlakken
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            int first = (i * m + j) % (n * m);
+            int second = ((i + 1) % n * m + j) % (n * m);
+            int third = ((i + 1) % n * m + (j + 1) % m) % (n * m);
+            int fourth = (i * m + (j + 1) % m) % (n * m);
+            figure.faces.push_back(Face({first, second, third, fourth}));
+        }
+    }
+}
+

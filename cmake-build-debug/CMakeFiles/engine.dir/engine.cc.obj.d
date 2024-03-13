@@ -163,8 +163,10 @@ CMakeFiles/engine.dir/engine.cc.obj: \
  C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\vector3d.h \
  C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\Figure.h \
  C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\Face.h \
+ C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\PlatonischeLichamen.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/cmath \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/x86_64-w64-mingw32/include/math.h \
+ C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\translations.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/fstream \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/codecvt.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/basic_file.h \

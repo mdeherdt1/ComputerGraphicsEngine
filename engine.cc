@@ -280,9 +280,9 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
         Vector3D eyeCords = Vector3D::point(eyeCordsINI[0], eyeCordsINI[1], eyeCordsINI[2]);
 
         Figures3D figures3D;
-        int rotateX;
-        int rotateY;
-        int rotateZ;
+        double rotateX;
+        double rotateY;
+        double rotateZ;
         double scale;
         Vector3D center;
         for (unsigned int i = 0; i < nrOfFigures; ++i) {
@@ -292,9 +292,9 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
             Figure figure = Figure(Color(confg[figureString]["color"].as_double_tuple_or_die()[0], confg[figureString]["color"].as_double_tuple_or_die()[1], confg[figureString]["color"].as_double_tuple_or_die()[2]));
 
             if(type2 == "LineDrawing"){
-                 rotateX = confg[figureString]["rotateX"].as_int_or_die();
-                 rotateY = confg[figureString]["rotateY"].as_int_or_die();
-                 rotateZ = confg[figureString]["rotateZ"].as_int_or_die();
+                 rotateX = confg[figureString]["rotateX"].as_double_or_die();
+                 rotateY = confg[figureString]["rotateY"].as_double_or_die();
+                 rotateZ = confg[figureString]["rotateZ"].as_double_or_die();
                  scale = confg[figureString]["scale"].as_double_or_die();
                 Color figureColor = Color(confg[figureString]["color"].as_double_tuple_or_die()[0], confg[figureString]["color"].as_double_tuple_or_die()[1], confg[figureString]["color"].as_double_tuple_or_die()[2]);
                  center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0], confg[figureString]["center"].as_double_tuple_or_die()[1], confg[figureString]["center"].as_double_tuple_or_die()[2]);
@@ -322,9 +322,9 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
             }
 
             else if(type2 == "Cube"){
-                rotateX = confg[figureString]["rotateX"].as_int_or_die();
-                rotateY = confg[figureString]["rotateY"].as_int_or_die();
-                rotateZ = confg[figureString]["rotateZ"].as_int_or_die();
+                rotateX = confg[figureString]["rotateX"].as_double_or_die();
+                rotateY = confg[figureString]["rotateY"].as_double_or_die();
+                rotateZ = confg[figureString]["rotateZ"].as_double_or_die();
                 scale = confg[figureString]["scale"].as_double_or_die();
                 center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0], confg[figureString]["center"].as_double_tuple_or_die()[1], confg[figureString]["center"].as_double_tuple_or_die()[2]);
 
@@ -340,9 +340,9 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
                 figures3D.push_back(figure);
             }
             else if(type2 == "Tetrahedron"){
-                rotateX = confg[figureString]["rotateX"].as_int_or_die();
-                rotateY = confg[figureString]["rotateY"].as_int_or_die();
-                rotateZ = confg[figureString]["rotateZ"].as_int_or_die();
+                rotateX = confg[figureString]["rotateX"].as_double_or_die();
+                rotateY = confg[figureString]["rotateY"].as_double_or_die();
+                rotateZ = confg[figureString]["rotateZ"].as_double_or_die();
                 scale = confg[figureString]["scale"].as_double_or_die();
                 center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0], confg[figureString]["center"].as_double_tuple_or_die()[1], confg[figureString]["center"].as_double_tuple_or_die()[2]);
 
@@ -357,9 +357,9 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
                 figures3D.push_back(figure);
             }
             else if(type2 == "Octahedron"){
-                rotateX = confg[figureString]["rotateX"].as_int_or_die();
-                rotateY = confg[figureString]["rotateY"].as_int_or_die();
-                rotateZ = confg[figureString]["rotateZ"].as_int_or_die();
+                rotateX = confg[figureString]["rotateX"].as_double_or_die();
+                rotateY = confg[figureString]["rotateY"].as_double_or_die();
+                rotateZ = confg[figureString]["rotateZ"].as_double_or_die();
                 scale = confg[figureString]["scale"].as_double_or_die();
                 center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0], confg[figureString]["center"].as_double_tuple_or_die()[1], confg[figureString]["center"].as_double_tuple_or_die()[2]);
 
@@ -374,9 +374,9 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
                 figures3D.push_back(figure);
             }
             else if(type2 == "Icosahedron"){
-                rotateX = confg[figureString]["rotateX"].as_int_or_die();
-                rotateY = confg[figureString]["rotateY"].as_int_or_die();
-                rotateZ = confg[figureString]["rotateZ"].as_int_or_die();
+                rotateX = confg[figureString]["rotateX"].as_double_or_die();
+                rotateY = confg[figureString]["rotateY"].as_double_or_die();
+                rotateZ = confg[figureString]["rotateZ"].as_double_or_die();
                 scale = confg[figureString]["scale"].as_double_or_die();
                 center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0], confg[figureString]["center"].as_double_tuple_or_die()[1], confg[figureString]["center"].as_double_tuple_or_die()[2]);
 
@@ -391,13 +391,88 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
                 figures3D.push_back(figure);
             }
             else if(type2 == "Dodecahedron"){
-                rotateX = confg[figureString]["rotateX"].as_int_or_die();
-                rotateY = confg[figureString]["rotateY"].as_int_or_die();
-                rotateZ = confg[figureString]["rotateZ"].as_int_or_die();
+                rotateX = confg[figureString]["rotateX"].as_double_or_die();
+                rotateY = confg[figureString]["rotateY"].as_double_or_die();
+                rotateZ = confg[figureString]["rotateZ"].as_double_or_die();
                 scale = confg[figureString]["scale"].as_double_or_die();
                 center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0], confg[figureString]["center"].as_double_tuple_or_die()[1], confg[figureString]["center"].as_double_tuple_or_die()[2]);
 
                 createDodecahedron(figure);
+
+                applyTransformation(figure, translate(center));
+                applyTransformation(figure, RotateX(rotateX));
+                applyTransformation(figure, RotateY(rotateY));
+                applyTransformation(figure, RotateZ(rotateZ));
+                applyTransformation(figure, scaleFigure(scale));
+
+                figures3D.push_back(figure);
+            }
+            else if (type2 == "Cone"){
+                rotateX = confg[figureString]["rotateX"].as_double_or_die();
+                rotateY = confg[figureString]["rotateY"].as_double_or_die();
+                rotateZ = confg[figureString]["rotateZ"].as_double_or_die();
+                scale = confg[figureString]["scale"].as_double_or_die();
+                center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0], confg[figureString]["center"].as_double_tuple_or_die()[1], confg[figureString]["center"].as_double_tuple_or_die()[2]);
+                int n = confg[figureString]["n"].as_int_or_die();
+                double h = confg[figureString]["height"].as_double_or_die();
+                createCone(figure,n,h);
+
+                applyTransformation(figure, translate(center));
+                applyTransformation(figure, RotateX(rotateX));
+                applyTransformation(figure, RotateY(rotateY));
+                applyTransformation(figure, RotateZ(rotateZ));
+                applyTransformation(figure, scaleFigure(scale));
+
+                figures3D.push_back(figure);
+            }
+            else if(type2 == "Cylinder"){
+                rotateX = confg[figureString]["rotateX"].as_double_or_die();
+                rotateY = confg[figureString]["rotateY"].as_double_or_die();
+                rotateZ = confg[figureString]["rotateZ"].as_double_or_die();
+                scale = confg[figureString]["scale"].as_double_or_die();
+                center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0], confg[figureString]["center"].as_double_tuple_or_die()[1], confg[figureString]["center"].as_double_tuple_or_die()[2]);
+                int n = confg[figureString]["n"].as_int_or_die();
+                double h = confg[figureString]["height"].as_double_or_die();
+
+                createCylinder(figure,n,h);
+
+                applyTransformation(figure, translate(center));
+                applyTransformation(figure, RotateX(rotateX));
+                applyTransformation(figure, RotateY(rotateY));
+                applyTransformation(figure, RotateZ(rotateZ));
+                applyTransformation(figure, scaleFigure(scale));
+
+                figures3D.push_back(figure);
+            }
+            else if(type2 == "Sphere"){
+                rotateX = confg[figureString]["rotateX"].as_double_or_die();
+                rotateY = confg[figureString]["rotateY"].as_double_or_die();
+                rotateZ = confg[figureString]["rotateZ"].as_double_or_die();
+                scale = confg[figureString]["scale"].as_double_or_die();
+                center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0], confg[figureString]["center"].as_double_tuple_or_die()[1], confg[figureString]["center"].as_double_tuple_or_die()[2]);
+                int n = confg[figureString]["n"].as_int_or_die();
+                createSphere(figure,n);
+
+                applyTransformation(figure, translate(center));
+                applyTransformation(figure, RotateX(rotateX));
+                applyTransformation(figure, RotateY(rotateY));
+                applyTransformation(figure, RotateZ(rotateZ));
+                applyTransformation(figure, scaleFigure(scale));
+
+                figures3D.push_back(figure);
+            }
+            else if(type2 == "Torus"){
+                rotateX = confg[figureString]["rotateX"].as_double_or_die();
+                rotateY = confg[figureString]["rotateY"].as_double_or_die();
+                rotateZ = confg[figureString]["rotateZ"].as_double_or_die();
+                scale = confg[figureString]["scale"].as_double_or_die();
+                center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0], confg[figureString]["center"].as_double_tuple_or_die()[1], confg[figureString]["center"].as_double_tuple_or_die()[2]);
+                int n = confg[figureString]["n"].as_int_or_die();
+                int m = confg[figureString]["m"].as_int_or_die();
+                int R = confg[figureString]["R"].as_double_or_die();
+                int r = confg[figureString]["r"].as_int_or_die();
+
+                createTorus(figure,n,m,R,r);
 
                 applyTransformation(figure, translate(center));
                 applyTransformation(figure, RotateX(rotateX));
