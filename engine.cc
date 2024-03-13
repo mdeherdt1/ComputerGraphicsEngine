@@ -331,11 +331,11 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
 
                 createCube(figure);
 
-                applyTransformation(figure, translate(center));
+                applyTransformation(figure, scaleFigure(scale));
                 applyTransformation(figure, RotateX(rotateX));
                 applyTransformation(figure, RotateY(rotateY));
                 applyTransformation(figure, RotateZ(rotateZ));
-                applyTransformation(figure, scaleFigure(scale));
+                applyTransformation(figure, translate(center));
 
                 figures3D.push_back(figure);
             }
@@ -348,11 +348,11 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
 
                 createTetrahedron(figure);
 
-                applyTransformation(figure, translate(center));
+                applyTransformation(figure, scaleFigure(scale));
                 applyTransformation(figure, RotateX(rotateX));
                 applyTransformation(figure, RotateY(rotateY));
                 applyTransformation(figure, RotateZ(rotateZ));
-                applyTransformation(figure, scaleFigure(scale));
+                applyTransformation(figure, translate(center));
 
                 figures3D.push_back(figure);
             }
@@ -365,11 +365,11 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
 
                 createOctahedron(figure);
 
-                applyTransformation(figure, translate(center));
+                applyTransformation(figure, scaleFigure(scale));
                 applyTransformation(figure, RotateX(rotateX));
                 applyTransformation(figure, RotateY(rotateY));
                 applyTransformation(figure, RotateZ(rotateZ));
-                applyTransformation(figure, scaleFigure(scale));
+                applyTransformation(figure, translate(center));
 
                 figures3D.push_back(figure);
             }
@@ -382,11 +382,11 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
 
                 createIcosahedron(figure);
 
-                applyTransformation(figure, translate(center));
+                applyTransformation(figure, scaleFigure(scale));
                 applyTransformation(figure, RotateX(rotateX));
                 applyTransformation(figure, RotateY(rotateY));
                 applyTransformation(figure, RotateZ(rotateZ));
-                applyTransformation(figure, scaleFigure(scale));
+                applyTransformation(figure, translate(center));
 
                 figures3D.push_back(figure);
             }
@@ -399,11 +399,11 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
 
                 createDodecahedron(figure);
 
-                applyTransformation(figure, translate(center));
+                applyTransformation(figure, scaleFigure(scale));
                 applyTransformation(figure, RotateX(rotateX));
                 applyTransformation(figure, RotateY(rotateY));
                 applyTransformation(figure, RotateZ(rotateZ));
-                applyTransformation(figure, scaleFigure(scale));
+                applyTransformation(figure, translate(center));
 
                 figures3D.push_back(figure);
             }
@@ -417,11 +417,11 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
                 double h = confg[figureString]["height"].as_double_or_die();
                 createCone(figure,n,h);
 
-                applyTransformation(figure, translate(center));
+                applyTransformation(figure, scaleFigure(scale));
                 applyTransformation(figure, RotateX(rotateX));
                 applyTransformation(figure, RotateY(rotateY));
                 applyTransformation(figure, RotateZ(rotateZ));
-                applyTransformation(figure, scaleFigure(scale));
+                applyTransformation(figure, translate(center));
 
                 figures3D.push_back(figure);
             }
@@ -436,11 +436,12 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
 
                 createCylinder(figure,n,h);
 
-                applyTransformation(figure, translate(center));
+                applyTransformation(figure, scaleFigure(scale));
                 applyTransformation(figure, RotateX(rotateX));
                 applyTransformation(figure, RotateY(rotateY));
                 applyTransformation(figure, RotateZ(rotateZ));
-                applyTransformation(figure, scaleFigure(scale));
+                applyTransformation(figure, translate(center));
+
 
                 figures3D.push_back(figure);
             }
@@ -453,11 +454,11 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
                 int n = confg[figureString]["n"].as_int_or_die();
                 createSphere(figure,n);
 
-                applyTransformation(figure, translate(center));
+                applyTransformation(figure, scaleFigure(scale));
                 applyTransformation(figure, RotateX(rotateX));
                 applyTransformation(figure, RotateY(rotateY));
                 applyTransformation(figure, RotateZ(rotateZ));
-                applyTransformation(figure, scaleFigure(scale));
+                applyTransformation(figure, translate(center));
 
                 figures3D.push_back(figure);
             }
@@ -474,11 +475,11 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
 
                 createTorus(figure,n,m,R,r);
 
-                applyTransformation(figure, translate(center));
+                applyTransformation(figure, scaleFigure(scale));
                 applyTransformation(figure, RotateX(rotateX));
                 applyTransformation(figure, RotateY(rotateY));
                 applyTransformation(figure, RotateZ(rotateZ));
-                applyTransformation(figure, scaleFigure(scale));
+                applyTransformation(figure, translate(center));
 
                 figures3D.push_back(figure);
             }
