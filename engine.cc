@@ -1,3 +1,5 @@
+#define USE_MATH_DEFINES
+
 #include "easy_image.h"
 #include "ini_configuration.h"
 #include "Color.h"
@@ -8,7 +10,8 @@
 #include "vector3d.h"
 #include "Figure.h"
 #include "Face.h"
-
+#include "PlatonischeLichamen.h"
+#include "translations.h"
 #include <set>
 #include <cmath>
 #include <fstream>
@@ -23,8 +26,6 @@
 
 
 
-
-constexpr double PI = 3.14159265358979323846;
 
 
 
@@ -111,8 +112,8 @@ Lines2D drawLSystem(const LParser::LSystem2D &l_system, Color lijnKleur = Color(
     srand(static_cast<unsigned int>(time(0)));
     Lines2D lijnen;
     double x = 0, y = 0; // Startpositie
-    double angle = l_system.get_angle() * (PI / 180.0); // Omrekenen naar radialen
-    double currentAngle = l_system.get_starting_angle() * (PI / 180.0); // Start hoek in radialen
+    double angle = l_system.get_angle() * (M_PI / 180.0); // Omrekenen naar radialen
+    double currentAngle = l_system.get_starting_angle() * (M_PI / 180.0); // Start hoek in radialen
     unsigned int iterations = l_system.get_nr_iterations();
     std::string currentString = l_system.get_initiator();
     std::set<char> alfabet = l_system.get_alphabet();
@@ -178,132 +179,20 @@ Lines2D drawLSystem(const LParser::LSystem2D &l_system, Color lijnKleur = Color(
                 break;
         }
         // Zorg dat de hoek binnen het bereik van 0 tot 2PI blijft
-        currentAngle = fmod(currentAngle, 2 * PI);
-        if (currentAngle < 0) currentAngle += 2 * PI; // Corrigeer negatieve hoek
+        currentAngle = fmod(currentAngle, 2 * M_PI);
+        if (currentAngle < 0) currentAngle += 2 * M_PI; // Corrigeer negatieve hoek
     }
     return lijnen;
 }
 
-Matrix scaleFigure(const double scale){
-    Matrix scaleMatrix = Matrix(); //matrix() maakt een 4x4 matrix aan met alle waarden op 0
-    scaleMatrix(1,1) = scale;
-    scaleMatrix(2,2) = scale;
-    scaleMatrix(3,3) = scale;
-    scaleMatrix(4,4) = 1;
-    return scaleMatrix;
-}
 
-Matrix RotateX(const double angle){
-    double rad = angle * (PI / 180.0);
-    Matrix rotateMatrix = Matrix();
-    rotateMatrix(1,1) = 1;
-    rotateMatrix(2,2) = cos(rad);
-    rotateMatrix(2,3) = sin(rad);
-    rotateMatrix(3,2) = -sin(rad);
-    rotateMatrix(3,3) = cos(rad);
-    rotateMatrix(4,4) = 1;
-    return rotateMatrix;
-}
 
-Matrix RotateY(const double angle){
-    double rad = angle * (PI / 180.0);
-    Matrix rotateMatrix = Matrix();
-    rotateMatrix(1,1) = cos(rad);
-    rotateMatrix(1,3) = -sin(rad);
-    rotateMatrix(2,2) = 1;
-    rotateMatrix(3,1) = sin(rad);
-    rotateMatrix(3,3) = cos(rad);
-    rotateMatrix(4,4) = 1;
-    return rotateMatrix;
-}
-
-Matrix RotateZ(const double angle){
-    double rad = angle * (PI / 180.0);
-    Matrix rotateMatrix = Matrix();
-    rotateMatrix(1,1) = cos(angle);
-    rotateMatrix(1,2) = sin(angle);
-    rotateMatrix(2,1) = -sin(angle);
-    rotateMatrix(2,2) = cos(angle);
-    rotateMatrix(3,3) = 1;
-    rotateMatrix(4,4) = 1;
-    return rotateMatrix;
-}
-
-Matrix translate(const Vector3D &vector){
-    Matrix translateMatrix = Matrix();
-    translateMatrix(1,1) = 1;
-    translateMatrix(2,2) = 1;
-    translateMatrix(3,3) = 1;
-    translateMatrix(4,4) = 1;
-    translateMatrix(1,4) = vector.x;
-    translateMatrix(2,4) = vector.y;
-    translateMatrix(3,4) = vector.z;
-    return translateMatrix;
-}
-
-void applyTransformation(Figure &fig, const Matrix &m) {
-for(auto &point:fig.points){
-    point =  point * m;
-}
-}
-void toPolar(const Vector3D &point, double &r, double &theta, double &phi){
-    r = sqrt(pow(point.x,2) + pow(point.y,2) + pow(point.z,2));
-    theta = atan2(point.y,point.x);
-    phi = acos(point.z/r);
-}
-
-Matrix eyePointTrans(const Vector3D &eyepoint){
-    double r, theta, phi;
-    toPolar(eyepoint, r, theta, phi);
-    // Creëer een identiteitsmatrix voor eyePointMatrix
-    Matrix eyePointMatrix2 = Matrix();
-    eyePointMatrix2(1,1) = -sin(theta);
-    eyePointMatrix2(1,2) = -cos(theta)*cos(phi);
-    eyePointMatrix2(1,3) = cos(theta)*sin(phi);
-    eyePointMatrix2(2,1) = cos(theta);
-    eyePointMatrix2(2,2) = -sin(theta)*cos(phi);
-    eyePointMatrix2(2,3) = sin(theta)*sin(phi);
-    eyePointMatrix2(3,2) = sin(phi);
-    eyePointMatrix2(3,3) = cos(phi);
-    eyePointMatrix2(4,3) = -r;
-    eyePointMatrix2(4,4) = 1;
-    return  eyePointMatrix2 ;
-}
-
-void applyTransformation(Figures3D &figs, const Matrix &m){
-    for(Figure &fig:figs){
-        applyTransformation(fig, m);
-    }
-}
-
-Point2D doProjection(const Vector3D &point, const double d = 1.0){
-    return Point2D(-point.x * d / point.z, -point.y * d / point.z);
-}
-
-Lines2D doProjection(const Figures3D &figures){
-    Lines2D lines;
-    for(const Figure &fig:figures){
-        for(const Face &face:fig.faces){
-            for(unsigned int i = 0; i < face.point_indexes.size(); ++i){
-                Point2D startPoint = doProjection(fig.points[face.point_indexes[0]]);
-                Point2D endPoint = doProjection(fig.points[face.point_indexes[(1)]]);
-                lines.push_back(Line2D(startPoint, endPoint, fig.color));
-            }
-        }
-    }
-    return lines;
-}
-
-img::EasyImage createWireFrame(int size, img::Color color, Vector3D eyeCords, Figures3D vector1){
-    for(Figure &fig:vector1) {
+img::EasyImage createWireFrame(int size, img::Color color, Vector3D eyeCords, Figures3D figures){
+    for(Figure &fig:figures) {
         applyTransformation(fig, eyePointTrans(eyeCords));
     }
-    return draw2DLines(doProjection(vector1), size, color);
+    return draw2DLines(doProjection(figures), size, color);
 }
-
-
-
-
 
 
 
@@ -432,6 +321,94 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
                 figures3D.push_back(figure);
             }
 
+            else if(type2 == "Cube"){
+                rotateX = confg[figureString]["rotateX"].as_int_or_die();
+                rotateY = confg[figureString]["rotateY"].as_int_or_die();
+                rotateZ = confg[figureString]["rotateZ"].as_int_or_die();
+                scale = confg[figureString]["scale"].as_double_or_die();
+                center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0], confg[figureString]["center"].as_double_tuple_or_die()[1], confg[figureString]["center"].as_double_tuple_or_die()[2]);
+
+
+                createCube(figure);
+
+                applyTransformation(figure, translate(center));
+                applyTransformation(figure, RotateX(rotateX));
+                applyTransformation(figure, RotateY(rotateY));
+                applyTransformation(figure, RotateZ(rotateZ));
+                applyTransformation(figure, scaleFigure(scale));
+
+                figures3D.push_back(figure);
+            }
+            else if(type2 == "Tetrahedron"){
+                rotateX = confg[figureString]["rotateX"].as_int_or_die();
+                rotateY = confg[figureString]["rotateY"].as_int_or_die();
+                rotateZ = confg[figureString]["rotateZ"].as_int_or_die();
+                scale = confg[figureString]["scale"].as_double_or_die();
+                center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0], confg[figureString]["center"].as_double_tuple_or_die()[1], confg[figureString]["center"].as_double_tuple_or_die()[2]);
+
+                createTetrahedron(figure);
+
+                applyTransformation(figure, translate(center));
+                applyTransformation(figure, RotateX(rotateX));
+                applyTransformation(figure, RotateY(rotateY));
+                applyTransformation(figure, RotateZ(rotateZ));
+                applyTransformation(figure, scaleFigure(scale));
+
+                figures3D.push_back(figure);
+            }
+            else if(type2 == "Octahedron"){
+                rotateX = confg[figureString]["rotateX"].as_int_or_die();
+                rotateY = confg[figureString]["rotateY"].as_int_or_die();
+                rotateZ = confg[figureString]["rotateZ"].as_int_or_die();
+                scale = confg[figureString]["scale"].as_double_or_die();
+                center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0], confg[figureString]["center"].as_double_tuple_or_die()[1], confg[figureString]["center"].as_double_tuple_or_die()[2]);
+
+                createOctahedron(figure);
+
+                applyTransformation(figure, translate(center));
+                applyTransformation(figure, RotateX(rotateX));
+                applyTransformation(figure, RotateY(rotateY));
+                applyTransformation(figure, RotateZ(rotateZ));
+                applyTransformation(figure, scaleFigure(scale));
+
+                figures3D.push_back(figure);
+            }
+            else if(type2 == "Icosahedron"){
+                rotateX = confg[figureString]["rotateX"].as_int_or_die();
+                rotateY = confg[figureString]["rotateY"].as_int_or_die();
+                rotateZ = confg[figureString]["rotateZ"].as_int_or_die();
+                scale = confg[figureString]["scale"].as_double_or_die();
+                center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0], confg[figureString]["center"].as_double_tuple_or_die()[1], confg[figureString]["center"].as_double_tuple_or_die()[2]);
+
+                createIcosahedron(figure);
+
+                applyTransformation(figure, translate(center));
+                applyTransformation(figure, RotateX(rotateX));
+                applyTransformation(figure, RotateY(rotateY));
+                applyTransformation(figure, RotateZ(rotateZ));
+                applyTransformation(figure, scaleFigure(scale));
+
+                figures3D.push_back(figure);
+            }
+            else if(type2 == "Dodecahedron"){
+                rotateX = confg[figureString]["rotateX"].as_int_or_die();
+                rotateY = confg[figureString]["rotateY"].as_int_or_die();
+                rotateZ = confg[figureString]["rotateZ"].as_int_or_die();
+                scale = confg[figureString]["scale"].as_double_or_die();
+                center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0], confg[figureString]["center"].as_double_tuple_or_die()[1], confg[figureString]["center"].as_double_tuple_or_die()[2]);
+
+                createDodecahedron(figure);
+
+                applyTransformation(figure, translate(center));
+                applyTransformation(figure, RotateX(rotateX));
+                applyTransformation(figure, RotateY(rotateY));
+                applyTransformation(figure, RotateZ(rotateZ));
+                applyTransformation(figure, scaleFigure(scale));
+
+                figures3D.push_back(figure);
+            }
+
+
         }
         return createWireFrame(size, backGroundColor, eyeCords, figures3D);
     }
@@ -439,6 +416,7 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
 
         return image;
     }
+
 
 
 
