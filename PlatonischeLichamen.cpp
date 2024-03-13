@@ -6,6 +6,9 @@
 
 
 void createCube(Figure& figure) {
+    figure.points.clear();
+    figure.faces.clear();
+
     /*
      * points: [1, -1, -1], [-1, 1, -1], [1, 1, 1], [-1, -1, 1], [1, 1, -1], [-1, -1, -1], [1, -1, 1], [-1, 1, 1]
      * faces: [1,5,3,7], [5,2,8,3], [2,6,4,8], [6,1,7,4], [7,3,8,4], [1,6,2,5]
@@ -31,6 +34,9 @@ void createCube(Figure& figure) {
 }
 
 void createTetrahedron(Figure &figure) {
+    figure.points.clear();
+    figure.faces.clear();
+
     /*
      * points: [1, -1, -1], [-1, 1, -1], [1, 1, 1], [-1, -1, 1]
      * faces: [0,1,2], [1,3,2], [0,3,1], [0,2,3]
@@ -50,6 +56,9 @@ void createTetrahedron(Figure &figure) {
 }
 
 void createOctahedron(Figure &figure) {
+    figure.points.clear();
+    figure.faces.clear();
+
     /*
      * points: [1, 0, 0], [0, 1, 0], [-1, 0, 0], [0, -1, 0], [0, 0, -1], [0, 0, 1]
      * faces: [0,1,5], [1,2,5], [2,3,5], [3,0,5], [1,0,4], [2,1,4], [3,2,4], [0,3,4]
@@ -74,6 +83,9 @@ void createOctahedron(Figure &figure) {
 }
 
 void createIcosahedron(Figure &figure) {
+    figure.points.clear();
+    figure.faces.clear();
+
     for(int i = 1; i <= 12; i++) {
         if (i == 1) {
             figure.points.push_back(Vector3D::point(0, 0, sqrt(5) / 2));
@@ -123,6 +135,9 @@ void createIcosahedron(Figure &figure) {
 }
 
 void createDodecahedron(Figure &figure) {
+    figure.points.clear();
+    figure.faces.clear();
+
     createIcosahedron(figure);
     std::vector<Vector3D> newPoints;
 
@@ -170,12 +185,12 @@ void createCone(Figure &figure, const int n, const double h) {
         figure.points.push_back(point);
     }
 
-    Vector3D topPoint = Vector3D::point(0, 0, h);
-    figure.points.push_back(topPoint);
+    Vector3D top = Vector3D::point(0, 0, h);
+    figure.points.push_back(top);
 
     for (int i = 0; i < n; ++i) {
-        std::vector<int> facePoints = {i, (i + 1) % n, n}; // n is the index of the top point
-        figure.faces.push_back(Face(facePoints));
+        std::vector<int> zijVlak = {i, (i + 1) % n, n};
+        figure.faces.push_back(Face(zijVlak));
     }
 
     std::vector<int> basePoints;
@@ -187,25 +202,21 @@ void createCone(Figure &figure, const int n, const double h) {
 }
 
 void createCylinder(Figure &figure, const int n, const double h) {
-    // Wis bestaande punten en vlakken in de figuur
     figure.points.clear();
     figure.faces.clear();
 
-    // Genereer n punten voor het grondvlak van de cilinder
     for (int i = 0; i < n; ++i) {
         double angle = 2 * M_PI * i / n;
         Vector3D bottomPoint = Vector3D::point(cos(angle), sin(angle), 0);
         figure.points.push_back(bottomPoint);
     }
 
-    // Genereer n punten voor het bovenvlak van de cilinder
     for (int i = 0; i < n; ++i) {
         double angle = 2 * M_PI * i / n;
         Vector3D topPoint = Vector3D::point(cos(angle), sin(angle), h);
         figure.points.push_back(topPoint);
     }
 
-    // Maak zijvlakken (vierhoeken)
     for (int i = 0; i < n; ++i) {
         std::vector<int> facePoints = {
                 i,
@@ -216,14 +227,12 @@ void createCylinder(Figure &figure, const int n, const double h) {
         figure.faces.push_back(Face(facePoints));
     }
 
-    // Maak het grondvlak
     std::vector<int> bottomFacePoints;
     for (int i = 0; i < n; ++i) {
         bottomFacePoints.push_back(i);
     }
     figure.faces.push_back(Face(bottomFacePoints));
 
-    // Maak het bovenvlak
     std::vector<int> topFacePoints;
     for (int i = n; i < 2*n; ++i) {
         topFacePoints.push_back(i);
@@ -232,7 +241,7 @@ void createCylinder(Figure &figure, const int n, const double h) {
 }
 
 int findOrAddPoint(Figure &figure, Vector3D point) {
-    point.normalise(); // Normaliseer het punt voordat het wordt vergeleken of toegevoegd
+    point.normalise();
     for (size_t i = 0; i < figure.points.size(); ++i) {
         if (figure.points[i].x == point.x && figure.points[i].y == point.y && figure.points[i].z == point.z) {
             return i;
@@ -248,12 +257,10 @@ void subdivide(Figure &figure, int n) {
     std::vector<Face> newFaces;
 
     for (auto &face : figure.faces) {
-        // Voorbeeld van puntindexen voor een enkele driehoek
         int i1 = face.point_indexes[0];
         int i2 = face.point_indexes[1];
         int i3 = face.point_indexes[2];
 
-        // Bereken middenpunten voor elke zijde van de driehoek
         Vector3D m1 = Vector3D::point((figure.points[i1].x + figure.points[i2].x) / 2,
                                       (figure.points[i1].y + figure.points[i2].y) / 2,
                                       (figure.points[i1].z + figure.points[i2].z) / 2);
@@ -266,19 +273,16 @@ void subdivide(Figure &figure, int n) {
                                       (figure.points[i1].y + figure.points[i3].y) / 2,
                                       (figure.points[i1].z + figure.points[i3].z) / 2);
 
-        // Voeg middenpunten toe of vind hun indexen
         int m1i = findOrAddPoint(figure, m1);
         int m2i = findOrAddPoint(figure, m2);
         int m3i = findOrAddPoint(figure, m3);
 
-        // Voeg nieuwe driehoeken toe
         newFaces.push_back(Face({i1, m1i, m3i}));
         newFaces.push_back(Face({i2, m2i, m1i}));
         newFaces.push_back(Face({i3, m3i, m2i}));
         newFaces.push_back(Face({m1i, m2i, m3i}));
     }
 
-    // Vervang oude vlakken door nieuwe
     figure.faces = newFaces;
 
     // Recursieve aanroep voor de volgende subdivisie
@@ -286,13 +290,10 @@ void subdivide(Figure &figure, int n) {
 }
 
 void createSphere(Figure &figure, const int n) {
-    // Begin met een icosahedron
     createIcosahedron(figure);
 
-    // Voer de subdivisie n keer uit
     subdivide(figure, n);
 
-    // Normaliseer alle punten direct (correctie)
     for (auto &point : figure.points) {
         point.normalise();
     }
@@ -317,11 +318,11 @@ void createTorus(Figure &figure, const int n, const int m, const double R, const
     // Genereer de oppervlakken
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < m; ++j) {
-            int first = (i * m + j) % (n * m);
-            int second = ((i + 1) % n * m + j) % (n * m);
-            int third = ((i + 1) % n * m + (j + 1) % m) % (n * m);
-            int fourth = (i * m + (j + 1) % m) % (n * m);
-            figure.faces.push_back(Face({first, second, third, fourth}));
+            int p1 = (i * m + j) % (n * m);
+            int p2 = ((i + 1) % n * m + j) % (n * m);
+            int p3 = ((i + 1) % n * m + (j + 1) % m) % (n * m);
+            int p4 = (i * m + (j + 1) % m) % (n * m);
+            figure.faces.push_back(Face({p1, p2, p3, p4}));
         }
     }
 }

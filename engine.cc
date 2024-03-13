@@ -483,8 +483,6 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
 
                 figures3D.push_back(figure);
             }
-
-
         }
         return createWireFrame(size, backGroundColor, eyeCords, figures3D);
     }

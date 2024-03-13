@@ -21,11 +21,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="08afa348-ef0d-4fc7-84fe-6d077204407f" name="Changes" comment="alles werkt buiten de afstanden tussen de torus middelpunt">
+    <list default="true" id="08afa348-ef0d-4fc7-84fe-6d077204407f" name="Changes" comment="FULLY WORKING GRAPHICS">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/engine.cc.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/engine.cc.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/objects.a" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/objects.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PlatonischeLichamen.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PlatonischeLichamen.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/engine.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/engine.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/engine.cc" beforeDir="false" afterPath="$PROJECT_DIR$/engine.cc" afterDir="false" />
     </list>
@@ -52,7 +50,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "CMake Application.Cone.executor": "Run",
-    "CMake Application.Cylinder.executor": "Run",
+    "CMake Application.Cylinder.executor": "Debug",
     "CMake Application.Dodecahedron.executor": "Run",
     "CMake Application.Icosahedron.executor": "Run",
     "CMake Application.Icosahedron2.executor": "Run",
@@ -83,11 +81,6 @@
     </key>
   </component>
   <component name="RunManager" selected="CMake Application.Cylinder">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Cone" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="wireframes021.ini wireframes026.ini wireframes023.ini wireframes064.ini wireframes024.ini wireframes022.ini wireframes025.ini wireframes060.ini wireframes062.ini wireframes065.ini wireframes063.ini wireframes061.ini" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" WORKING_DIR="file://../wireframes" PASS_PARENT_ENVS_2="true" PROJECT_NAME="engine" TARGET_NAME="engine" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="engine" RUN_TARGET_NAME="engine">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -104,6 +97,11 @@
       </method>
     </configuration>
     <configuration name="Icosahedron" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="wireframes018.ini wireframes057.ini" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" WORKING_DIR="file://../wireframes" PASS_PARENT_ENVS_2="true" PROJECT_NAME="engine" TARGET_NAME="engine" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="engine" RUN_TARGET_NAME="engine">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -149,7 +147,8 @@
       <workItem from="1710074722823" duration="154000" />
       <workItem from="1710105842835" duration="151000" />
       <workItem from="1710192506431" duration="47000" />
-      <workItem from="1710354151457" duration="10228000" />
+      <workItem from="1710354151457" duration="10728000" />
+      <workItem from="1710369955496" duration="1906000" />
     </task>
     <task id="LOCAL-00001" summary="only last test not working">
       <option name="closed" value="true" />
@@ -191,7 +190,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710363811357</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="FULLY WORKING GRAPHICS">
+      <option name="closed" value="true" />
+      <created>1710364451434</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1710364451434</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -208,20 +215,16 @@
     <MESSAGE value="working dodecahedron" />
     <MESSAGE value="werkt bijna volledig" />
     <MESSAGE value="alles werkt buiten de afstanden tussen de torus middelpunt" />
-    <option name="LAST_COMMIT_MESSAGE" value="alles werkt buiten de afstanden tussen de torus middelpunt" />
+    <MESSAGE value="FULLY WORKING GRAPHICS" />
+    <option name="LAST_COMMIT_MESSAGE" value="FULLY WORKING GRAPHICS" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/PlatonischeLichamen.cpp</url>
-          <line>301</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/engine.cc</url>
-          <line>472</line>
-          <option name="timeStamp" value="20" />
+          <line>258</line>
+          <option name="timeStamp" value="21" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
