@@ -37,6 +37,7 @@ set(engine_sources
         PlatonischeLichamen.h
 		translations.cpp
 		translations.h
+		draw3DLsystem.cpp
 )
 
 ############################################################

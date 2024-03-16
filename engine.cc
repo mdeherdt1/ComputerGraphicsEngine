@@ -1,5 +1,6 @@
 #define _USE_MATH_DEFINES
 
+
 #include "easy_image.h"
 #include "ini_configuration.h"
 #include "Color.h"
@@ -19,11 +20,8 @@
 #include <stdexcept>
 #include <stack>
 #include <ctime>
-
-
-
 #include <string>
-
+#include "draw3DLsystem.h"
 
 
 
@@ -77,6 +75,7 @@ img::EasyImage draw2DLines(const Lines2D &lines, const int size, img::Color back
 
     double dx = width / 2 - DCx;
     double dy = height / 2 - DCy;
+
 
     for (Line2D lijn:lines) {
         lijn.p1.x = round(lijn.p1.x * schaalFactor + dx);
@@ -483,14 +482,35 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
 
                 figures3D.push_back(figure);
             }
+            else if(type2 == "3DLSystem"){
+                std::string inputFile = confg[figureString]["inputfile"];
+                LParser::LSystem3D l_system;
+                std::ifstream input_stream(inputFile);
+                input_stream >> l_system;
+                input_stream.close();
+                rotateX = confg[figureString]["rotateX"].as_double_or_die();
+                rotateY = confg[figureString]["rotateY"].as_double_or_die();
+                rotateZ = confg[figureString]["rotateZ"].as_double_or_die();
+                scale = confg[figureString]["scale"].as_double_or_die();
+                center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0], confg[figureString]["center"].as_double_tuple_or_die()[1], confg[figureString]["center"].as_double_tuple_or_die()[2]);
+                Color kleur = Color(confg[figureString]["color"].as_double_tuple_or_die()[0], confg[figureString]["color"].as_double_tuple_or_die()[1], confg[figureString]["color"].as_double_tuple_or_die()[2]);
+
+                drawLSystem3D(l_system,figure, kleur);
+
+                applyTransformation(figure, scaleFigure(scale));
+                applyTransformation(figure, RotateX(rotateX));
+                applyTransformation(figure, RotateY(rotateY));
+                applyTransformation(figure, RotateZ(rotateZ));
+                applyTransformation(figure, translate(center));
+
+                figures3D.push_back(figure);
+            }
         }
         return createWireFrame(size, backGroundColor, eyeCords, figures3D);
     }
 
-
         return image;
     }
-
 
 
 
