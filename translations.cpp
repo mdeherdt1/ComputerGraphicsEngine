@@ -113,14 +113,14 @@ Point2D doProjection(const Vector3D &point, const double d){
 
 Lines2D doProjection(const Figures3D &figures){
     Lines2D lines;
-    for(const Figure &fig:figures){
-        for(const Face &face:fig.faces){
-            for(unsigned int i = 0; i < face.point_indexes.size(); ++i){
-                Vector3D point1 = fig.points[face.point_indexes[i]];
-                Vector3D point2 = fig.points[face.point_indexes[(i+1)%face.point_indexes.size()]];
-                lines.push_back(Line2D(doProjection(point1), doProjection(point2), fig.color));
+    for(const Figure &fig:figures) {
+            for (const Face &face: fig.faces) {
+                for (unsigned int i = 0; i < face.point_indexes.size(); ++i) {
+                    Vector3D point1 = fig.points[face.point_indexes[i]];
+                    Vector3D point2 = fig.points[face.point_indexes[(i + 1) % face.point_indexes.size()]];
+                    lines.push_back(Line2D(doProjection(point1), doProjection(point2), fig.color));
+                }
             }
         }
-    }
     return lines;
 }

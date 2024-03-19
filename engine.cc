@@ -483,6 +483,7 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
                 figures3D.push_back(figure);
             }
             else if(type2 == "3DLSystem"){
+                figure.name = "3DLSystem";
                 std::string inputFile = confg[figureString]["inputfile"];
                 LParser::LSystem3D l_system;
                 std::ifstream input_stream(inputFile);

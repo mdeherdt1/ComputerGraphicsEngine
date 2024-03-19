@@ -22,30 +22,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="08afa348-ef0d-4fc7-84fe-6d077204407f" name="Changes" comment="FULLY WORKING GRAPHICS">
-      <change afterPath="$PROJECT_DIR$/draw3DLsystem.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/draw3DLsystem.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-f93aa76784b0a0dab24f.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/directory-.-Debug-e8598ca4139bd0411ced.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/index-2024-03-13T19-34-10-0141.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-engine-Debug-f675f383284342cdd8c6.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/DependInfo.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/build.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/cmake_clean.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/cmake_clean.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/compiler_depend.internal" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/compiler_depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/compiler_depend.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/engine.cc.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/engine.cc.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/objects.a" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/objects.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/objects1.rsp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/objects1.rsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/progress.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Figure.h" beforeDir="false" afterPath="$PROJECT_DIR$/Figure.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/engine.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/engine.cbp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/engine.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/engine.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/draw3DLsystem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/draw3DLsystem.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/engine.cc" beforeDir="false" afterPath="$PROJECT_DIR$/engine.cc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/translations.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/translations.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wireframes/wireframes012.ini" beforeDir="false" afterPath="$PROJECT_DIR$/wireframes/wireframes012.ini" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -73,9 +56,9 @@
     "CMake Application.Cone.executor": "Run",
     "CMake Application.Cylinder.executor": "Run",
     "CMake Application.Dodecahedron.executor": "Run",
-    "CMake Application.Icosahedron.executor": "Run",
+    "CMake Application.Icosahedron.executor": "Debug",
     "CMake Application.Icosahedron2.executor": "Run",
-    "CMake Application.L3D.executor": "Debug",
+    "CMake Application.L3D.executor": "Run",
     "CMake Application.engine.executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -172,6 +155,8 @@
       <workItem from="1710354151457" duration="10728000" />
       <workItem from="1710369955496" duration="1906000" />
       <workItem from="1710595739573" duration="4947000" />
+      <workItem from="1710666386144" duration="611000" />
+      <workItem from="1710871817433" duration="6097000" />
     </task>
     <task id="LOCAL-00001" summary="only last test not working">
       <option name="closed" value="true" />
@@ -250,26 +235,21 @@
           <option name="timeStamp" value="21" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/engine.cc</url>
-          <line>189</line>
-          <option name="timeStamp" value="37" />
+          <url>file://$PROJECT_DIR$/draw3DLsystem.h</url>
+          <line>19</line>
+          <option name="timeStamp" value="57" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/engine.cc</url>
-          <line>29</line>
-          <option name="timeStamp" value="38" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/engine.cc</url>
-          <line>41</line>
-          <option name="timeStamp" value="39" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/engine.cc</url>
-          <line>79</line>
-          <option name="timeStamp" value="41" />
+          <line>313</line>
+          <option name="timeStamp" value="67" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="CMakeRunConfiguration">
+        <watch expression="figures[0]" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
