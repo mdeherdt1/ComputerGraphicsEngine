@@ -116,4 +116,30 @@ void drawLSystem3D(LParser::LSystem3D l_system, Figure &figure, Color color) {
 
 }
 
+void confg3DLSystem(LParser::LSystem3D &l_system, const ini::Configuration &configuration, std::string figureString,
+                    int size, std::vector<double> backGroundINI, img::Color backgroundColor, int nrO) {
+
+}
+
+LParser::LSystem3D createLSystem3D(const ini::Configuration &confg, std::string figureString, double &scale, double &rotateX, double &rotateY, double &rotateZ, Vector3D &center, Color &kleur) {
+    std::string inputFile = confg[figureString]["inputfile"];
+    LParser::LSystem3D l_system;
+    std::ifstream input_stream(inputFile);
+    input_stream >> l_system;
+    input_stream.close();
+
+    rotateX = confg[figureString]["rotateX"].as_double_or_die();
+    rotateY = confg[figureString]["rotateY"].as_double_or_die();
+    rotateZ = confg[figureString]["rotateZ"].as_double_or_die();
+    scale = confg[figureString]["scale"].as_double_or_die();
+    center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0], confg[figureString]["center"].as_double_tuple_or_die()[1], confg[figureString]["center"].as_double_tuple_or_die()[2]);
+     kleur = Color(confg[figureString]["color"].as_double_tuple_or_die()[0], confg[figureString]["color"].as_double_tuple_or_die()[1], confg[figureString]["color"].as_double_tuple_or_die()[2]);
+
+
+    return l_system;
+}
+
+
+
+
 

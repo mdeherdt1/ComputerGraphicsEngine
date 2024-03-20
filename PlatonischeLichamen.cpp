@@ -330,8 +330,8 @@ void createTorus(Figure &figure, const int n, const int m, const double R, const
     }
 }
 
-void confgCube(double &rotateX, double &rotateY, double &rotateZ, double &scale, Vector3D &center,
-               const ini::Configuration &confg, std::string figureString) {
+void configFigure(double &rotateX, double &rotateY, double &rotateZ, double &scale, Vector3D &center,
+                  const ini::Configuration &confg, std::string figureString) {
     rotateX = confg[figureString]["rotateX"].as_double_or_die();
     rotateY = confg[figureString]["rotateY"].as_double_or_die();
     rotateZ = confg[figureString]["rotateZ"].as_double_or_die();
@@ -341,6 +341,13 @@ void confgCube(double &rotateX, double &rotateY, double &rotateZ, double &scale,
 
 }
 
+void configCylinder(double &rotateX, double &rotateY, double &rotateZ, double &scale, Vector3D &center,
+                    const ini::Configuration &confg, std::string figureString, double &h, int &n) {
+    configFigure(rotateX, rotateY, rotateZ, scale, center, confg, figureString);
+     n = confg[figureString]["n"].as_int_or_die();
+     h = confg[figureString]["height"].as_double_or_die();
+}
+
 void applyAllTransformations(Figure &figure, double scaleFactor, double rotateX, double rotateY, double rotateZ,
                              Vector3D center) {
     applyTransformation(figure, scaleFigure(scaleFactor));
@@ -348,5 +355,20 @@ void applyAllTransformations(Figure &figure, double scaleFactor, double rotateX,
     applyTransformation(figure, RotateY(rotateY));
     applyTransformation(figure, RotateZ(rotateZ));
     applyTransformation(figure, translate(center));
+}
+
+void configSphere(double &rotateX, double &rotateY, double &rotateZ, double &scale, Vector3D &center,
+                  const ini::Configuration &confg, std::string figureString, int &n) {
+    configFigure(rotateX, rotateY, rotateZ, scale, center, confg, figureString);
+     n = confg[figureString]["n"].as_int_or_die();
+}
+
+void configTorus(double &rotateX, double &rotateY, double &rotateZ, double &scale, Vector3D &center,
+                 const ini::Configuration &confg, std::string figureString, double &R, int &r, int &n, int &m) {
+    configFigure(rotateX, rotateY, rotateZ, scale, center, confg, figureString);
+     n = confg[figureString]["n"].as_int_or_die();
+     m = confg[figureString]["m"].as_int_or_die();
+     R = confg[figureString]["R"].as_double_or_die();
+     r = confg[figureString]["r"].as_int_or_die();
 }
 

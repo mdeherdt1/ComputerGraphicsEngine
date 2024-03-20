@@ -31,9 +31,11 @@
 #include "Point2D.h"
 #include "Vector3D.h"
 
-
-
+LParser::LSystem3D createLSystem3D(const ini::Configuration &configuration, std::string figureString, double& scaleFactor, double& rotateX, double& rotateY, double& rotateZ, Vector3D& center, Color& kleur);
 
 void drawLSystem3D(LParser::LSystem3D system3D, Figure &figure, Color kleur);
 
+
 #endif //ENGINE_DRAW3DLSYSTEM_H
+
+

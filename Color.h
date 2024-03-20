@@ -13,6 +13,8 @@ public:
     double blue;
 
     Color(double red, double green, double blue);
+
+    Color();
 };
 
 
