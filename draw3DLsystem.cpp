@@ -11,8 +11,8 @@
 #include <array>
 
 /// Global index counter
-int point_index = 0;
 void drawLSystem3D(LParser::LSystem3D l_system, Figure &figure, Color color) {
+    int point_index = 0;
     Vector3D position = Vector3D::point(0, 0, 0); // Startpositie in 3D
     double angle = l_system.get_angle() * (M_PI / 180.0); // Omrekenen naar radialen
     unsigned int iterations = l_system.get_nr_iterations();
@@ -111,9 +111,8 @@ void drawLSystem3D(LParser::LSystem3D l_system, Figure &figure, Color color) {
                 break;
         }
     }
-    
-    figure.color = color;
 
+    figure.color = color;
 
 }
 

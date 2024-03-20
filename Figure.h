@@ -17,8 +17,6 @@ public:
     std::vector<Face> faces;
     Color color;
 
-    std::string name = "";
-
     explicit Figure(const Color &color);
 };
 typedef std::vector<Figure> Figures3D;
