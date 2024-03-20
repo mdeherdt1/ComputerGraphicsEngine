@@ -7,8 +7,10 @@
 
 #include "Figure.h"
 #include <cmath>
+#include "easy_image.h"
+#include "ini_configuration.h"
 
-
+void confgCube(double& rotateX, double& rotateY, double& rotateZ, double& scale, Vector3D& center, const ini::Configuration &configuration, std::string figureString);
 void createCube(Figure& figure);
 
 void createTetrahedron(Figure& figure);
@@ -31,6 +33,6 @@ void createSphere(Figure& figure, const int n);
 
 void createTorus(Figure& figure, const int n, const int m, const double R, const double r);
 
-
+void applyAllTransformations(Figure& figure, double scaleFactor, double rotateX, double rotateY, double rotateZ, Vector3D center);
 
 #endif //ENGINE_PLATONISCHELICHAMEN_H

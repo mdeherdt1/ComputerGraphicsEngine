@@ -1,6 +1,6 @@
 CMakeFiles/engine.dir/ini_configuration.cc.obj: \
- C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\ini_configuration.cc \
- C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\ini_configuration.h \
+ C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\ini_configuration.cc \
+ C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\ini_configuration.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/iostream \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/requires_hosted.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/c++config.h \

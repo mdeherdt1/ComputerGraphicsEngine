@@ -10,8 +10,9 @@ class Point2D {
 public:
     double x;
     double y;
+    double z;
 
-    Point2D(double x, double y);
+    Point2D(double x, double y, double z = 0);
 };
 
 

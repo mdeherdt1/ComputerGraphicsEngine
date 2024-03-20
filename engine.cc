@@ -22,12 +22,13 @@
 #include <ctime>
 #include <string>
 #include "draw3DLsystem.h"
+#include "ZBuffering.h"
 
 
 
 
 
-img::EasyImage draw2DLines(const Lines2D &lines, const int size, img::Color background = img::Color(0, 0, 0)){
+img::EasyImage draw2DLines(const Lines2D &lines, const int size, img::Color background = img::Color(0, 0, 0), bool zBuffering = false) {
     std::vector<double> xjes ;
     std::vector<double>ytjes;
 
@@ -76,6 +77,7 @@ img::EasyImage draw2DLines(const Lines2D &lines, const int size, img::Color back
     double dx = width / 2 - DCx;
     double dy = height / 2 - DCy;
 
+    ZBuffer Zbuf = ZBuffer(width, height);
 
     for (Line2D lijn:lines) {
         lijn.p1.x = round(lijn.p1.x * schaalFactor + dx);
@@ -85,7 +87,12 @@ img::EasyImage draw2DLines(const Lines2D &lines, const int size, img::Color back
 
         img::Color kleur = img::Color(lijn.color.red*255,lijn.color.green*255,lijn.color.blue*255);
 
-        image.draw_line(lijn.p1.x,lijn.p1.y,lijn.p2.x,lijn.p2.y, kleur);
+        if(zBuffering){
+            image.draw_zbuf_line(Zbuf, lijn.p1.x, lijn.p1.y, lijn.p1.z, lijn.p2.x, lijn.p2.y, lijn.p2.z, kleur);
+        }
+        else{
+            image.draw_line(lijn.p1.x,lijn.p1.y,lijn.p2.x,lijn.p2.y, kleur);
+        }
 
     }
 
@@ -98,6 +105,7 @@ img::EasyImage draw2DLines(const Lines2D &lines, const int size, img::Color back
 
 LParser::LSystem2D DLSystem(const ini::Configuration &confg){
     std::string inputFile = confg["2DLSystem"]["inputfile"];
+    int size = confg["General"]["size"];
 
     LParser::LSystem2D l_system;
     std::ifstream input_stream(inputFile);
@@ -321,20 +329,11 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
             }
 
             else if(type2 == "Cube"){
-                rotateX = confg[figureString]["rotateX"].as_double_or_die();
-                rotateY = confg[figureString]["rotateY"].as_double_or_die();
-                rotateZ = confg[figureString]["rotateZ"].as_double_or_die();
-                scale = confg[figureString]["scale"].as_double_or_die();
-                center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0], confg[figureString]["center"].as_double_tuple_or_die()[1], confg[figureString]["center"].as_double_tuple_or_die()[2]);
-
+                confgCube(rotateX,rotateY,rotateZ,scale,center,confg,figureString);
 
                 createCube(figure);
 
-                applyTransformation(figure, scaleFigure(scale));
-                applyTransformation(figure, RotateX(rotateX));
-                applyTransformation(figure, RotateY(rotateY));
-                applyTransformation(figure, RotateZ(rotateZ));
-                applyTransformation(figure, translate(center));
+
 
                 figures3D.push_back(figure);
             }
@@ -451,6 +450,7 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
                 scale = confg[figureString]["scale"].as_double_or_die();
                 center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0], confg[figureString]["center"].as_double_tuple_or_die()[1], confg[figureString]["center"].as_double_tuple_or_die()[2]);
                 int n = confg[figureString]["n"].as_int_or_die();
+
                 createSphere(figure,n);
 
                 applyTransformation(figure, scaleFigure(scale));
@@ -515,6 +515,10 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
                 //reset everything that was initialized from the ini file
 
 
+            }
+            //vanaf hier ga ik proberen mijn code iets deftiger te maken zodat ik minder duplicate code heb
+            else if(type == "ZBufferedWireframe"){
+                return CreateZBufferedWireframe(confg, size);
             }
         }
         return createWireFrame(size, backGroundColor, eyeCords, figures3D);

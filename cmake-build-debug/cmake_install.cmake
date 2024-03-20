@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/mathi/Documents/GitHub/ComputerGraphicsEngine
+# Install script for directory: C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,18 +39,18 @@ endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
-   "C:/Users/mathi/Documents/GitHub/ComputerGraphicsEngine/engine.exe")
+   "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/engine.exe")
   if(CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(WARNING "ABSOLUTE path INSTALL DESTINATION : ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-  file(INSTALL DESTINATION "C:/Users/mathi/Documents/GitHub/ComputerGraphicsEngine" TYPE EXECUTABLE FILES "C:/Users/mathi/Documents/GitHub/ComputerGraphicsEngine/cmake-build-debug/engine.exe")
-  if(EXISTS "$ENV{DESTDIR}/C:/Users/mathi/Documents/GitHub/ComputerGraphicsEngine/engine.exe" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}/C:/Users/mathi/Documents/GitHub/ComputerGraphicsEngine/engine.exe")
+  file(INSTALL DESTINATION "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics" TYPE EXECUTABLE FILES "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/cmake-build-debug/engine.exe")
+  if(EXISTS "$ENV{DESTDIR}/C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/engine.exe" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}/C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/engine.exe")
     if(CMAKE_INSTALL_DO_STRIP)
-      execute_process(COMMAND "C:/Program Files/JetBrains/CLion 2023.3.1/bin/mingw/bin/strip.exe" "$ENV{DESTDIR}/C:/Users/mathi/Documents/GitHub/ComputerGraphicsEngine/engine.exe")
+      execute_process(COMMAND "C:/Program Files/JetBrains/CLion 2023.3.1/bin/mingw/bin/strip.exe" "$ENV{DESTDIR}/C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/engine.exe")
     endif()
   endif()
 endif()
@@ -63,5 +63,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/mathi/Documents/GitHub/ComputerGraphicsEngine/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

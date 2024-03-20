@@ -21,6 +21,7 @@
 #include <math.h>
 #include <iostream>
 #include <sstream>
+#include <cmath>
 
 #ifndef le32toh
 #define le32toh(x) (x)
@@ -389,4 +390,86 @@ std::istream& img::operator>>(std::istream& in, EasyImage & image)
 	}
 	//okay we're done
 	return in;
+}
+
+void img::EasyImage::draw_zbuf_line(ZBuffer &zbuf, unsigned int x0, unsigned int y0, unsigned int z0, unsigned int x1,
+                                    unsigned int y1, unsigned int z1, img::Color color) {
+
+    bool verticaal = (x0 == x1);
+    bool horizontaal = (y0 == y1);
+    bool stijl = std::abs((long)y1 - (long)y0) > std::abs((long)x1 - (long)x0); //nagaan of de lijn steiler is dan 45 graden
+
+    if(verticaal){ //indien de lijn verticaal is, dan wordt de lijn gespiegeld over de lijn y=x
+        double min = std::min(y0, y1);
+        double max = std::max(y0, y1);
+        double a = max - min; //a is de afstand tussen de twee punten
+
+        for(int i = min; i <= max; i++) {
+            double p = (a - (i - min)) / a; //p is de verhouding van de afstand tussen de twee punten
+            double Zcurr = p/z0 + (1-p)/z1; //Zcurr is de z-waarde van het huidige punt
+            if(zbuf.v[x0][i] > Zcurr) {
+                zbuf.v[x0][i] = Zcurr;
+                (*this)(x0,i) = color;
+            }
+        }
+    }
+
+    else if(horizontaal){
+        double min = std::min(x0, x1);
+        double max = std::max(x0, x1);
+        double a = max - min; //a is de afstand tussen de twee punten
+
+        for(int i = min; i <= max; i++) {
+            double p = (a - (i - min)) / a; //p is de verhouding van de afstand tussen de twee punten
+            double Zcurr = p/z0 + (1-p)/z1; //Zcurr is de z-waarde van het huidige punt
+            if(zbuf.v[i][y0] > Zcurr) {
+                zbuf.v[i][y0] = Zcurr;
+                (*this)(i,y0) = color;
+            }
+        }
+    }
+
+    else {
+        if (x0 >
+            x1) { //wissel de punten om indien x0 groter is dan x1 om te voorkomen dat de lijn van rechts naar links wordt getekend
+            std::swap(x0, x1);
+            std::swap(y0, y1);
+        }
+        //berekenen van rico
+        double m = (y1 - y0) / (x1 - x0);
+
+        if (-1.0 <= m && m <= 1.0) {
+            double a = x1 - x0; //a is de afstand tussen de twee punten
+            for (int i = 0; i <= (x1 - x0); i++) {
+                double p = (a - i) / a; //p is de verhouding van de afstand tussen de twee punten
+                double Zcurr = p / z0 + (1 - p) / z1;
+                if (zbuf.v[x0 + i][y0 + m * i] > Zcurr) {
+                    zbuf.v[x0 + i][y0 + m * i] = Zcurr;
+                    (*this)(x0 + i, y0 + m * i) = color;
+                }
+            }
+        }
+        else if (m > 1.0){
+            double a = y1 - y0; //a is de afstand tussen de twee punten
+            for (int i = 0; i <= (y1 - y0); i++) {
+                double p = (a - i) / a; //p is de verhouding van de afstand tussen de twee punten
+                double Zcurr = p / z0 + (1 - p) / z1;
+                if (zbuf.v[x0 + i / m][y0 + i] > Zcurr) {
+                    zbuf.v[x0 + i / m][y0 + i] = Zcurr;
+                    (*this)(x0 + i / m, y0 + i) = color;
+                }
+            }
+        }
+        else if (m < -1.0){
+            double a = y0 - y1; //a is de afstand tussen de twee punten
+            for (int i = 0; i <= (y0 - y1); i++) {
+                double p = (a - i) / a; //p is de verhouding van de afstand tussen de twee punten
+                double Zcurr = p / z0 + (1 - p) / z1;
+                if (zbuf.v[x0 - i / m][y0 - i] > Zcurr) {
+                    zbuf.v[x0 - i / m][y0 - i] = Zcurr;
+                    (*this)(x0 - i / m, y0 - i) = color;
+                }
+            }
+        }
+    }
 }

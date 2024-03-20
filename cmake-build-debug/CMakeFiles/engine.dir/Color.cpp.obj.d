@@ -1,3 +1,3 @@
 CMakeFiles/engine.dir/Color.cpp.obj: \
- C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\Color.cpp \
- C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\Color.h
+ C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\Color.cpp \
+ C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\Color.h

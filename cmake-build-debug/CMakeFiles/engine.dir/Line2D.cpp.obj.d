@@ -1,8 +1,8 @@
 CMakeFiles/engine.dir/Line2D.cpp.obj: \
- C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\Line2D.cpp \
- C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\Line2D.h \
- C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\Point2D.h \
- C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\Color.h \
+ C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\Line2D.cpp \
+ C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\Line2D.h \
+ C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\Point2D.h \
+ C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\Color.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/vector \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/requires_hosted.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/c++config.h \

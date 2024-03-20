@@ -56,10 +56,10 @@ RM = "C:\Program Files\JetBrains\CLion 2023.3.1\bin\cmake\win\x64\bin\cmake.exe"
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine
+CMAKE_SOURCE_DIR = "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\cmake-build-debug
+CMAKE_BINARY_DIR = "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\cmake-build-debug"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -131,9 +131,9 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\cmake-build-debug\CMakeFiles C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\cmake-build-debug\\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\cmake-build-debug\CMakeFiles" "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\cmake-build-debug\\CMakeFiles\progress.marks"
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\cmake-build-debug\CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
@@ -340,6 +340,78 @@ StochasticRule.s: StochasticRule.cpp.s
 StochasticRule.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/StochasticRule.cpp.s
 .PHONY : StochasticRule.cpp.s
+
+ThreeD.obj: ThreeD.cpp.obj
+.PHONY : ThreeD.obj
+
+# target to build an object file
+ThreeD.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/ThreeD.cpp.obj
+.PHONY : ThreeD.cpp.obj
+
+ThreeD.i: ThreeD.cpp.i
+.PHONY : ThreeD.i
+
+# target to preprocess a source file
+ThreeD.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/ThreeD.cpp.i
+.PHONY : ThreeD.cpp.i
+
+ThreeD.s: ThreeD.cpp.s
+.PHONY : ThreeD.s
+
+# target to generate assembly for a file
+ThreeD.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/ThreeD.cpp.s
+.PHONY : ThreeD.cpp.s
+
+ZBuffer.obj: ZBuffer.cpp.obj
+.PHONY : ZBuffer.obj
+
+# target to build an object file
+ZBuffer.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/ZBuffer.cpp.obj
+.PHONY : ZBuffer.cpp.obj
+
+ZBuffer.i: ZBuffer.cpp.i
+.PHONY : ZBuffer.i
+
+# target to preprocess a source file
+ZBuffer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/ZBuffer.cpp.i
+.PHONY : ZBuffer.cpp.i
+
+ZBuffer.s: ZBuffer.cpp.s
+.PHONY : ZBuffer.s
+
+# target to generate assembly for a file
+ZBuffer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/ZBuffer.cpp.s
+.PHONY : ZBuffer.cpp.s
+
+ZBuffering.obj: ZBuffering.cpp.obj
+.PHONY : ZBuffering.obj
+
+# target to build an object file
+ZBuffering.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/ZBuffering.cpp.obj
+.PHONY : ZBuffering.cpp.obj
+
+ZBuffering.i: ZBuffering.cpp.i
+.PHONY : ZBuffering.i
+
+# target to preprocess a source file
+ZBuffering.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/ZBuffering.cpp.i
+.PHONY : ZBuffering.cpp.i
+
+ZBuffering.s: ZBuffering.cpp.s
+.PHONY : ZBuffering.s
+
+# target to generate assembly for a file
+ZBuffering.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/ZBuffering.cpp.s
+.PHONY : ZBuffering.cpp.s
 
 draw3DLsystem.obj: draw3DLsystem.cpp.obj
 .PHONY : draw3DLsystem.obj
@@ -567,6 +639,15 @@ help:
 	@echo ... StochasticRule.obj
 	@echo ... StochasticRule.i
 	@echo ... StochasticRule.s
+	@echo ... ThreeD.obj
+	@echo ... ThreeD.i
+	@echo ... ThreeD.s
+	@echo ... ZBuffer.obj
+	@echo ... ZBuffer.i
+	@echo ... ZBuffer.s
+	@echo ... ZBuffering.obj
+	@echo ... ZBuffering.i
+	@echo ... ZBuffering.s
 	@echo ... draw3DLsystem.obj
 	@echo ... draw3DLsystem.i
 	@echo ... draw3DLsystem.s

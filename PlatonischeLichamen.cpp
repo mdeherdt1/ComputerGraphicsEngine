@@ -3,6 +3,9 @@
 //
 #define _USE_MATH_DEFINES
 #include "PlatonischeLichamen.h"
+#include "translations.h"
+
+
 
 
 void createCube(Figure& figure) {
@@ -325,5 +328,25 @@ void createTorus(Figure &figure, const int n, const int m, const double R, const
             figure.faces.push_back(Face({p1, p2, p3, p4}));
         }
     }
+}
+
+void confgCube(double &rotateX, double &rotateY, double &rotateZ, double &scale, Vector3D &center,
+               const ini::Configuration &confg, std::string figureString) {
+    rotateX = confg[figureString]["rotateX"].as_double_or_die();
+    rotateY = confg[figureString]["rotateY"].as_double_or_die();
+    rotateZ = confg[figureString]["rotateZ"].as_double_or_die();
+    scale = confg[figureString]["scale"].as_double_or_die();
+    center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0], confg[figureString]["center"].as_double_tuple_or_die()[1], confg[figureString]["center"].as_double_tuple_or_die()[2]);
+
+
+}
+
+void applyAllTransformations(Figure &figure, double scaleFactor, double rotateX, double rotateY, double rotateZ,
+                             Vector3D center) {
+    applyTransformation(figure, scaleFigure(scaleFactor));
+    applyTransformation(figure, RotateX(rotateX));
+    applyTransformation(figure, RotateY(rotateY));
+    applyTransformation(figure, RotateZ(rotateZ));
+    applyTransformation(figure, translate(center));
 }
 
