@@ -1,7 +1,7 @@
 CMakeFiles/engine.dir/introduction.cpp.obj: \
- C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\introduction.cpp \
- C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\introduction.h \
- C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\easy_image.h \
+ C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\introduction.cpp \
+ C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\introduction.h \
+ C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\easy_image.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stdint.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/x86_64-w64-mingw32/include/stdint.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/x86_64-w64-mingw32/include/crtdefs.h \
@@ -143,7 +143,7 @@ CMakeFiles/engine.dir/introduction.cpp.obj: \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/ostream.tcc \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/istream \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/istream.tcc \
- C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\ini_configuration.h \
+ C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\ini_configuration.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/map \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_tree.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/ext/aligned_buffer.h \

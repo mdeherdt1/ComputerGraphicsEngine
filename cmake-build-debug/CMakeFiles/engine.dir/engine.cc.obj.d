@@ -1,6 +1,6 @@
 CMakeFiles/engine.dir/engine.cc.obj: \
- C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\engine.cc \
- C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\easy_image.h \
+ C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\engine.cc \
+ C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\easy_image.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/stdint.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/x86_64-w64-mingw32/include/stdint.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/x86_64-w64-mingw32/include/crtdefs.h \
@@ -142,7 +142,7 @@ CMakeFiles/engine.dir/engine.cc.obj: \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/ostream.tcc \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/istream \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/istream.tcc \
- C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\ini_configuration.h \
+ C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\ini_configuration.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/map \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_tree.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/ext/aligned_buffer.h \
@@ -151,22 +151,22 @@ CMakeFiles/engine.dir/engine.cc.obj: \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/uses_allocator.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_multimap.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/erase_if.h \
- C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\Color.h \
- C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\Point2D.h \
- C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\Line2D.h \
- C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\introduction.h \
- C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\l_parser.h \
+ C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\Color.h \
+ C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\Point2D.h \
+ C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\Line2D.h \
+ C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\introduction.h \
+ C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\l_parser.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/set \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_set.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_multiset.h \
- C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\StochasticRule.cpp \
- C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\vector3d.h \
- C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\Figure.h \
- C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\Face.h \
- C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\PlatonischeLichamen.h \
+ C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\StochasticRule.cpp \
+ C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\vector3d.h \
+ C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\Figure.h \
+ C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\Face.h \
+ C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\PlatonischeLichamen.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/cmath \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/x86_64-w64-mingw32/include/math.h \
- C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\translations.h \
+ C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\translations.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/fstream \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/codecvt.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32/bits/basic_file.h \
@@ -178,5 +178,5 @@ CMakeFiles/engine.dir/engine.cc.obj: \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/deque.tcc \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_stack.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/ctime \
- C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\draw3DLsystem.h \
- C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\Vector3D.h
+ C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\draw3DLsystem.h \
+ C:\Users\mathi\Documents\GitHub\ComputerGraphicsEngine\Vector3D.h

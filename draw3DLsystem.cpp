@@ -10,6 +10,8 @@
 #include <stack>
 #include <array>
 
+/// Global index counter
+int point_index = 0;
 void drawLSystem3D(LParser::LSystem3D l_system, Figure &figure, Color color) {
     Vector3D position = Vector3D::point(0, 0, 0); // Startpositie in 3D
     double angle = l_system.get_angle() * (M_PI / 180.0); // Omrekenen naar radialen
@@ -98,23 +100,18 @@ void drawLSystem3D(LParser::LSystem3D l_system, Figure &figure, Color color) {
                 break;
 
             default: // Move forward
-                Vector3D newPosition = position + Hforward;
-                lijnen.push_back(Line2D(Point2D(position.x, position.y), Point2D(newPosition.x, newPosition.y), color));
-                position = newPosition;
+                Vector3D cur_position = position;
+                position = position + H;
+                if(l_system.draw(c)){
+                    figure.points.push_back(cur_position);
+                    figure.points.push_back(position);
+                    figure.faces.push_back(Face({point_index, point_index + 1}));
+                    point_index += 2;
+                }
                 break;
         }
     }
-
-    for (Line2D lijn : lijnen) {
-        figure.points.push_back(Vector3D::point(lijn.p1.x, lijn.p1.y, 0));
-        figure.points.push_back(Vector3D::point(lijn.p2.x, lijn.p2.y, 0));
-    }
-
-    for (unsigned int i = 0; i < figure.points.size(); i += 2) {
-        figure.faces.push_back(Face({static_cast<int>(i), static_cast<int>(i + 1), static_cast<int>(i + 2)}));
-        figure.faces.push_back(Face({static_cast<int>(i + 1), static_cast<int>(i + 2), static_cast<int>(i + 3)}));
-    }
-
+    
     figure.color = color;
 
 
