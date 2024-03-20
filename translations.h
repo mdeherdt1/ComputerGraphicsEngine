@@ -46,7 +46,7 @@ void applyTransformation(Figures3D &figs, const Matrix &m);
 
 Point2D doProjection(const Vector3D &point, const double d = 1.0);
 
-Lines2D doProjection(const Figures3D &figures);
+Lines2D doProjection(const Figures3D figuren3D);
 
 
 #endif //ENGINE_TRANSLATIONS_H

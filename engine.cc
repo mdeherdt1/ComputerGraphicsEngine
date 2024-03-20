@@ -22,12 +22,10 @@
 #include <ctime>
 #include <string>
 #include "draw3DLsystem.h"
+#include "Wireframes.h"
 
 
-
-
-
-img::EasyImage draw2DLines(const Lines2D &lines, const int size, img::Color background = img::Color(0, 0, 0)){
+img::EasyImage draw2DLines(const Lines2D &lines, const int size, img::Color background = img::Color(0, 0, 0), bool zBuffer = false) {
     std::vector<double> xjes ;
     std::vector<double>ytjes;
 
@@ -68,24 +66,30 @@ img::EasyImage draw2DLines(const Lines2D &lines, const int size, img::Color back
 
     img::EasyImage image(width,height,background);
 
-    double schaalFactor = 0.95 * (width/x_range);
+    double d = 0.95 * (width / x_range);
 
-    double DCx = schaalFactor * ((x_min + x_max)/2);
-    double DCy = schaalFactor * ((y_min + y_max)/2);
+    double DCx = d * ((x_min + x_max) / 2);
+    double DCy = d * ((y_min + y_max) / 2);
 
     double dx = width / 2 - DCx;
     double dy = height / 2 - DCy;
 
+    ZBuffer Zbuf = ZBuffer(width, height);
 
     for (Line2D lijn:lines) {
-        lijn.p1.x = round(lijn.p1.x * schaalFactor + dx);
-        lijn.p1.y = round(lijn.p1.y * schaalFactor + dy);
-        lijn.p2.x = round(lijn.p2.x * schaalFactor + dx);
-        lijn.p2.y = round(lijn.p2.y * schaalFactor + dy);
+        lijn.p1.x = round(lijn.p1.x * d + dx);
+        lijn.p1.y = round(lijn.p1.y * d + dy);
+        lijn.p2.x = round(lijn.p2.x * d + dx);
+        lijn.p2.y = round(lijn.p2.y * d + dy);
 
         img::Color kleur = img::Color(lijn.color.red*255,lijn.color.green*255,lijn.color.blue*255);
 
-        image.draw_line(lijn.p1.x,lijn.p1.y,lijn.p2.x,lijn.p2.y, kleur);
+        if(zBuffer){
+            image.draw_zbuf_line(Zbuf, lijn.p1.x, lijn.p1.y, lijn.p1.z, lijn.p2.x, lijn.p2.y, lijn.p2.z, kleur);
+        }
+        else{
+            image.draw_line(lijn.p1.x,lijn.p1.y,lijn.p2.x,lijn.p2.y, kleur);
+        }
 
     }
 
@@ -187,11 +191,11 @@ Lines2D drawLSystem(const LParser::LSystem2D &l_system, Color lijnKleur = Color(
 
 
 
-img::EasyImage createWireFrame(int size, img::Color color, Vector3D eyeCords, Figures3D figures){
+img::EasyImage createWireFrame(int size, img::Color color, Vector3D eyeCords, Figures3D figures, bool zBuffer = false){
     for(Figure &fig:figures) {
         applyTransformation(fig, eyePointTrans(eyeCords));
     }
-    return draw2DLines(doProjection(figures), size, color);
+    return draw2DLines(doProjection(figures), size, color, zBuffer);
 }
 
 
@@ -219,7 +223,8 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
         bool invert = confg["BlockProperties"]["invertColors"].as_bool_or_die();
 
         return Blocks(type, width, height, colorWhite, colorBlack, nxB, nyB, invert);
-    } else if (type == "IntroLines") {
+    }
+    else if (type == "IntroLines") {
         width = confg["ImageProperties"]["width"].as_int_or_die();
         height = confg["ImageProperties"]["height"].as_int_or_die();
         img::EasyImage image(width, height);
@@ -272,144 +277,25 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
         return draw2DLines(lines,size,backGroundColor);
     }
     else if(type == "Wireframe"){
+
         size = confg["General"]["size"];
-        ini::DoubleTuple BackGroundINI = confg["General"]["backgroundcolor"];
-        img::Color backGroundColor = img::Color(BackGroundINI[0]*255, BackGroundINI[1]*255, BackGroundINI[2]*255);
-        int nrOfFigures = confg["General"]["nrFigures"].as_int_or_die();
-        ini::DoubleTuple eyeCordsINI = confg["General"]["eye"];
-        Vector3D eyeCords = Vector3D::point(eyeCordsINI[0], eyeCordsINI[1], eyeCordsINI[2]);
 
-        Figures3D figures3D;
-        double rotateX;
-        double rotateY;
-        double rotateZ;
-        double scale;
-        Vector3D center;
+        img::Color backGroundColor = img::Color();
+        Vector3D eyeCords = Vector3D();
 
+        Figures3D figures3D = configure3D(confg,size,backGroundColor,eyeCords);
 
-        for (unsigned int i = 0; i < nrOfFigures; ++i) {
-            std::string figureString = "Figure" + std::to_string(i);
-            std::string type2 = confg[figureString]["type"];
-
-            Figure figure = Figure(Color(confg[figureString]["color"].as_double_tuple_or_die()[0], confg[figureString]["color"].as_double_tuple_or_die()[1], confg[figureString]["color"].as_double_tuple_or_die()[2]));
-
-            if(type2 == "LineDrawing"){
-                rotateX = confg[figureString]["rotateX"].as_double_or_die();
-                rotateY = confg[figureString]["rotateY"].as_double_or_die();
-                rotateZ = confg[figureString]["rotateZ"].as_double_or_die();
-                scale = confg[figureString]["scale"].as_double_or_die();
-                Color figureColor = Color(confg[figureString]["color"].as_double_tuple_or_die()[0], confg[figureString]["color"].as_double_tuple_or_die()[1], confg[figureString]["color"].as_double_tuple_or_die()[2]);
-                center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0], confg[figureString]["center"].as_double_tuple_or_die()[1], confg[figureString]["center"].as_double_tuple_or_die()[2]);
-                int nrPoints = confg[figureString]["nrPoints"].as_int_or_die();
-                int nrLines = confg[figureString]["nrLines"].as_int_or_die();
-                for(int j = 0; j < nrPoints; ++j){
-                    std::string point = "point" + std::to_string(j);
-                    figure.points.push_back(Vector3D::point(confg[figureString][point].as_double_tuple_or_die()[0], confg[figureString][point].as_double_tuple_or_die()[1], confg[figureString][point].as_double_tuple_or_die()[2]));
-                }
-                for(int j = 0; j < nrLines; ++j){
-                    std::string Line = "line" + std::to_string(j);
-                    std::vector<int> pointIndexes = {};
-                    confg[figureString][Line].as_int_tuple_or_die();
-                    pointIndexes.push_back(confg[figureString][Line].as_int_tuple_or_die()[0]);
-                    pointIndexes.push_back(confg[figureString][Line].as_int_tuple_or_die()[1]);
-                    figure.faces.push_back(Face(pointIndexes));
-                }
-                applyAllTransformations(figure, scale, rotateX, rotateY, rotateZ, center);
-
-                figures3D.push_back(figure);
-            }
-
-            else if(type2 == "Cube"){
-                configFigure(rotateX, rotateY, rotateZ, scale, center, confg, figureString);
-                createCube(figure);
-                applyAllTransformations(figure, scale, rotateX, rotateY, rotateZ, center);
-
-                figures3D.push_back(figure);
-            }
-            else if(type2 == "Tetrahedron"){
-                configFigure(rotateX, rotateY, rotateZ, scale, center, confg, figureString);
-                createTetrahedron(figure);
-                applyAllTransformations(figure, scale, rotateX, rotateY, rotateZ, center);
-
-                figures3D.push_back(figure);
-            }
-            else if(type2 == "Octahedron"){
-                configFigure(rotateX, rotateY, rotateZ, scale, center, confg, figureString);
-                createOctahedron(figure);
-                applyAllTransformations(figure, scale, rotateX, rotateY, rotateZ, center);
-
-                figures3D.push_back(figure);
-            }
-            else if(type2 == "Icosahedron"){
-                configFigure(rotateX, rotateY, rotateZ, scale, center, confg, figureString);
-                createIcosahedron(figure);
-                applyAllTransformations(figure, scale, rotateX, rotateY, rotateZ, center);
-
-                figures3D.push_back(figure);
-            }
-            else if(type2 == "Dodecahedron"){
-                configFigure(rotateX, rotateY, rotateZ, scale, center, confg, figureString);
-                createDodecahedron(figure);
-                applyAllTransformations(figure, scale, rotateX, rotateY, rotateZ, center);
-
-                figures3D.push_back(figure);
-            }
-            else if (type2 == "Cone"){
-                double h;
-                int n;
-
-                configCylinder(rotateX, rotateY, rotateZ, scale, center, confg, figureString, h, n);
-                createCone(figure,n,h);
-                applyAllTransformations(figure, scale, rotateX, rotateY, rotateZ, center);
-
-                figures3D.push_back(figure);
-            }
-            else if(type2 == "Cylinder"){
-                double h;
-                int n;
-
-                configCylinder(rotateX, rotateY, rotateZ, scale, center, confg, figureString, h, n);
-                createCylinder(figure,n,h);
-                applyAllTransformations(figure, scale, rotateX, rotateY, rotateZ, center);
-
-                figures3D.push_back(figure);
-            }
-            else if(type2 == "Sphere"){
-                int n;
-
-                configSphere(rotateX, rotateY, rotateZ, scale, center, confg, figureString, n);
-                createSphere(figure,n);
-                applyAllTransformations(figure, scale, rotateX, rotateY, rotateZ, center);
-
-                figures3D.push_back(figure);
-            }
-            else if(type2 == "Torus"){
-                int n;
-                int m;
-                double R;
-                int r;
-
-                configTorus(rotateX, rotateY, rotateZ, scale, center, confg, figureString, R, r, n, m);
-                createTorus(figure,n,m,R,r);
-                applyAllTransformations(figure, scale, rotateX, rotateY, rotateZ, center);
-
-                figures3D.push_back(figure);
-            }
-            else if(type2 == "3DLSystem"){
-                Color kleur = Color();
-
-                LParser::LSystem3D l_system = createLSystem3D(confg, figureString, scale, rotateX, rotateY, rotateZ, center, kleur);
-                drawLSystem3D(l_system,figure, kleur);
-                applyAllTransformations(figure, scale, rotateX, rotateY, rotateZ, center);
-
-                figures3D.push_back(figure);
-
-            }
-        }
         return createWireFrame(size, backGroundColor, eyeCords, figures3D);
     }
     else if(type == "ZBufferedWireframe"){
+        size = confg["General"]["size"];
 
+        img::Color backGroundColor = img::Color();
+        Vector3D eyeCords = Vector3D();
+
+        Figures3D figures3D = configure3D(confg,size,backGroundColor,eyeCords);
+
+        return createWireFrame(size, backGroundColor, eyeCords, figures3D, true);
     }
 
     return image;

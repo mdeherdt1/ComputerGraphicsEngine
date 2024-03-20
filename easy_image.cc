@@ -392,84 +392,91 @@ std::istream& img::operator>>(std::istream& in, EasyImage & image)
 	return in;
 }
 
-void img::EasyImage::draw_zbuf_line(ZBuffer &zbuf, unsigned int x0, unsigned int y0, unsigned int z0, unsigned int x1,
-                                    unsigned int y1, unsigned int z1, img::Color color) {
+void img::EasyImage::draw_zbuf_line(ZBuffer &f, unsigned int x0, unsigned int y0, double z0,
+                                    unsigned int x1, unsigned int y1, double z1, img::Color color) {
 
-    bool verticaal = (x0 == x1);
-    bool horizontaal = (y0 == y1);
-    bool stijl = std::abs((long)y1 - (long)y0) > std::abs((long)x1 - (long)x0); //nagaan of de lijn steiler is dan 45 graden
-
-    if(verticaal){ //indien de lijn verticaal is, dan wordt de lijn gespiegeld over de lijn y=x
+    if (x0 == x1)
+    {
+        //special case for x0 == x1
+        //150 - 145 = 5
         double min = std::min(y0, y1);
         double max = std::max(y0, y1);
-        double a = max - min; //a is de afstand tussen de twee punten
-
-        for(int i = min; i <= max; i++) {
-            double p = (a - (i - min)) / a; //p is de verhouding van de afstand tussen de twee punten
-            double Zcurr = p/z0 + (1-p)/z1; //Zcurr is de z-waarde van het huidige punt
-            if(zbuf.v[x0][i] > Zcurr) {
-                zbuf.v[x0][i] = Zcurr;
-                (*this)(x0,i) = color;
+        double a = max - min;
+        for (unsigned int i = min; i <= max; i++)
+        {
+            double p = (a - (i - min))/a;
+            double zi = p/z0 + (1 - p)/z1;
+            if((zi) < (f.v[x0][i])){
+                (*this)(x0, i) = color;
+                f.v[x0][i] = zi;
             }
         }
     }
-
-    else if(horizontaal){
+    else if (y0 == y1)
+    {
+        //special case for y0 == y1c
         double min = std::min(x0, x1);
         double max = std::max(x0, x1);
-        double a = max - min; //a is de afstand tussen de twee punten
-
-        for(int i = min; i <= max; i++) {
-            double p = (a - (i - min)) / a; //p is de verhouding van de afstand tussen de twee punten
-            double Zcurr = p/z0 + (1-p)/z1; //Zcurr is de z-waarde van het huidige punt
-            if(zbuf.v[i][y0] > Zcurr) {
-                zbuf.v[i][y0] = Zcurr;
-                (*this)(i,y0) = color;
+        double a = max - min;
+        for (unsigned int i = min; i <= max; i++)
+        {
+            double p = (a - (i - min))/a;
+            double zi = p/z0 + (1 - p)/z1;
+            if((zi) < (f.v[i][y0])){
+                (*this)(i, y0) = color;
+                f.v[i][y0] = zi;
             }
         }
     }
-
-    else {
-        if (x0 >
-            x1) { //wissel de punten om indien x0 groter is dan x1 om te voorkomen dat de lijn van rechts naar links wordt getekend
+    else
+    {
+        if (x0 > x1)
+        {
+            //flip points if x1>x0: we want x0 to have the lowest value
             std::swap(x0, x1);
             std::swap(y0, y1);
+            //std::swap(z0, z1);
         }
-        //berekenen van rico
-        double m = (y1 - y0) / (x1 - x0);
-
-        if (-1.0 <= m && m <= 1.0) {
-            double a = x1 - x0; //a is de afstand tussen de twee punten
-            for (int i = 0; i <= (x1 - x0); i++) {
-                double p = (a - i) / a; //p is de verhouding van de afstand tussen de twee punten
-                double Zcurr = p / z0 + (1 - p) / z1;
-                if (zbuf.v[x0 + i][y0 + m * i] > Zcurr) {
-                    zbuf.v[x0 + i][y0 + m * i] = Zcurr;
-                    (*this)(x0 + i, y0 + m * i) = color;
+        double m = ((double) y1 - (double) y0) / ((double) x1 - (double) x0);
+        if (-1.0 <= m && m <= 1.0)
+        {
+            double a = (x1 - x0);
+            for (unsigned int i = 0; i <= (x1 - x0); i++)
+            {
+                double p = (a - i)/a;
+                double zi = p/z0 + (1 - p)/z1;
+                if((zi) < (f.v[x0 + i][(unsigned int) round(y0 + m * i)])){
+                    (*this)(x0 + i, (unsigned int) round(y0 + m * i)) = color;
+                    f.v[x0 + i][(unsigned int) round(y0 + m * i)] = zi;
                 }
             }
         }
-        else if (m > 1.0){
-            double a = y1 - y0; //a is de afstand tussen de twee punten
-            for (int i = 0; i <= (y1 - y0); i++) {
-                double p = (a - i) / a; //p is de verhouding van de afstand tussen de twee punten
-                double Zcurr = p / z0 + (1 - p) / z1;
-                if (zbuf.v[x0 + i / m][y0 + i] > Zcurr) {
-                    zbuf.v[x0 + i / m][y0 + i] = Zcurr;
-                    (*this)(x0 + i / m, y0 + i) = color;
+        else if (m > 1.0)
+        {
+            double a = (y1 - y0);
+            for (unsigned int i = 0; i <= (y1 - y0); i++)
+            {
+                double p = (a - i)/a;
+                double zi = p/z0 + (1 - p)/z1;
+                if((zi) < (f.v[(unsigned int) round(x0 + (i / m))][y0 + i])){
+                    (*this)((unsigned int) round(x0 + (i / m)), y0 + i) = color;
+                    f.v[(unsigned int) round(x0 + (i / m))][y0 + i] = zi;
                 }
             }
         }
-        else if (m < -1.0){
-            double a = y0 - y1; //a is de afstand tussen de twee punten
-            for (int i = 0; i <= (y0 - y1); i++) {
-                double p = (a - i) / a; //p is de verhouding van de afstand tussen de twee punten
-                double Zcurr = p / z0 + (1 - p) / z1;
-                if (zbuf.v[x0 - i / m][y0 - i] > Zcurr) {
-                    zbuf.v[x0 - i / m][y0 - i] = Zcurr;
-                    (*this)(x0 - i / m, y0 - i) = color;
+        else if (m < -1.0)
+        {
+            double a = (y0 - y1);
+            for (unsigned int i = 0; i <= a; i++)
+            {
+                double p = (a - i)/a;
+                double zi = p/z0 + (1 - p)/z1;
+                if((zi) < (f.v[(unsigned int) round(x0 - (i / m))][y0 - i])){
+                    (*this)((unsigned int) round(x0 - (i / m)), y0 - i) = color;
+                    f.v[(unsigned int) round(x0 - (i / m))][y0 - i] = zi;
                 }
             }
         }
     }
 }
+

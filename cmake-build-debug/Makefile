@@ -341,29 +341,29 @@ StochasticRule.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/StochasticRule.cpp.s
 .PHONY : StochasticRule.cpp.s
 
-ThreeD.obj: ThreeD.cpp.obj
-.PHONY : ThreeD.obj
+Wireframes.obj: Wireframes.cpp.obj
+.PHONY : Wireframes.obj
 
 # target to build an object file
-ThreeD.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/ThreeD.cpp.obj
-.PHONY : ThreeD.cpp.obj
+Wireframes.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/Wireframes.cpp.obj
+.PHONY : Wireframes.cpp.obj
 
-ThreeD.i: ThreeD.cpp.i
-.PHONY : ThreeD.i
+Wireframes.i: Wireframes.cpp.i
+.PHONY : Wireframes.i
 
 # target to preprocess a source file
-ThreeD.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/ThreeD.cpp.i
-.PHONY : ThreeD.cpp.i
+Wireframes.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/Wireframes.cpp.i
+.PHONY : Wireframes.cpp.i
 
-ThreeD.s: ThreeD.cpp.s
-.PHONY : ThreeD.s
+Wireframes.s: Wireframes.cpp.s
+.PHONY : Wireframes.s
 
 # target to generate assembly for a file
-ThreeD.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/ThreeD.cpp.s
-.PHONY : ThreeD.cpp.s
+Wireframes.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/Wireframes.cpp.s
+.PHONY : Wireframes.cpp.s
 
 ZBuffer.obj: ZBuffer.cpp.obj
 .PHONY : ZBuffer.obj
@@ -388,30 +388,6 @@ ZBuffer.s: ZBuffer.cpp.s
 ZBuffer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/ZBuffer.cpp.s
 .PHONY : ZBuffer.cpp.s
-
-ZBuffering.obj: ZBuffering.cpp.obj
-.PHONY : ZBuffering.obj
-
-# target to build an object file
-ZBuffering.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/ZBuffering.cpp.obj
-.PHONY : ZBuffering.cpp.obj
-
-ZBuffering.i: ZBuffering.cpp.i
-.PHONY : ZBuffering.i
-
-# target to preprocess a source file
-ZBuffering.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/ZBuffering.cpp.i
-.PHONY : ZBuffering.cpp.i
-
-ZBuffering.s: ZBuffering.cpp.s
-.PHONY : ZBuffering.s
-
-# target to generate assembly for a file
-ZBuffering.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/ZBuffering.cpp.s
-.PHONY : ZBuffering.cpp.s
 
 draw3DLsystem.obj: draw3DLsystem.cpp.obj
 .PHONY : draw3DLsystem.obj
@@ -639,15 +615,12 @@ help:
 	@echo ... StochasticRule.obj
 	@echo ... StochasticRule.i
 	@echo ... StochasticRule.s
-	@echo ... ThreeD.obj
-	@echo ... ThreeD.i
-	@echo ... ThreeD.s
+	@echo ... Wireframes.obj
+	@echo ... Wireframes.i
+	@echo ... Wireframes.s
 	@echo ... ZBuffer.obj
 	@echo ... ZBuffer.i
 	@echo ... ZBuffer.s
-	@echo ... ZBuffering.obj
-	@echo ... ZBuffering.i
-	@echo ... ZBuffering.s
 	@echo ... draw3DLsystem.obj
 	@echo ... draw3DLsystem.i
 	@echo ... draw3DLsystem.s

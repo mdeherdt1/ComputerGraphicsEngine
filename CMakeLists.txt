@@ -38,9 +38,8 @@ set(engine_sources
 		translations.cpp
 		translations.h
 		draw3DLsystem.cpp
-		ZBuffering.cpp
+		Wireframes.cpp
 		ZBuffer.cpp
-		ThreeD.cpp
 )
 
 ############################################################

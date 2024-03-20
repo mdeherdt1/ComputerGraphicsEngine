@@ -161,22 +161,16 @@
 		<Unit filename="C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/StochasticRule.cpp">
 			<Option target="engine"/>
 		</Unit>
-		<Unit filename="C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/ThreeD.cpp">
+		<Unit filename="C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/Wireframes.cpp">
 			<Option target="engine"/>
 		</Unit>
-		<Unit filename="C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/ThreeD.h">
+		<Unit filename="C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/Wireframes.h">
 			<Option target="engine"/>
 		</Unit>
 		<Unit filename="C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/ZBuffer.cpp">
 			<Option target="engine"/>
 		</Unit>
 		<Unit filename="C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/ZBuffer.h">
-			<Option target="engine"/>
-		</Unit>
-		<Unit filename="C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/ZBuffering.cpp">
-			<Option target="engine"/>
-		</Unit>
-		<Unit filename="C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/ZBuffering.h">
 			<Option target="engine"/>
 		</Unit>
 		<Unit filename="C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/draw3DLsystem.cpp">

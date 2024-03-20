@@ -278,19 +278,19 @@ CMakeFiles/engine.dir/draw3DLsystem.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/engine.dir/draw3DLsystem.cpp.s"
 	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\draw3DLsystem.cpp" -o CMakeFiles\engine.dir\draw3DLsystem.cpp.s
 
-CMakeFiles/engine.dir/ZBuffering.cpp.obj: CMakeFiles/engine.dir/flags.make
-CMakeFiles/engine.dir/ZBuffering.cpp.obj: C:/Users/DH\ Services\ BVBA/Documents/GitHub/ComputerGraphics/ZBuffering.cpp
-CMakeFiles/engine.dir/ZBuffering.cpp.obj: CMakeFiles/engine.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/engine.dir/ZBuffering.cpp.obj"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/engine.dir/ZBuffering.cpp.obj -MF CMakeFiles\engine.dir\ZBuffering.cpp.obj.d -o CMakeFiles\engine.dir\ZBuffering.cpp.obj -c "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\ZBuffering.cpp"
+CMakeFiles/engine.dir/Wireframes.cpp.obj: CMakeFiles/engine.dir/flags.make
+CMakeFiles/engine.dir/Wireframes.cpp.obj: C:/Users/DH\ Services\ BVBA/Documents/GitHub/ComputerGraphics/Wireframes.cpp
+CMakeFiles/engine.dir/Wireframes.cpp.obj: CMakeFiles/engine.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/engine.dir/Wireframes.cpp.obj"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/engine.dir/Wireframes.cpp.obj -MF CMakeFiles\engine.dir\Wireframes.cpp.obj.d -o CMakeFiles\engine.dir\Wireframes.cpp.obj -c "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\Wireframes.cpp"
 
-CMakeFiles/engine.dir/ZBuffering.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/engine.dir/ZBuffering.cpp.i"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\ZBuffering.cpp" > CMakeFiles\engine.dir\ZBuffering.cpp.i
+CMakeFiles/engine.dir/Wireframes.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/engine.dir/Wireframes.cpp.i"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\Wireframes.cpp" > CMakeFiles\engine.dir\Wireframes.cpp.i
 
-CMakeFiles/engine.dir/ZBuffering.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/engine.dir/ZBuffering.cpp.s"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\ZBuffering.cpp" -o CMakeFiles\engine.dir\ZBuffering.cpp.s
+CMakeFiles/engine.dir/Wireframes.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/engine.dir/Wireframes.cpp.s"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\Wireframes.cpp" -o CMakeFiles\engine.dir\Wireframes.cpp.s
 
 CMakeFiles/engine.dir/ZBuffer.cpp.obj: CMakeFiles/engine.dir/flags.make
 CMakeFiles/engine.dir/ZBuffer.cpp.obj: C:/Users/DH\ Services\ BVBA/Documents/GitHub/ComputerGraphics/ZBuffer.cpp
@@ -305,20 +305,6 @@ CMakeFiles/engine.dir/ZBuffer.cpp.i: cmake_force
 CMakeFiles/engine.dir/ZBuffer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/engine.dir/ZBuffer.cpp.s"
 	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\ZBuffer.cpp" -o CMakeFiles\engine.dir\ZBuffer.cpp.s
-
-CMakeFiles/engine.dir/ThreeD.cpp.obj: CMakeFiles/engine.dir/flags.make
-CMakeFiles/engine.dir/ThreeD.cpp.obj: C:/Users/DH\ Services\ BVBA/Documents/GitHub/ComputerGraphics/ThreeD.cpp
-CMakeFiles/engine.dir/ThreeD.cpp.obj: CMakeFiles/engine.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/engine.dir/ThreeD.cpp.obj"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/engine.dir/ThreeD.cpp.obj -MF CMakeFiles\engine.dir\ThreeD.cpp.obj.d -o CMakeFiles\engine.dir\ThreeD.cpp.obj -c "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\ThreeD.cpp"
-
-CMakeFiles/engine.dir/ThreeD.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/engine.dir/ThreeD.cpp.i"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\ThreeD.cpp" > CMakeFiles\engine.dir\ThreeD.cpp.i
-
-CMakeFiles/engine.dir/ThreeD.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/engine.dir/ThreeD.cpp.s"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\ThreeD.cpp" -o CMakeFiles\engine.dir\ThreeD.cpp.s
 
 # Object files for target engine
 engine_OBJECTS = \
@@ -337,9 +323,8 @@ engine_OBJECTS = \
 "CMakeFiles/engine.dir/PlatonischeLichamen.cpp.obj" \
 "CMakeFiles/engine.dir/translations.cpp.obj" \
 "CMakeFiles/engine.dir/draw3DLsystem.cpp.obj" \
-"CMakeFiles/engine.dir/ZBuffering.cpp.obj" \
-"CMakeFiles/engine.dir/ZBuffer.cpp.obj" \
-"CMakeFiles/engine.dir/ThreeD.cpp.obj"
+"CMakeFiles/engine.dir/Wireframes.cpp.obj" \
+"CMakeFiles/engine.dir/ZBuffer.cpp.obj"
 
 # External object files for target engine
 engine_EXTERNAL_OBJECTS =
@@ -359,14 +344,13 @@ engine.exe: CMakeFiles/engine.dir/vector3d.cc.obj
 engine.exe: CMakeFiles/engine.dir/PlatonischeLichamen.cpp.obj
 engine.exe: CMakeFiles/engine.dir/translations.cpp.obj
 engine.exe: CMakeFiles/engine.dir/draw3DLsystem.cpp.obj
-engine.exe: CMakeFiles/engine.dir/ZBuffering.cpp.obj
+engine.exe: CMakeFiles/engine.dir/Wireframes.cpp.obj
 engine.exe: CMakeFiles/engine.dir/ZBuffer.cpp.obj
-engine.exe: CMakeFiles/engine.dir/ThreeD.cpp.obj
 engine.exe: CMakeFiles/engine.dir/build.make
 engine.exe: CMakeFiles/engine.dir/linkLibs.rsp
 engine.exe: CMakeFiles/engine.dir/objects1.rsp
 engine.exe: CMakeFiles/engine.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_19) "Linking CXX executable engine.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="C:\Users\DH Services BVBA\Documents\GitHub\ComputerGraphics\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_18) "Linking CXX executable engine.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\engine.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
