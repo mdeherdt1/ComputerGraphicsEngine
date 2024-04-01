@@ -24,18 +24,18 @@ Figures3D configure3D(const ini::Configuration &confg, int& size, img::Color &ba
         std::string figureString = "Figure" + std::to_string(i);
         std::string type2 = confg[figureString]["type"];
 
-        Figure figure = Figure(Color(confg[figureString]["color"].as_double_tuple_or_die()[0],
-                                     confg[figureString]["color"].as_double_tuple_or_die()[1],
-                                     confg[figureString]["color"].as_double_tuple_or_die()[2]));
+        Figure figure = Figure(Color1(confg[figureString]["color"].as_double_tuple_or_die()[0],
+                                      confg[figureString]["color"].as_double_tuple_or_die()[1],
+                                      confg[figureString]["color"].as_double_tuple_or_die()[2]));
 
         if (type2 == "LineDrawing") {
             rotateX = confg[figureString]["rotateX"].as_double_or_die();
             rotateY = confg[figureString]["rotateY"].as_double_or_die();
             rotateZ = confg[figureString]["rotateZ"].as_double_or_die();
             scale = confg[figureString]["scale"].as_double_or_die();
-            Color figureColor = Color(confg[figureString]["color"].as_double_tuple_or_die()[0],
-                                      confg[figureString]["color"].as_double_tuple_or_die()[1],
-                                      confg[figureString]["color"].as_double_tuple_or_die()[2]);
+            Color1 figureColor = Color1(confg[figureString]["color"].as_double_tuple_or_die()[0],
+                                        confg[figureString]["color"].as_double_tuple_or_die()[1],
+                                        confg[figureString]["color"].as_double_tuple_or_die()[2]);
             center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0],
                                      confg[figureString]["center"].as_double_tuple_or_die()[1],
                                      confg[figureString]["center"].as_double_tuple_or_die()[2]);
@@ -126,7 +126,7 @@ Figures3D configure3D(const ini::Configuration &confg, int& size, img::Color &ba
 
             figures3D.push_back(figure);
         } else if (type2 == "3DLSystem") {
-            Color kleur = Color();
+            Color1 kleur = Color1();
 
             LParser::LSystem3D l_system = createLSystem3D(confg, figureString, scale, rotateX, rotateY, rotateZ, center,
                                                           kleur);
@@ -136,9 +136,9 @@ Figures3D configure3D(const ini::Configuration &confg, int& size, img::Color &ba
             figures3D.push_back(figure);
 
         }
-        figure.color = Color(confg[figureString]["color"].as_double_tuple_or_die()[0],
-                             confg[figureString]["color"].as_double_tuple_or_die()[1],
-                             confg[figureString]["color"].as_double_tuple_or_die()[2]);
+        figure.color = Color1(confg[figureString]["color"].as_double_tuple_or_die()[0],
+                              confg[figureString]["color"].as_double_tuple_or_die()[1],
+                              confg[figureString]["color"].as_double_tuple_or_die()[2]);
     }
     return figures3D;
 }

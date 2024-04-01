@@ -21,6 +21,8 @@
 #include <vector>
 #include <iostream>
 #include "ZBuffer.h"
+#include "Figure.h"
+#include "Color1.h"
 /**
  * \brief The namespace of the EasyImage class
  */
@@ -57,7 +59,7 @@ namespace img
 			Color();
 
 			/**
-			 * \brief Constructs a Color with the given intensities
+			 * \brief Constructs a Color1 with the given intensities
 			 *
 			 * \param r	The red color component
 			 * \param g	The green color component
@@ -223,7 +225,10 @@ namespace img
 
             void draw_zbuf_line(ZBuffer &zbuf, unsigned int x0, unsigned int y0,double z0, unsigned int x1, unsigned int y1, double z1, Color color);
 
-		private:
+            void draw_zbuf_triangle(ZBuffer &zbuf, Vector3D &A, Vector3D &B, Vector3D &C, double d, double dx, double dy, Color1 color);
+
+
+            private:
 			friend std::istream& operator>>(std::istream& in, EasyImage & image);
 			/**
 			 * \brief the width of the image
@@ -265,5 +270,8 @@ namespace img
 	 */
 	std::istream& operator>>(std::istream& in, EasyImage& image);
 
+
 }
+
+
 #endif /* EASY_IMAGE_INCLUDED */

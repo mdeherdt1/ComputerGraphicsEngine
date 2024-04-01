@@ -12,6 +12,8 @@ public:
     std::vector<int> point_indexes;
 
     explicit Face(const std::vector<int> &pointIndexes);
+
+    std::vector<Face> triangulate();
 };
 
 

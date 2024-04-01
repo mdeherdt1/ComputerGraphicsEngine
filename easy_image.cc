@@ -206,8 +206,8 @@ img::Color const& img::EasyImage::operator()(unsigned int x, unsigned int y) con
 	assert(y < this->height);
 	return bitmap.at(x * height + y);
 }
-
 void img::EasyImage::draw_line(unsigned int x0, unsigned int y0, unsigned int x1, unsigned int y1, Color color)
+
 {
 	if (x0 >= this->width || y0 >= this->height || x1 >= this->width || y1 > this->height) {
         std::stringstream ss;
@@ -397,8 +397,6 @@ void img::EasyImage::draw_zbuf_line(ZBuffer &f, unsigned int x0, unsigned int y0
 
     if (x0 == x1)
     {
-        //special case for x0 == x1
-        //150 - 145 = 5
         double min = std::min(y0, y1);
         double max = std::max(y0, y1);
         double a = max - min;
@@ -414,7 +412,6 @@ void img::EasyImage::draw_zbuf_line(ZBuffer &f, unsigned int x0, unsigned int y0
     }
     else if (y0 == y1)
     {
-        //special case for y0 == y1c
         double min = std::min(x0, x1);
         double max = std::max(x0, x1);
         double a = max - min;
@@ -432,11 +429,9 @@ void img::EasyImage::draw_zbuf_line(ZBuffer &f, unsigned int x0, unsigned int y0
     {
         if (x0 > x1)
         {
-            //flip points if x1>x0: we want x0 to have the lowest value
             std::swap(x0, x1);
             std::swap(y0, y1);
-            //std::swap(z0, z1);
-        }
+            }
         double m = ((double) y1 - (double) y0) / ((double) x1 - (double) x0);
         if (-1.0 <= m && m <= 1.0)
         {
@@ -479,4 +474,6 @@ void img::EasyImage::draw_zbuf_line(ZBuffer &f, unsigned int x0, unsigned int y0
         }
     }
 }
+
+
 

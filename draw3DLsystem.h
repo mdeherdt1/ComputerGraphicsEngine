@@ -6,7 +6,7 @@
 #define ENGINE_DRAW3DLSYSTEM_H
 #include "easy_image.h"
 #include "ini_configuration.h"
-#include "Color.h"
+#include "Color1.h"
 #include "Point2D.h"
 #include "Line2D.h"
 #include "introduction.h"
@@ -27,13 +27,13 @@
 #include "Line2D.h"
 #include "easy_image.h"
 #include "ini_configuration.h"
-#include "Color.h"
+#include "Color1.h"
 #include "Point2D.h"
 #include "Vector3D.h"
 
-LParser::LSystem3D createLSystem3D(const ini::Configuration &configuration, std::string figureString, double& scaleFactor, double& rotateX, double& rotateY, double& rotateZ, Vector3D& center, Color& kleur);
+LParser::LSystem3D createLSystem3D(const ini::Configuration &configuration, std::string figureString, double& scaleFactor, double& rotateX, double& rotateY, double& rotateZ, Vector3D& center, Color1& kleur);
 
-void drawLSystem3D(LParser::LSystem3D system3D, Figure &figure, Color kleur);
+void drawLSystem3D(LParser::LSystem3D system3D, Figure &figure, Color1 kleur);
 
 
 #endif //ENGINE_DRAW3DLSYSTEM_H

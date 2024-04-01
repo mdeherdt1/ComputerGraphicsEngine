@@ -1,9 +1,10 @@
 #define _USE_MATH_DEFINES
 
 
+
 #include "easy_image.h"
 #include "ini_configuration.h"
-#include "Color.h"
+#include "Color1.h"
 #include "Point2D.h"
 #include "Line2D.h"
 #include "introduction.h"
@@ -23,6 +24,9 @@
 #include <string>
 #include "draw3DLsystem.h"
 #include "Wireframes.h"
+#include "ZBuffering.h"
+
+
 
 
 img::EasyImage draw2DLines(const Lines2D &lines, const int size, img::Color background = img::Color(0, 0, 0), bool zBuffer = false) {
@@ -85,7 +89,7 @@ img::EasyImage draw2DLines(const Lines2D &lines, const int size, img::Color back
         img::Color kleur = img::Color(lijn.color.red*255,lijn.color.green*255,lijn.color.blue*255);
 
         if(zBuffer){
-            image.draw_zbuf_line(Zbuf, lijn.p1.x, lijn.p1.y, lijn.p1.z, lijn.p2.x, lijn.p2.y, lijn.p2.z, kleur);
+            image.draw_zbuf_line(Zbuf, lijn.p1.x, lijn.p1.y, lijn.z1, lijn.p2.x, lijn.p2.y, lijn.z2, kleur);
         }
         else{
             image.draw_line(lijn.p1.x,lijn.p1.y,lijn.p2.x,lijn.p2.y, kleur);
@@ -100,6 +104,8 @@ img::EasyImage draw2DLines(const Lines2D &lines, const int size, img::Color back
 
 }
 
+
+
 LParser::LSystem2D DLSystem(const ini::Configuration &confg){
     std::string inputFile = confg["2DLSystem"]["inputfile"];
 
@@ -111,7 +117,7 @@ LParser::LSystem2D DLSystem(const ini::Configuration &confg){
     return l_system;
 }
 
-Lines2D drawLSystem(const LParser::LSystem2D &l_system, Color lijnKleur = Color(255,255,255)) {
+Lines2D drawLSystem(const LParser::LSystem2D &l_system, Color1 lijnKleur = Color1(255, 255, 255)) {
     srand(static_cast<unsigned int>(time(0)));
     Lines2D lijnen;
     double x = 0, y = 0; // Startpositie
@@ -244,9 +250,9 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
         }
     }
     else if (type == "drawLines"){
-        Color rood = Color(1,0,0);
-        Color groen = Color(0,1,0);
-        Color blauw = Color(0,0,1);
+        Color1 rood = Color1(1, 0, 0);
+        Color1 groen = Color1(0, 1, 0);
+        Color1 blauw = Color1(0, 0, 1);
 
         const Point2D oorsprong = Point2D(0.0,0.0);
 
@@ -270,7 +276,7 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
         std::vector<double> BackGroundINI = confg["General"]["backgroundcolor"];
         img::Color backGroundColor = img::Color(BackGroundINI[0]*255, BackGroundINI[1]*255, BackGroundINI[2]*255);
         std::vector<double> LSystemINI = confg["2DLSystem"]["color"];
-        Color LSystemColor = Color(LSystemINI[0], LSystemINI[1], LSystemINI[2]);
+        Color1 LSystemColor = Color1(LSystemINI[0], LSystemINI[1], LSystemINI[2]);
 
         LParser::LSystem2D l_system = DLSystem(confg);
         std::vector<Line2D> lines = drawLSystem(l_system,LSystemColor);
@@ -297,12 +303,18 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
 
         return createWireFrame(size, backGroundColor, eyeCords, figures3D, true);
     }
+    else if(type == "ZBuffering"){
+        return zBuffering(confg);
+    }
 
     return image;
 }
 
 
 
+
+
+int count = 1;
 int main(int argc, char const *argv[]) {
     int retVal = 0;
     try {
@@ -331,7 +343,7 @@ int main(int argc, char const *argv[]) {
                 retVal = 1;
                 continue;
             }
-
+            std::cout << "Generating image " << count++ << " from " << fileName << std::endl;
             img::EasyImage image = generate_image(conf);
             if (image.get_height() > 0 && image.get_width() > 0) {
                 std::string::size_type pos = fileName.rfind('.');

@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/engine.dir/Color.cpp.obj"
-  "CMakeFiles/engine.dir/Color.cpp.obj.d"
+  "CMakeFiles/engine.dir/Color1.cpp.obj"
+  "CMakeFiles/engine.dir/Color1.cpp.obj.d"
   "CMakeFiles/engine.dir/Face.cpp.obj"
   "CMakeFiles/engine.dir/Face.cpp.obj.d"
   "CMakeFiles/engine.dir/Figure.cpp.obj"
@@ -17,6 +17,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/engine.dir/Wireframes.cpp.obj.d"
   "CMakeFiles/engine.dir/ZBuffer.cpp.obj"
   "CMakeFiles/engine.dir/ZBuffer.cpp.obj.d"
+  "CMakeFiles/engine.dir/ZBuffering.cpp.obj"
+  "CMakeFiles/engine.dir/ZBuffering.cpp.obj.d"
   "CMakeFiles/engine.dir/draw3DLsystem.cpp.obj"
   "CMakeFiles/engine.dir/draw3DLsystem.cpp.obj.d"
   "CMakeFiles/engine.dir/easy_image.cc.obj"

@@ -173,29 +173,29 @@ engine/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/build
 .PHONY : engine/fast
 
-Color.obj: Color.cpp.obj
-.PHONY : Color.obj
+Color1.obj: Color1.cpp.obj
+.PHONY : Color1.obj
 
 # target to build an object file
-Color.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/Color.cpp.obj
-.PHONY : Color.cpp.obj
+Color1.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/Color1.cpp.obj
+.PHONY : Color1.cpp.obj
 
-Color.i: Color.cpp.i
-.PHONY : Color.i
+Color1.i: Color1.cpp.i
+.PHONY : Color1.i
 
 # target to preprocess a source file
-Color.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/Color.cpp.i
-.PHONY : Color.cpp.i
+Color1.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/Color1.cpp.i
+.PHONY : Color1.cpp.i
 
-Color.s: Color.cpp.s
-.PHONY : Color.s
+Color1.s: Color1.cpp.s
+.PHONY : Color1.s
 
 # target to generate assembly for a file
-Color.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/Color.cpp.s
-.PHONY : Color.cpp.s
+Color1.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/Color1.cpp.s
+.PHONY : Color1.cpp.s
 
 Face.obj: Face.cpp.obj
 .PHONY : Face.obj
@@ -388,6 +388,30 @@ ZBuffer.s: ZBuffer.cpp.s
 ZBuffer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/ZBuffer.cpp.s
 .PHONY : ZBuffer.cpp.s
+
+ZBuffering.obj: ZBuffering.cpp.obj
+.PHONY : ZBuffering.obj
+
+# target to build an object file
+ZBuffering.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/ZBuffering.cpp.obj
+.PHONY : ZBuffering.cpp.obj
+
+ZBuffering.i: ZBuffering.cpp.i
+.PHONY : ZBuffering.i
+
+# target to preprocess a source file
+ZBuffering.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/ZBuffering.cpp.i
+.PHONY : ZBuffering.cpp.i
+
+ZBuffering.s: ZBuffering.cpp.s
+.PHONY : ZBuffering.s
+
+# target to generate assembly for a file
+ZBuffering.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\engine.dir\build.make CMakeFiles/engine.dir/ZBuffering.cpp.s
+.PHONY : ZBuffering.cpp.s
 
 draw3DLsystem.obj: draw3DLsystem.cpp.obj
 .PHONY : draw3DLsystem.obj
@@ -594,9 +618,9 @@ help:
 	@echo ... list_install_components
 	@echo ... rebuild_cache
 	@echo ... engine
-	@echo ... Color.obj
-	@echo ... Color.i
-	@echo ... Color.s
+	@echo ... Color1.obj
+	@echo ... Color1.i
+	@echo ... Color1.s
 	@echo ... Face.obj
 	@echo ... Face.i
 	@echo ... Face.s
@@ -621,6 +645,9 @@ help:
 	@echo ... ZBuffer.obj
 	@echo ... ZBuffer.i
 	@echo ... ZBuffer.s
+	@echo ... ZBuffering.obj
+	@echo ... ZBuffering.i
+	@echo ... ZBuffering.s
 	@echo ... draw3DLsystem.obj
 	@echo ... draw3DLsystem.i
 	@echo ... draw3DLsystem.s

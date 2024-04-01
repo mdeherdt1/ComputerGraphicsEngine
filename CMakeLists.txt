@@ -18,8 +18,8 @@ set(engine_sources
 	easy_image.cc
 	engine.cc
 	ini_configuration.cc
-        Color.cpp
-        Color.h
+		Color1.cpp
+		Color1.h
 		Point2D.cpp
 		Point2D.h
 		Line2D.cpp
@@ -40,6 +40,7 @@ set(engine_sources
 		draw3DLsystem.cpp
 		Wireframes.cpp
 		ZBuffer.cpp
+		ZBuffering.cpp
 )
 
 ############################################################

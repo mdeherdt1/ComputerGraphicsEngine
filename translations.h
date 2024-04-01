@@ -8,7 +8,7 @@
 
 #include "easy_image.h"
 #include "ini_configuration.h"
-#include "Color.h"
+#include "Color1.h"
 #include "Point2D.h"
 #include "Line2D.h"
 #include "introduction.h"

@@ -11,7 +11,7 @@
 #include <array>
 
 /// Global index counter
-void drawLSystem3D(LParser::LSystem3D l_system, Figure &figure, Color color) {
+void drawLSystem3D(LParser::LSystem3D l_system, Figure &figure, Color1 color) {
     int point_index = 0;
     Vector3D position = Vector3D::point(0, 0, 0); // Startpositie in 3D
     double angle = l_system.get_angle() * (M_PI / 180.0); // Omrekenen naar radialen
@@ -121,7 +121,7 @@ void confg3DLSystem(LParser::LSystem3D &l_system, const ini::Configuration &conf
 
 }
 
-LParser::LSystem3D createLSystem3D(const ini::Configuration &confg, std::string figureString, double &scale, double &rotateX, double &rotateY, double &rotateZ, Vector3D &center, Color &kleur) {
+LParser::LSystem3D createLSystem3D(const ini::Configuration &confg, std::string figureString, double &scale, double &rotateX, double &rotateY, double &rotateZ, Vector3D &center, Color1 &kleur) {
     std::string inputFile = confg[figureString]["inputfile"];
     LParser::LSystem3D l_system;
     std::ifstream input_stream(inputFile);
@@ -133,7 +133,7 @@ LParser::LSystem3D createLSystem3D(const ini::Configuration &confg, std::string 
     rotateZ = confg[figureString]["rotateZ"].as_double_or_die();
     scale = confg[figureString]["scale"].as_double_or_die();
     center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0], confg[figureString]["center"].as_double_tuple_or_die()[1], confg[figureString]["center"].as_double_tuple_or_die()[2]);
-     kleur = Color(confg[figureString]["color"].as_double_tuple_or_die()[0], confg[figureString]["color"].as_double_tuple_or_die()[1], confg[figureString]["color"].as_double_tuple_or_die()[2]);
+     kleur = Color1(confg[figureString]["color"].as_double_tuple_or_die()[0], confg[figureString]["color"].as_double_tuple_or_die()[1], confg[figureString]["color"].as_double_tuple_or_die()[2]);
 
 
     return l_system;

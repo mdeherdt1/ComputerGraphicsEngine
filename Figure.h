@@ -6,7 +6,7 @@
 #define ENGINE_FIGURE_H
 #include "vector3d.h"
 #include "vector"
-#include "Color.h"
+#include "Color1.h"
 #include "Face.h"
 
 class Figure {
@@ -15,9 +15,9 @@ class Figure {
 public:
     std::vector<Vector3D> points;
     std::vector<Face> faces;
-    Color color;
+    Color1 color;
 
-    explicit Figure(const Color &color);
+    explicit Figure(const Color1 &color);
 };
 typedef std::vector<Figure> Figures3D;
 

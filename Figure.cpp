@@ -4,4 +4,4 @@
 
 #include "Figure.h"
 
-Figure::Figure(const Color &color) : color(color) {}
+Figure::Figure(const Color1 &color) : color(color) {}

@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/Color.cpp" "CMakeFiles/engine.dir/Color.cpp.obj" "gcc" "CMakeFiles/engine.dir/Color.cpp.obj.d"
+  "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/Color1.cpp" "CMakeFiles/engine.dir/Color1.cpp.obj" "gcc" "CMakeFiles/engine.dir/Color1.cpp.obj.d"
   "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/Face.cpp" "CMakeFiles/engine.dir/Face.cpp.obj" "gcc" "CMakeFiles/engine.dir/Face.cpp.obj.d"
   "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/Figure.cpp" "CMakeFiles/engine.dir/Figure.cpp.obj" "gcc" "CMakeFiles/engine.dir/Figure.cpp.obj.d"
   "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/Line2D.cpp" "CMakeFiles/engine.dir/Line2D.cpp.obj" "gcc" "CMakeFiles/engine.dir/Line2D.cpp.obj.d"
@@ -17,6 +17,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/StochasticRule.cpp" "CMakeFiles/engine.dir/StochasticRule.cpp.obj" "gcc" "CMakeFiles/engine.dir/StochasticRule.cpp.obj.d"
   "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/Wireframes.cpp" "CMakeFiles/engine.dir/Wireframes.cpp.obj" "gcc" "CMakeFiles/engine.dir/Wireframes.cpp.obj.d"
   "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/ZBuffer.cpp" "CMakeFiles/engine.dir/ZBuffer.cpp.obj" "gcc" "CMakeFiles/engine.dir/ZBuffer.cpp.obj.d"
+  "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/ZBuffering.cpp" "CMakeFiles/engine.dir/ZBuffering.cpp.obj" "gcc" "CMakeFiles/engine.dir/ZBuffering.cpp.obj.d"
   "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/draw3DLsystem.cpp" "CMakeFiles/engine.dir/draw3DLsystem.cpp.obj" "gcc" "CMakeFiles/engine.dir/draw3DLsystem.cpp.obj.d"
   "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/easy_image.cc" "CMakeFiles/engine.dir/easy_image.cc.obj" "gcc" "CMakeFiles/engine.dir/easy_image.cc.obj.d"
   "C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/engine.cc" "CMakeFiles/engine.dir/engine.cc.obj" "gcc" "CMakeFiles/engine.dir/engine.cc.obj.d"

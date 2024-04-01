@@ -144,6 +144,10 @@ CMakeFiles/engine.dir/engine.cc.obj: \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/istream.tcc \
  C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\ZBuffer.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/limits \
+ C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\Figure.h \
+ C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\vector3d.h \
+ C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\Color1.h \
+ C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\Face.h \
  C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\ini_configuration.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/map \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_tree.h \
@@ -153,7 +157,6 @@ CMakeFiles/engine.dir/engine.cc.obj: \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/uses_allocator.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_multimap.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/erase_if.h \
- C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\Color.h \
  C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\Point2D.h \
  C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\Line2D.h \
  C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\introduction.h \
@@ -162,9 +165,6 @@ CMakeFiles/engine.dir/engine.cc.obj: \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_set.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_multiset.h \
  C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\StochasticRule.cpp \
- C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\vector3d.h \
- C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\Figure.h \
- C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\Face.h \
  C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\PlatonischeLichamen.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/cmath \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/x86_64-w64-mingw32/include/math.h \
@@ -182,4 +182,11 @@ CMakeFiles/engine.dir/engine.cc.obj: \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/ctime \
  C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\draw3DLsystem.h \
  C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\Vector3D.h \
- C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\Wireframes.h
+ C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\Wireframes.h \
+ C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\ZBuffering.h \
+ C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/algorithm \
+ C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_algo.h \
+ C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/algorithmfwd.h \
+ C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_heap.h \
+ C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/uniform_int_dist.h \
+ C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_tempbuf.h

@@ -145,6 +145,10 @@ CMakeFiles/engine.dir/introduction.cpp.obj: \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/istream.tcc \
  C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\ZBuffer.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/limits \
+ C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\Figure.h \
+ C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\vector3d.h \
+ C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\Color1.h \
+ C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\Face.h \
  C:\Users\DH\ Services\ BVBA\Documents\GitHub\ComputerGraphics\ini_configuration.h \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/map \
  C:/Program\ Files/JetBrains/CLion\ 2023.3.1/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_tree.h \
