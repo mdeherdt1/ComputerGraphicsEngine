@@ -21,22 +21,15 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="08afa348-ef0d-4fc7-84fe-6d077204407f" name="Changes" comment="z_buffering werkt deels. Het is heel traag. &#10;&#10;Je moet je code nog wat efficienter maken.">
-      <change afterPath="$PROJECT_DIR$/z_buffering/fileListCopy" afterDir="false" />
+    <list default="true" id="08afa348-ef0d-4fc7-84fe-6d077204407f" name="Changes" comment="nogsteeds heel traag">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Figure.h" beforeDir="false" afterPath="$PROJECT_DIR$/Figure.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PlatonischeLichamen.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/PlatonischeLichamen.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PlatonischeLichamen.h" beforeDir="false" afterPath="$PROJECT_DIR$/PlatonischeLichamen.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Wireframes.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Wireframes.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ZBuffering.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ZBuffering.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ZBuffering.h" beforeDir="false" afterPath="$PROJECT_DIR$/ZBuffering.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/engine.cc.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/engine.cc.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/objects.a" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/engine.dir/objects.a" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/engine.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/engine.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine.cc" beforeDir="false" afterPath="$PROJECT_DIR$/engine.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/translations.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/translations.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/translations.h" beforeDir="false" afterPath="$PROJECT_DIR$/translations.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +96,7 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="engine" type="CMakeRunConfiguration" factoryName="Application" nameIsGenerated="true" PROGRAM_PARAMS="z_buffering022.ini" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" WORKING_DIR="file://../z_buffering" PASS_PARENT_ENVS_2="true" PROJECT_NAME="engine" TARGET_NAME="engine" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="engine" RUN_TARGET_NAME="engine">
+    <configuration name="engine" type="CMakeRunConfiguration" factoryName="Application" nameIsGenerated="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" WORKING_DIR="file://../z_buffering" PASS_PARENT_ENVS_2="true" PROJECT_NAME="engine" TARGET_NAME="engine" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="engine" RUN_TARGET_NAME="engine">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -159,7 +152,7 @@
       <workItem from="1711394770643" duration="1215000" />
       <workItem from="1711968286559" duration="33000" />
       <workItem from="1711985962817" duration="10276000" />
-      <workItem from="1712071081268" duration="8145000" />
+      <workItem from="1712071081268" duration="12258000" />
     </task>
     <task id="LOCAL-00001" summary="only last test not working">
       <option name="closed" value="true" />
@@ -249,7 +242,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711996608933</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="nogsteeds heel traag">
+      <option name="closed" value="true" />
+      <created>1712080560425</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1712080560425</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -272,6 +273,33 @@
     <MESSAGE value="working again and smaller generate img" />
     <MESSAGE value="FULLY WORKING z_buffered_wireframe" />
     <MESSAGE value="z_buffering werkt deels. Het is heel traag. &#10;&#10;Je moet je code nog wat efficienter maken." />
-    <option name="LAST_COMMIT_MESSAGE" value="z_buffering werkt deels. Het is heel traag. &#10;&#10;Je moet je code nog wat efficienter maken." />
+    <MESSAGE value="nogsteeds heel traag" />
+    <option name="LAST_COMMIT_MESSAGE" value="nogsteeds heel traag" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/ZBuffering.cpp</url>
+          <line>95</line>
+          <option name="timeStamp" value="152" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/ZBuffering.cpp</url>
+          <line>65</line>
+          <option name="timeStamp" value="153" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/PlatonischeLichamen.cpp</url>
+          <line>329</line>
+          <option name="timeStamp" value="156" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/ZBuffering.cpp</url>
+          <line>22</line>
+          <option name="timeStamp" value="157" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

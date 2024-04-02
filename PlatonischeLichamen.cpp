@@ -4,6 +4,7 @@
 #define _USE_MATH_DEFINES
 #include "PlatonischeLichamen.h"
 #include "translations.h"
+#include <cmath>
 
 
 
@@ -301,10 +302,9 @@ void createSphere(Figure &figure, const int n) {
     }
 }
 
-void createTorus(Figure &figure, const int n, const int m, const double R, const double r) {
+void createTorus(Figure &figure, int n, int m, double R, double r) {
     figure.points.clear();
     figure.faces.clear();
-
     // Bereken punten op de torus
     for (int i = 0; i < n; ++i) {
         double u = 2 * M_PI * i / n;
@@ -320,14 +320,13 @@ void createTorus(Figure &figure, const int n, const int m, const double R, const
     // Genereer de oppervlakken
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < m; ++j) {
-            int p1 = (i * m + j) % (n * m);
-            int p2 = ((i + 1) % n * m + j) % (n * m);
-            int p3 = ((i + 1) % n * m + (j + 1) % m) % (n * m);
-            int p4 = (i * m + (j + 1) % m) % (n * m);
+            int p1 = static_cast<int>(fmod(i * m + j, n * m));
+            int p2 = static_cast<int>(fmod((fmod(i + 1, n) * m + j), n * m));
+            int p3 = static_cast<int>(fmod((fmod(i + 1, n) * m + fmod(j + 1, m)), n * m));
+            int p4 = static_cast<int>(fmod(i * m + fmod(j + 1, m), n * m));
             figure.faces.push_back(Face({p1, p2, p3, p4}));
         }
     }
-
 }
 
 void configFigure(double &rotateX, double &rotateY, double &rotateZ, double &scale, Vector3D &center,

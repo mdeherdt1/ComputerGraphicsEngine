@@ -65,7 +65,7 @@ img::EasyImage drawTriangulateFaces(Figures3D figures3D, int size, img::Color bg
 
     img::EasyImage image(width,height,bgColor);
 
-    doTriangulation(figures3D);
+    doTriangulation(figures3D, image, Zbuf, d, dx, dy);
 
     for(auto fig : figures3D){
         for(auto face : fig.faces){
@@ -92,26 +92,23 @@ std::vector<Face> triangulate(const Face face) {
     return faceTriangulate;
 }
 
-void doTriangulation(Figures3D& figures) {
-    for (Figure &figure:figures) {
-        int size = figure.faces.size();
-        int sizePoints = figure.points.size();
+void doTriangulation(Figures3D& figures, img::EasyImage& image, ZBuffer& zbuf, double d, double dx, double dy) {
+    for (Figure& figure : figures) {
         std::vector<Face> facesNew;
-        for (Face face:figure.faces) {
-            std::vector<Face> newFace = triangulate(face);
-            if(facesNew.size() == 0){
-                facesNew = newFace;
-            }
-            else{
-                if(newFace.size() != 0){
-                    facesNew.insert(facesNew.begin(),newFace.begin(), newFace.end());
-                }
-                else{
-                    facesNew.push_back(face);
-                }
-            }
+        for (Face& face : figure.faces) {
+            std::vector<Face> newFaces = triangulate(face);
+            facesNew.insert(facesNew.end(), newFaces.begin(), newFaces.end());
         }
         figure.faces = facesNew;
+
+        for (Face& face : figure.faces) {
+            Vector3D v0 = figure.points[face.point_indexes[0]];
+            Vector3D v1 = figure.points[face.point_indexes[1]];
+            Vector3D v2 = figure.points[face.point_indexes[2]];
+            Color1 c = figure.color;
+
+            image.draw_zbuf_triangle(zbuf, v0, v1, v2, d, dx, dy, c);
+        }
     }
 }
 

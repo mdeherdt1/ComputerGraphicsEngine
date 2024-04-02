@@ -33,7 +33,7 @@ img::EasyImage zBuffering(const ini::Configuration &confg);
 
 img::EasyImage drawTriangulateFaces(Figures3D figures, int size, img::Color bgColor, Vector3D eyeCords, bool buffer);
 
-void doTriangulation(Figures3D &figures);
+void doTriangulation(Figures3D &figures, img::EasyImage &image, ZBuffer &zbuf, double d, double dx, double dy);
 
 std::vector<Face> triangulate(const Face face);
 

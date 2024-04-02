@@ -35,7 +35,7 @@ void configSphere(double& rotateX, double& rotateY, double& rotateZ, double& sca
 void createSphere(Figure& figure, const int n);
 
 void configTorus(double& rotateX, double& rotateY, double& rotateZ, double& scale, Vector3D& center, const ini::Configuration &confg, std::string figureString, double& R, int& r, int& n, int& m);
-void createTorus(Figure& figure, const int n, const int m, const double R, const double r);
+void createTorus(Figure& figure,  int n,  int m,  double R,  double r);
 
 void applyAllTransformations(Figure& figure, double scaleFactor, double rotateX, double rotateY, double rotateZ, Vector3D center);
 
