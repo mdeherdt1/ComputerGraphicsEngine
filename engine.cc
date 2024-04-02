@@ -199,7 +199,7 @@ Lines2D drawLSystem(const LParser::LSystem2D &l_system, Color1 lijnKleur = Color
 
 img::EasyImage createWireFrame(int size, img::Color color, Vector3D eyeCords, Figures3D figures, bool zBuffer = false){
     for(Figure &fig:figures) {
-        applyTransformation(fig, eyePointTrans(eyeCords));
+        applyTransformation(&fig, eyePointTrans(eyeCords));
     }
     return draw2DLines(doProjection(figures), size, color, zBuffer);
 }

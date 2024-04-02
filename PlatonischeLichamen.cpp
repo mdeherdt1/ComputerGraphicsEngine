@@ -33,7 +33,6 @@ void createCube(Figure& figure) {
     figure.faces.push_back(Face({6,2,7,3}));
     figure.faces.push_back(Face({0,5,1,4}));
 
-
 }
 
 void createTetrahedron(Figure &figure) {
@@ -328,6 +327,7 @@ void createTorus(Figure &figure, const int n, const int m, const double R, const
             figure.faces.push_back(Face({p1, p2, p3, p4}));
         }
     }
+
 }
 
 void configFigure(double &rotateX, double &rotateY, double &rotateZ, double &scale, Vector3D &center,
@@ -350,11 +350,11 @@ void configCylinder(double &rotateX, double &rotateY, double &rotateZ, double &s
 
 void applyAllTransformations(Figure &figure, double scaleFactor, double rotateX, double rotateY, double rotateZ,
                              Vector3D center) {
-    applyTransformation(figure, scaleFigure(scaleFactor));
-    applyTransformation(figure, RotateX(rotateX));
-    applyTransformation(figure, RotateY(rotateY));
-    applyTransformation(figure, RotateZ(rotateZ));
-    applyTransformation(figure, translate(center));
+    applyTransformation(&figure, scaleFigure(scaleFactor));
+    applyTransformation(&figure, RotateX(rotateX));
+    applyTransformation(&figure, RotateY(rotateY));
+    applyTransformation(&figure, RotateZ(rotateZ));
+    applyTransformation(&figure, translate(center));
 }
 
 void configSphere(double &rotateX, double &rotateY, double &rotateZ, double &scale, Vector3D &center,
@@ -371,4 +371,23 @@ void configTorus(double &rotateX, double &rotateY, double &rotateZ, double &scal
      R = confg[figureString]["R"].as_double_or_die();
      r = confg[figureString]["r"].as_int_or_die();
 }
+
+void calculateTotalMatrix(Figure &figure) {
+    if (figure.firstTime) {
+        figure.totalMatrix = scaleFigure(figure.scale) * RotateX(figure.rotateX) * RotateY(figure.rotateY) * RotateZ(figure.rotateZ) * translate(figure.center);
+        figure.firstTime = false;
+    }
+}
+
+void configFigureTranslations(Figure &figure, double rotateX, double rotateY, double rotateZ, double scale, Vector3D center,
+                         Vector3D eyeCords) {
+    figure.rotateX = rotateX;
+    figure.rotateY = rotateY;
+    figure.rotateZ = rotateZ;
+    figure.scale = scale;
+    figure.center = center;
+    figure.eyePoint = eyeCords;
+}
+
+
 

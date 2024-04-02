@@ -36,7 +36,7 @@ Matrix RotateZ(const double angle);
 
 Matrix translate(const Vector3D &vector);
 
-void applyTransformation(Figure &fig, const Matrix &m);
+void applyTransformation(Figure* fig, const Matrix &m);
 
 void toPolar(const Vector3D &point, double &r, double &theta, double &phi);
 
@@ -46,7 +46,7 @@ void applyTransformation(Figures3D &figs, const Matrix &m);
 
 Point2D doProjection(const Vector3D &point, const double d = 1.0);
 
-Lines2D doProjection(const Figures3D figuren3D);
+Lines2D doProjection(const Figures3D &figuren3D);
 
 
 #endif //ENGINE_TRANSLATIONS_H

@@ -17,8 +17,19 @@ public:
     std::vector<Face> faces;
     Color1 color;
 
+    Matrix totalMatrix;
+    bool firstTime = true;
+
+    double rotateX;
+    double rotateY;
+    double rotateZ;
+    double scale;
+    Vector3D center;
+    Vector3D eyePoint;
+
     explicit Figure(const Color1 &color);
 };
 typedef std::vector<Figure> Figures3D;
+
 
 #endif //ENGINE_FIGURE_H

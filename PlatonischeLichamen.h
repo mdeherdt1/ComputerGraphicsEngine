@@ -39,4 +39,9 @@ void createTorus(Figure& figure, const int n, const int m, const double R, const
 
 void applyAllTransformations(Figure& figure, double scaleFactor, double rotateX, double rotateY, double rotateZ, Vector3D center);
 
+void calculateTotalMatrix(Figure& fig);
+
+void configFigureTranslations(Figure &figure, double rotateX, double rotateY, double rotateZ, double scale, Vector3D center, Vector3D eyeCords);
+
+
 #endif //ENGINE_PLATONISCHELICHAMEN_H

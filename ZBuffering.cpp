@@ -5,6 +5,7 @@
 #include <list>
 #include "ZBuffering.h"
 #include "Color1.h"
+#include <limits>
 
 
 img::EasyImage zBuffering(const ini::Configuration &confg){
@@ -15,59 +16,47 @@ img::EasyImage zBuffering(const ini::Configuration &confg){
 
     Figures3D figures3D = configure3D(confg,size,backGroundColor,eyeCords);
 
-    for(Figure &fig:figures3D) {
-        applyTransformation(fig, eyePointTrans(eyeCords));
-    }
-
     return drawTriangulateFaces(figures3D, size, backGroundColor, eyeCords, true);
 }
 
-img::EasyImage drawTriangulateFaces(Figures3D &figures3D, int size, img::Color bgColor, Vector3D eyeCords, bool buffer) {
+img::EasyImage drawTriangulateFaces(Figures3D figures3D, int size, img::Color bgColor, Vector3D eyeCords, bool buffer) {
     Lines2D lines = doProjection(figures3D);
 
-    std::vector<double> xjes ;
-    std::vector<double>ytjes;
+    double xmin = std::numeric_limits<double>::infinity(), xmax = 0, ymin = +std::numeric_limits<double>::infinity(), ymax = 0;
 
 
 
     //push alles in de vectoren om min en max te bepalen
-    for (Line2D lijn:lines) {
-        xjes.push_back(lijn.p1.x);
-        xjes.push_back(lijn.p2.x);
-        ytjes.push_back(lijn.p1.y);
-        ytjes.push_back(lijn.p2.y);
-    }
-    double x_min = xjes[0];
-    double y_min = ytjes[0];
-    double x_max = xjes[0];
-    double y_max = ytjes[0];
+    for(Lines2D::iterator it = lines.begin(); it != lines.end(); it++) {
+        double x1 = it->p1.x;
+        double x2 = it->p2.x;
 
-    for (double x:xjes){
-        if(x <= x_min){
-            x_min = x;
-        }
-        if(x >= x_max){
-            x_max = x;
-        }
+        double y1 = it->p1.y;
+        double y2 = it->p2.y;
+
+        if(xmin > x1) xmin = x1;
+        if(xmax < x1) xmax = x1;
+
+        if(xmin > x2) xmin = x2;
+        if(xmax < x2) xmax = x2;
+
+        if(ymin > y1) ymin = y1;
+        if(ymax < y1) ymax = y1;
+
+        if(ymin > y2) ymin = y2;
+        if(ymax < y2) ymax = y2;
     }
-    for(double y:ytjes){
-        if(y <= y_min){
-            y_min = y;
-        }
-        if(y >= y_max){
-            y_max = y;
-        }
-    }
-    double x_range = x_max - x_min;
-    double y_range = y_max - y_min;
+
+    double x_range = xmax - xmin;
+    double y_range = ymax - ymin;
     double width = size * (x_range / (std::max(x_range,y_range)));
     double height = size * (y_range / (std::max(x_range,y_range)));
 
 
     double d = 0.95 * (width / x_range);
 
-    double DCx = d * ((x_min + x_max) / 2);
-    double DCy = d * ((y_min + y_max) / 2);
+    double DCx = d * ((xmin + xmax) / 2);
+    double DCy = d * ((ymin + ymax) / 2);
 
     double dx = width / 2 - DCx;
     double dy = height / 2 - DCy;
@@ -94,11 +83,22 @@ img::EasyImage drawTriangulateFaces(Figures3D &figures3D, int size, img::Color b
 
 }
 
-void doTriangulation(Figures3D &figures) {
+std::vector<Face> triangulate(const Face face) {
+    std::vector<Face> faceTriangulate;
+    int P0 = face.point_indexes[0];
+    for(int i = 1; i < face.point_indexes.size() - 1; i++){
+        faceTriangulate.push_back(Face(std::vector<int>({P0, face.point_indexes[i], face.point_indexes[i + 1]})));
+    }
+    return faceTriangulate;
+}
+
+void doTriangulation(Figures3D& figures) {
     for (Figure &figure:figures) {
+        int size = figure.faces.size();
+        int sizePoints = figure.points.size();
         std::vector<Face> facesNew;
         for (Face face:figure.faces) {
-            std::vector<Face> newFace = face.triangulate();
+            std::vector<Face> newFace = triangulate(face);
             if(facesNew.size() == 0){
                 facesNew = newFace;
             }
@@ -114,6 +114,9 @@ void doTriangulation(Figures3D &figures) {
         figure.faces = facesNew;
     }
 }
+
+
+
 
 
 void img::EasyImage::draw_zbuf_triangle(ZBuffer &zbuf, Vector3D &A, Vector3D &B, Vector3D &C, double d, double dx,

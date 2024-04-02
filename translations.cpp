@@ -72,9 +72,9 @@ Matrix translate(const Vector3D &vector){
     return translateMatrixback;
 }
 
-void applyTransformation(Figure &fig, const Matrix &m) {
-    for(auto &point:fig.points){
-        point =  point * m;
+void applyTransformation(Figure* fig, const Matrix &m) {
+    for(int i = 0; i < fig->points.size(); i++){
+        fig->points[i] *= m;
     }
 }
 void toPolar(const Vector3D &point, double &r, double &theta, double &phi){
@@ -103,7 +103,7 @@ Matrix eyePointTrans(const Vector3D &eyepoint){
 
 void applyTransformation(Figures3D &figs, const Matrix &m){
     for(Figure &fig:figs){
-        applyTransformation(fig, m);
+        applyTransformation(&fig, m);
     }
 }
 
@@ -111,17 +111,17 @@ Point2D doProjection(const Vector3D &point, const double d){
     return Point2D(-point.x * d / point.z, -point.y * d / point.z, point.z);
 }
 
-Lines2D doProjection(const Figures3D figuren3D) {
+Lines2D doProjection(const Figures3D &figuren3D) {
     Lines2D lines;
     for(auto it = figuren3D.begin(); it != figuren3D.end(); it++){
-        for(auto it1 = (*it).faces.begin(); it1 != (*it).faces.end(); it1++){
+        for(auto it1 = (it)->faces.begin(); it1 != (it)->faces.end(); it1++){
             for(int i = 1; i < (it1)->point_indexes.size(); i++){
-                Line2D lijn = Line2D(doProjection((*it).points[(*it1).point_indexes[i - 1]], 1),doProjection((*it).points[(*it1).point_indexes[i]], 1), (*it).color);
+                Line2D lijn = Line2D(doProjection((it)->points[(*it1).point_indexes[i - 1]], 1),doProjection((it)->points[(it1)->point_indexes[i]], 1), (it)->color);
                 lines.push_back(lijn);
             }
             //einde terug naar begin!
             if((it1)->point_indexes.size() > 2){
-                Line2D lijn(doProjection((*it).points[(*it1).point_indexes[(*it1).point_indexes.size() - 1]], 1),doProjection((*it).points[(*it1).point_indexes[0]], 1), (*it).color);
+                Line2D lijn(doProjection((it)->points[(it1)->point_indexes[(it1)->point_indexes.size() - 1]], 1),doProjection((it)->points[(it1)->point_indexes[0]], 1), (it)->color);
                 lines.push_back(lijn);
             }
         }

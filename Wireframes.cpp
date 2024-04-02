@@ -12,6 +12,7 @@ Figures3D configure3D(const ini::Configuration &confg, int& size, img::Color &ba
     ini::DoubleTuple eyeCordsINI = confg["General"]["eye"].as_double_tuple_or_die();
     eyeCords = Vector3D::point(eyeCordsINI[0], eyeCordsINI[1], eyeCordsINI[2]);
 
+
     Figures3D figures3D;
     double rotateX;
     double rotateY;
@@ -33,9 +34,6 @@ Figures3D configure3D(const ini::Configuration &confg, int& size, img::Color &ba
             rotateY = confg[figureString]["rotateY"].as_double_or_die();
             rotateZ = confg[figureString]["rotateZ"].as_double_or_die();
             scale = confg[figureString]["scale"].as_double_or_die();
-            Color1 figureColor = Color1(confg[figureString]["color"].as_double_tuple_or_die()[0],
-                                        confg[figureString]["color"].as_double_tuple_or_die()[1],
-                                        confg[figureString]["color"].as_double_tuple_or_die()[2]);
             center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0],
                                      confg[figureString]["center"].as_double_tuple_or_die()[1],
                                      confg[figureString]["center"].as_double_tuple_or_die()[2]);
@@ -55,65 +53,53 @@ Figures3D configure3D(const ini::Configuration &confg, int& size, img::Color &ba
                 pointIndexes.push_back(confg[figureString][Line].as_int_tuple_or_die()[1]);
                 figure.faces.push_back(Face(pointIndexes));
             }
-            applyAllTransformations(figure, scale, rotateX, rotateY, rotateZ, center);
-
-            figures3D.push_back(figure);
         } else if (type2 == "Cube") {
             configFigure(rotateX, rotateY, rotateZ, scale, center, confg, figureString);
             createCube(figure);
-            applyAllTransformations(figure, scale, rotateX, rotateY, rotateZ, center);
 
-            figures3D.push_back(figure);
         } else if (type2 == "Tetrahedron") {
             configFigure(rotateX, rotateY, rotateZ, scale, center, confg, figureString);
             createTetrahedron(figure);
-            applyAllTransformations(figure, scale, rotateX, rotateY, rotateZ, center);
 
-            figures3D.push_back(figure);
         } else if (type2 == "Octahedron") {
             configFigure(rotateX, rotateY, rotateZ, scale, center, confg, figureString);
             createOctahedron(figure);
-            applyAllTransformations(figure, scale, rotateX, rotateY, rotateZ, center);
 
-            figures3D.push_back(figure);
         } else if (type2 == "Icosahedron") {
             configFigure(rotateX, rotateY, rotateZ, scale, center, confg, figureString);
             createIcosahedron(figure);
-            applyAllTransformations(figure, scale, rotateX, rotateY, rotateZ, center);
 
-            figures3D.push_back(figure);
+
         } else if (type2 == "Dodecahedron") {
             configFigure(rotateX, rotateY, rotateZ, scale, center, confg, figureString);
             createDodecahedron(figure);
-            applyAllTransformations(figure, scale, rotateX, rotateY, rotateZ, center);
+            configFigureTranslations(figure, rotateX, rotateY, rotateZ, scale, center, eyeCords);
 
-            figures3D.push_back(figure);
+
         } else if (type2 == "Cone") {
             double h;
             int n;
 
             configCylinder(rotateX, rotateY, rotateZ, scale, center, confg, figureString, h, n);
             createCone(figure, n, h);
-            applyAllTransformations(figure, scale, rotateX, rotateY, rotateZ, center);
+            configFigureTranslations(figure, rotateX, rotateY, rotateZ, scale, center, eyeCords);
 
-            figures3D.push_back(figure);
+
         } else if (type2 == "Cylinder") {
             double h;
             int n;
 
             configCylinder(rotateX, rotateY, rotateZ, scale, center, confg, figureString, h, n);
             createCylinder(figure, n, h);
-            applyAllTransformations(figure, scale, rotateX, rotateY, rotateZ, center);
+            configFigureTranslations(figure, rotateX, rotateY, rotateZ, scale, center, eyeCords);
 
-            figures3D.push_back(figure);
         } else if (type2 == "Sphere") {
             int n;
 
             configSphere(rotateX, rotateY, rotateZ, scale, center, confg, figureString, n);
             createSphere(figure, n);
-            applyAllTransformations(figure, scale, rotateX, rotateY, rotateZ, center);
+            configFigureTranslations(figure, rotateX, rotateY, rotateZ, scale, center, eyeCords);
 
-            figures3D.push_back(figure);
         } else if (type2 == "Torus") {
             int n;
             int m;
@@ -122,23 +108,27 @@ Figures3D configure3D(const ini::Configuration &confg, int& size, img::Color &ba
 
             configTorus(rotateX, rotateY, rotateZ, scale, center, confg, figureString, R, r, n, m);
             createTorus(figure, n, m, R, r);
-            applyAllTransformations(figure, scale, rotateX, rotateY, rotateZ, center);
+            configFigureTranslations(figure, rotateX, rotateY, rotateZ, scale, center, eyeCords);
 
-            figures3D.push_back(figure);
+
         } else if (type2 == "3DLSystem") {
             Color1 kleur = Color1();
 
             LParser::LSystem3D l_system = createLSystem3D(confg, figureString, scale, rotateX, rotateY, rotateZ, center,
                                                           kleur);
             drawLSystem3D(l_system, figure, kleur);
-            applyAllTransformations(figure, scale, rotateX, rotateY, rotateZ, center);
-
-            figures3D.push_back(figure);
-
+            configFigureTranslations(figure, rotateX, rotateY, rotateZ, scale, center, eyeCords);
         }
+
         figure.color = Color1(confg[figureString]["color"].as_double_tuple_or_die()[0],
                               confg[figureString]["color"].as_double_tuple_or_die()[1],
                               confg[figureString]["color"].as_double_tuple_or_die()[2]);
+
+        configFigureTranslations(figure, rotateX, rotateY, rotateZ, scale, center, eyeCords);
+        calculateTotalMatrix(figure);
+        applyTransformation(&figure, figure.totalMatrix);
+        applyTransformation(&figure, eyePointTrans(figure.eyePoint));
+        figures3D.push_back(figure);
     }
     return figures3D;
 }
