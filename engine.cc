@@ -198,9 +198,6 @@ Lines2D drawLSystem(const LParser::LSystem2D &l_system, Color1 lijnKleur = Color
 
 
 img::EasyImage createWireFrame(int size, img::Color color, Vector3D eyeCords, Figures3D figures, bool zBuffer = false){
-    for(Figure &fig:figures) {
-        applyTransformation(&fig, eyePointTrans(eyeCords));
-    }
     return draw2DLines(doProjection(figures), size, color, zBuffer);
 }
 
@@ -300,6 +297,7 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
         Vector3D eyeCords = Vector3D();
 
         Figures3D figures3D = configure3D(confg,size,backGroundColor,eyeCords);
+
 
         return createWireFrame(size, backGroundColor, eyeCords, figures3D, true);
     }
