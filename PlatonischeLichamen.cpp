@@ -388,5 +388,59 @@ void configFigureTranslations(Figure &figure, double rotateX, double rotateY, do
     figure.eyePoint = eyeCords;
 }
 
+void generateFractal(Figure &figure, Figures3D &fractal, const int nr_iterations, const double scale) {
+    if (nr_iterations == 0) {
+        fractal.push_back(figure);
+        return;
+    }
+
+    Figure newFigure = figure;
+
+    for (int j = 0; j < figure.points.size(); j++) {
+        Matrix newMatrix = scaleFigure(1/scale);
+
+        applyTransformation(&newFigure, newMatrix);
+
+        Vector3D newLocation = figure.points[j] - newFigure.points[j];
+
+        applyTransformation(&newFigure, translate(newLocation));
+
+        fractal.push_back(newFigure);
+    }
+
+    for(int i = 0; i < nr_iterations - 1; i++) {
+        Figures3D newFigures;
+        for(auto &figure : fractal) {
+            for (int j = 0; j < figure.points.size(); j++) {
+                Matrix newMatrix = scaleFigure(1 / scale);
+
+                applyTransformation(&figure, newMatrix);
+
+                Vector3D newLocation = figure.points[j] - newFigure.points[j];
+
+                applyTransformation(&figure, translate(newLocation));
+
+                newFigures.push_back(figure);
+            }
+        }
+        fractal = newFigures;
+    }
+}
+
+
+void configFigureFractal(double &rotateX, double &rotateY, double &rotateZ, double &scale, Vector3D &center,
+                         const ini::Configuration &confg, std::string figureString, int &nr_iterations,
+                         double &scaleFactor) {
+    rotateX = confg[figureString]["rotateX"].as_double_or_die();
+    rotateY = confg[figureString]["rotateY"].as_double_or_die();
+    rotateZ = confg[figureString]["rotateZ"].as_double_or_die();
+    scale = confg[figureString]["scale"].as_double_or_die();
+    nr_iterations = confg[figureString]["nrIterations"].as_int_or_die();
+    scaleFactor = confg[figureString]["fractalScale"].as_double_or_die();
+    center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0], confg[figureString]["center"].as_double_tuple_or_die()[1], confg[figureString]["center"].as_double_tuple_or_die()[2]);
+
+}
+
+
 
 

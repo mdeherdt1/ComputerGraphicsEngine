@@ -29,7 +29,7 @@
 #include "ini_configuration.h"
 #include "Color1.h"
 #include "Point2D.h"
-#include "Vector3D.h"
+#include "vector3d.h"
 
 LParser::LSystem3D createLSystem3D(const ini::Configuration &configuration, std::string figureString, double& scaleFactor, double& rotateX, double& rotateY, double& rotateZ, Vector3D& center, Color1& kleur);
 

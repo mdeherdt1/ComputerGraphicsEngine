@@ -28,6 +28,8 @@ public:
     Vector3D eyePoint;
 
     explicit Figure(const Color1 &color);
+
+    Figure copy();
 };
 typedef std::vector<Figure> Figures3D;
 

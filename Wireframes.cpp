@@ -20,6 +20,11 @@ Figures3D configure3D(const ini::Configuration &confg, int& size, img::Color &ba
     double scale;
     Vector3D center;
 
+    //voor fractalen
+    int nr_iterations;
+    double fractalScaleFactor;
+    bool fractal = false;
+
 
     for (unsigned int i = 0; i < nrOfFigures; ++i) {
         std::string figureString = "Figure" + std::to_string(i);
@@ -56,27 +61,56 @@ Figures3D configure3D(const ini::Configuration &confg, int& size, img::Color &ba
         } else if (type2 == "Cube") {
             configFigure(rotateX, rotateY, rotateZ, scale, center, confg, figureString);
             createCube(figure);
-
-        } else if (type2 == "Tetrahedron") {
+        }
+        else if(type2 == "FractalCube"){
+            configFigureFractal(rotateX, rotateY, rotateZ, scale, center, confg, figureString, nr_iterations, fractalScaleFactor);
+            createCube(figure);
+            generateFractal(figure, figures3D, nr_iterations, fractalScaleFactor);
+            fractal = true;
+        }
+        else if (type2 == "Tetrahedron") {
             configFigure(rotateX, rotateY, rotateZ, scale, center, confg, figureString);
             createTetrahedron(figure);
-
-        } else if (type2 == "Octahedron") {
+        }
+        else if(type2 == "FractalTetrahedron"){
+            configFigureFractal(rotateX, rotateY, rotateZ, scale, center, confg, figureString, nr_iterations, fractalScaleFactor);
+            createTetrahedron(figure);
+            Figures3D fractalFigures;
+            generateFractal(figure, fractalFigures, nr_iterations, fractalScaleFactor);
+            fractal = true;
+        }
+        else if (type2 == "Octahedron") {
             configFigure(rotateX, rotateY, rotateZ, scale, center, confg, figureString);
             createOctahedron(figure);
-
-        } else if (type2 == "Icosahedron") {
+        }
+        else if(type2 == "FractalOctahedron"){
+            configFigureFractal(rotateX, rotateY, rotateZ, scale, center, confg, figureString, nr_iterations, fractalScaleFactor);
+            createOctahedron(figure);
+            generateFractal(figure, figures3D, nr_iterations, fractalScaleFactor);
+            fractal = true;
+        }
+        else if (type2 == "Icosahedron") {
             configFigure(rotateX, rotateY, rotateZ, scale, center, confg, figureString);
             createIcosahedron(figure);
-
-
-        } else if (type2 == "Dodecahedron") {
+        }
+        else if(type2 == "FractalIcosahedron"){
+            configFigureFractal(rotateX, rotateY, rotateZ, scale, center, confg, figureString, nr_iterations, fractalScaleFactor);
+            createIcosahedron(figure);
+            generateFractal(figure, figures3D, nr_iterations, fractalScaleFactor);
+            fractal = true;
+        }
+        else if (type2 == "Dodecahedron") {
             configFigure(rotateX, rotateY, rotateZ, scale, center, confg, figureString);
             createDodecahedron(figure);
             configFigureTranslations(figure, rotateX, rotateY, rotateZ, scale, center, eyeCords);
-
-
-        } else if (type2 == "Cone") {
+        }
+        else if(type2 == "FractalDodecahedron"){
+            configFigureFractal(rotateX, rotateY, rotateZ, scale, center, confg, figureString, nr_iterations, fractalScaleFactor);
+            createDodecahedron(figure);
+            generateFractal(figure, figures3D, nr_iterations, fractalScaleFactor);
+            fractal = true;
+        }
+        else if (type2 == "Cone") {
             double h;
             int n;
 
@@ -120,15 +154,28 @@ Figures3D configure3D(const ini::Configuration &confg, int& size, img::Color &ba
             configFigureTranslations(figure, rotateX, rotateY, rotateZ, scale, center, eyeCords);
         }
 
-        figure.color = Color1(confg[figureString]["color"].as_double_tuple_or_die()[0],
-                              confg[figureString]["color"].as_double_tuple_or_die()[1],
-                              confg[figureString]["color"].as_double_tuple_or_die()[2]);
+        if(fractal){
+            for(int j = 0; j < figures3D.size(); j++){
+                figures3D[j].color = Color1(confg[figureString]["color"].as_double_tuple_or_die()[0],
+                                            confg[figureString]["color"].as_double_tuple_or_die()[1],
+                                            confg[figureString]["color"].as_double_tuple_or_die()[2]);
+                configFigureTranslations(figures3D[j], rotateX, rotateY, rotateZ, scale, center, eyeCords);
+                calculateTotalMatrix(figures3D[j]);
+                applyTransformation(&figures3D[j], figures3D[j].totalMatrix);
+                applyTransformation(&figures3D[j], eyePointTrans(figures3D[j].eyePoint));
+            }
+        }
+        else {
+            figure.color = Color1(confg[figureString]["color"].as_double_tuple_or_die()[0],
+                                  confg[figureString]["color"].as_double_tuple_or_die()[1],
+                                  confg[figureString]["color"].as_double_tuple_or_die()[2]);
 
-        configFigureTranslations(figure, rotateX, rotateY, rotateZ, scale, center, eyeCords);
-        calculateTotalMatrix(figure);
-        applyTransformation(&figure, figure.totalMatrix);
-        applyTransformation(&figure, eyePointTrans(figure.eyePoint));
-        figures3D.push_back(figure);
+            configFigureTranslations(figure, rotateX, rotateY, rotateZ, scale, center, eyeCords);
+            calculateTotalMatrix(figure);
+            applyTransformation(&figure, figure.totalMatrix);
+            applyTransformation(&figure, eyePointTrans(figure.eyePoint));
+            figures3D.push_back(figure);
+        }
     }
     return figures3D;
 }
