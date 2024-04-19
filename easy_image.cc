@@ -431,6 +431,7 @@ void img::EasyImage::draw_zbuf_line(ZBuffer &f, unsigned int x0, unsigned int y0
         {
             std::swap(x0, x1);
             std::swap(y0, y1);
+            std::swap(z0, z1);
             }
         double m = ((double) y1 - (double) y0) / ((double) x1 - (double) x0);
         if (-1.0 <= m && m <= 1.0)

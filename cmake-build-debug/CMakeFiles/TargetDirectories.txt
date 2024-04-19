@@ -1,7 +1,7 @@
-C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/cmake-build-debug/CMakeFiles/engine.dir
-C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/cmake-build-debug/CMakeFiles/list_install_components.dir
-C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/cmake-build-debug/CMakeFiles/install.dir
-C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/cmake-build-debug/CMakeFiles/install/local.dir
-C:/Users/DH Services BVBA/Documents/GitHub/ComputerGraphics/cmake-build-debug/CMakeFiles/install/strip.dir
+/Users/mdh/Github/ComputerGraphicsEngine/cmake-build-debug/CMakeFiles/engine.dir
+/Users/mdh/Github/ComputerGraphicsEngine/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/mdh/Github/ComputerGraphicsEngine/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/mdh/Github/ComputerGraphicsEngine/cmake-build-debug/CMakeFiles/list_install_components.dir
+/Users/mdh/Github/ComputerGraphicsEngine/cmake-build-debug/CMakeFiles/install.dir
+/Users/mdh/Github/ComputerGraphicsEngine/cmake-build-debug/CMakeFiles/install/local.dir
+/Users/mdh/Github/ComputerGraphicsEngine/cmake-build-debug/CMakeFiles/install/strip.dir
