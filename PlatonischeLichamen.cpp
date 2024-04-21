@@ -388,42 +388,29 @@ void configFigureTranslations(Figure &figure, double rotateX, double rotateY, do
     figure.eyePoint = eyeCords;
 }
 
-void generateFractal(Figure &figure, Figures3D &fractal, const int nr_iterations, const double scale) {
+void generateFractal(Figure &figure, Figures3D &fractal, int nr_iterations, double scale, bool &fractalBool) {
+    fractalBool = true;
     if (nr_iterations == 0) {
-        fractal.push_back(figure);
+        fractal.push_back(figure);  // Base case: add original figure to fractal if no more iterations
         return;
     }
 
-    Figure newFigure = figure;
+    // Process each point in the original figure to generate scaled figures
+    for (size_t j = 0; j < figure.points.size(); j++) {
+        Figure newFigure = figure;  // Create a copy of the original figure for transformation
 
-    for (int j = 0; j < figure.points.size(); j++) {
-        Matrix newMatrix = scaleFigure(1/scale);
+        Matrix scaleMatrix = scaleFigure(1 / scale);  // Create a scaling matrix
 
-        applyTransformation(&newFigure, newMatrix);
+        applyTransformation(&newFigure, scaleMatrix);  // Scale the new figure
 
-        Vector3D newLocation = figure.points[j] - newFigure.points[j];
+        // Calculate translation required to move scaled figure's point to the original point's position
+        Vector3D translationVector = figure.points[j] - newFigure.points[j];
+        Matrix translationMatrix = translate(translationVector);
 
-        applyTransformation(&newFigure, translate(newLocation));
+        applyTransformation(&newFigure, translationMatrix);  // Apply the translation
 
-        fractal.push_back(newFigure);
-    }
-
-    for(int i = 0; i < nr_iterations - 1; i++) {
-        Figures3D newFigures;
-        for(auto &figure : fractal) {
-            for (int j = 0; j < figure.points.size(); j++) {
-                Matrix newMatrix = scaleFigure(1 / scale);
-
-                applyTransformation(&figure, newMatrix);
-
-                Vector3D newLocation = figure.points[j] - newFigure.points[j];
-
-                applyTransformation(&figure, translate(newLocation));
-
-                newFigures.push_back(figure);
-            }
-        }
-        fractal = newFigures;
+        // Recursively generate fractals for the newly created figure
+        generateFractal(newFigure, fractal, nr_iterations - 1, scale,fractalBool);  // Decrement iterations
     }
 }
 
@@ -440,6 +427,8 @@ void configFigureFractal(double &rotateX, double &rotateY, double &rotateZ, doub
     center = Vector3D::point(confg[figureString]["center"].as_double_tuple_or_die()[0], confg[figureString]["center"].as_double_tuple_or_die()[1], confg[figureString]["center"].as_double_tuple_or_die()[2]);
 
 }
+
+
 
 
 

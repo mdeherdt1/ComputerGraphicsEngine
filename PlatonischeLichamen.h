@@ -47,5 +47,7 @@ void configFigureTranslations(Figure &figure, double rotateX, double rotateY, do
 
 //voor de fractalen
 void configFigureFractal(double& rotateX, double& rotateY, double& rotateZ, double& scale, Vector3D& center, const ini::Configuration &confg, std::string figureString, int &nr_iterations, double &scaleFactor);
-void generateFractal(Figure &fig, Figures3D &fractal, const int nr_iterations, const double scale);
+void generateFractal(Figure &fig, Figures3D &fractal, const int nr_iterations, const double scale, bool &fractalBool);
+
+
 #endif //ENGINE_PLATONISCHELICHAMEN_H

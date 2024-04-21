@@ -5,6 +5,7 @@
 #include "Wireframes.h"
 
 
+
 Figures3D configure3D(const ini::Configuration &confg, int& size, img::Color &backGroundColor, Vector3D &eyeCords){
     ini::DoubleTuple BackGroundINI = confg["General"]["backgroundcolor"];
     backGroundColor = img::Color(BackGroundINI[0]*255, BackGroundINI[1]*255, BackGroundINI[2]*255);
@@ -65,8 +66,7 @@ Figures3D configure3D(const ini::Configuration &confg, int& size, img::Color &ba
         else if(type2 == "FractalCube"){
             configFigureFractal(rotateX, rotateY, rotateZ, scale, center, confg, figureString, nr_iterations, fractalScaleFactor);
             createCube(figure);
-            generateFractal(figure, figures3D, nr_iterations, fractalScaleFactor);
-            fractal = true;
+            generateFractal(figure, figures3D, nr_iterations, fractalScaleFactor,fractal);
         }
         else if (type2 == "Tetrahedron") {
             configFigure(rotateX, rotateY, rotateZ, scale, center, confg, figureString);
@@ -76,8 +76,7 @@ Figures3D configure3D(const ini::Configuration &confg, int& size, img::Color &ba
             configFigureFractal(rotateX, rotateY, rotateZ, scale, center, confg, figureString, nr_iterations, fractalScaleFactor);
             createTetrahedron(figure);
             Figures3D fractalFigures;
-            generateFractal(figure, fractalFigures, nr_iterations, fractalScaleFactor);
-            fractal = true;
+            generateFractal(figure, figures3D, nr_iterations, fractalScaleFactor,fractal);
         }
         else if (type2 == "Octahedron") {
             configFigure(rotateX, rotateY, rotateZ, scale, center, confg, figureString);
@@ -86,18 +85,18 @@ Figures3D configure3D(const ini::Configuration &confg, int& size, img::Color &ba
         else if(type2 == "FractalOctahedron"){
             configFigureFractal(rotateX, rotateY, rotateZ, scale, center, confg, figureString, nr_iterations, fractalScaleFactor);
             createOctahedron(figure);
-            generateFractal(figure, figures3D, nr_iterations, fractalScaleFactor);
-            fractal = true;
+            generateFractal(figure, figures3D, nr_iterations, fractalScaleFactor,fractal);
+
         }
-        else if (type2 == "Icosahedron") {
+        else if (type2 == "Icosahedron" || type2 == "BuckyBall" || type2 == "MengerSponge") { //BuckyBall en MengerSponge niet geimplementeerd
             configFigure(rotateX, rotateY, rotateZ, scale, center, confg, figureString);
             createIcosahedron(figure);
         }
         else if(type2 == "FractalIcosahedron"){
             configFigureFractal(rotateX, rotateY, rotateZ, scale, center, confg, figureString, nr_iterations, fractalScaleFactor);
             createIcosahedron(figure);
-            generateFractal(figure, figures3D, nr_iterations, fractalScaleFactor);
-            fractal = true;
+            generateFractal(figure, figures3D, nr_iterations, fractalScaleFactor,fractal);
+
         }
         else if (type2 == "Dodecahedron") {
             configFigure(rotateX, rotateY, rotateZ, scale, center, confg, figureString);
@@ -107,8 +106,8 @@ Figures3D configure3D(const ini::Configuration &confg, int& size, img::Color &ba
         else if(type2 == "FractalDodecahedron"){
             configFigureFractal(rotateX, rotateY, rotateZ, scale, center, confg, figureString, nr_iterations, fractalScaleFactor);
             createDodecahedron(figure);
-            generateFractal(figure, figures3D, nr_iterations, fractalScaleFactor);
-            fractal = true;
+            generateFractal(figure, figures3D, nr_iterations, fractalScaleFactor,fractal);
+
         }
         else if (type2 == "Cone") {
             double h;
@@ -153,6 +152,13 @@ Figures3D configure3D(const ini::Configuration &confg, int& size, img::Color &ba
             drawLSystem3D(l_system, figure, kleur);
             configFigureTranslations(figure, rotateX, rotateY, rotateZ, scale, center, eyeCords);
         }
+        else if(type2 == "FractalBuckyBall"){
+            configFigureFractal(rotateX, rotateY, rotateZ, scale, center, confg, figureString, nr_iterations, fractalScaleFactor);
+            configFigureFractal(rotateX, rotateY, rotateZ, scale, center, confg, figureString, nr_iterations, fractalScaleFactor);
+            createIcosahedron(figure);
+            generateFractal(figure, figures3D, nr_iterations, fractalScaleFactor,fractal);
+        }
+
 
         if(fractal){
             for(int j = 0; j < figures3D.size(); j++){
@@ -179,5 +185,8 @@ Figures3D configure3D(const ini::Configuration &confg, int& size, img::Color &ba
     }
     return figures3D;
 }
+
+
+
 
 
