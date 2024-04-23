@@ -152,23 +152,35 @@ Figures3D configure3D(const ini::Configuration &confg, int& size, img::Color &ba
             drawLSystem3D(l_system, figure, kleur);
             configFigureTranslations(figure, rotateX, rotateY, rotateZ, scale, center, eyeCords);
         }
+
+
+        //niet geimplementeerd
+
         else if(type2 == "FractalBuckyBall"){
             configFigureFractal(rotateX, rotateY, rotateZ, scale, center, confg, figureString, nr_iterations, fractalScaleFactor);
             configFigureFractal(rotateX, rotateY, rotateZ, scale, center, confg, figureString, nr_iterations, fractalScaleFactor);
-            createIcosahedron(figure);
+            createIcosahedron(figure); //BuckyBall is niet geimplementeerd
             generateFractal(figure, figures3D, nr_iterations, fractalScaleFactor,fractal);
         }
+//        else if(type2 == "MengerSponge"){ niet geimplementeerd
+//            configFigure(rotateX, rotateY, rotateZ, scale, center, confg, figureString);
+//            int nr_iterations = confg[figureString]["nrIterations"].as_int_or_die();
+//            createCube(figure);
+//            generateMengerSponge(figure, nr_iterations);
+//        }
 
 
         if(fractal){
             for(int j = 0; j < figures3D.size(); j++){
-                figures3D[j].color = Color1(confg[figureString]["color"].as_double_tuple_or_die()[0],
-                                            confg[figureString]["color"].as_double_tuple_or_die()[1],
-                                            confg[figureString]["color"].as_double_tuple_or_die()[2]);
-                configFigureTranslations(figures3D[j], rotateX, rotateY, rotateZ, scale, center, eyeCords);
-                calculateTotalMatrix(figures3D[j]);
-                applyTransformation(&figures3D[j], figures3D[j].totalMatrix);
-                applyTransformation(&figures3D[j], eyePointTrans(figures3D[j].eyePoint));
+                if(figures3D[j].fractal){
+                    figures3D[j].color = Color1(confg[figureString]["color"].as_double_tuple_or_die()[0],
+                                                confg[figureString]["color"].as_double_tuple_or_die()[1],
+                                                confg[figureString]["color"].as_double_tuple_or_die()[2]);
+                    configFigureTranslations(figures3D[j], rotateX, rotateY, rotateZ, scale, center, eyeCords);
+                    calculateTotalMatrix(figures3D[j]);
+                    applyTransformation(&figures3D[j], figures3D[j].totalMatrix);
+                    applyTransformation(&figures3D[j], eyePointTrans(figures3D[j].eyePoint));
+                }
             }
         }
         else {
@@ -185,6 +197,8 @@ Figures3D configure3D(const ini::Configuration &confg, int& size, img::Color &ba
     }
     return figures3D;
 }
+
+
 
 
 

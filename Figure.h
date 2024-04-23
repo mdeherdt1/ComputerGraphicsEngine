@@ -27,6 +27,8 @@ public:
     Vector3D center;
     Vector3D eyePoint;
 
+    bool fractal = false;
+
     explicit Figure(const Color1 &color);
 
     Figure copy();
