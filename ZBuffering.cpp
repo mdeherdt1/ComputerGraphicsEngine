@@ -19,7 +19,7 @@ img::EasyImage zBuffering(const ini::Configuration &confg){
     return drawTriangulateFaces(figures3D, size, backGroundColor, eyeCords, true);
 }
 
-img::EasyImage drawTriangulateFaces(Figures3D figures3D, int size, img::Color bgColor, Vector3D eyeCords, bool buffer) {
+img::EasyImage drawTriangulateFaces(Figures3D figures3D, int size, img::Color bgColor, Vector3D eyeCords, bool buffer, Lights3D lights) {
     Lines2D lines = doProjection(figures3D);
 
     double xmin = std::numeric_limits<double>::infinity(), xmax = 0, ymin = +std::numeric_limits<double>::infinity(), ymax = 0;
@@ -67,13 +67,34 @@ img::EasyImage drawTriangulateFaces(Figures3D figures3D, int size, img::Color bg
 
     doTriangulation(figures3D, image, Zbuf, d, dx, dy);
 
-    for(auto fig : figures3D){
+
+    for(auto &fig : figures3D){
+        Color1 tempColor = Color1(0,0,0);
+        if(lights.size() == 0){
+            tempColor = fig.ambientReflection;
+        }
+        else {
+            for(Light light : lights){
+                double redAmbient = light.ambientLight.red * fig.ambientReflection.red;
+                double greenAmbient = light.ambientLight.green * fig.ambientReflection.green;
+                double blueAmbient = light.ambientLight.blue * fig.ambientReflection.blue;
+
+                tempColor.red = tempColor.red + redAmbient;
+                tempColor.green = tempColor.green + greenAmbient;
+                tempColor.blue = tempColor.blue + blueAmbient;
+            }
+        }
+        tempColor.green = tempColor.green*255;
+        tempColor.red = tempColor.red*255;
+        tempColor.blue = tempColor.blue*255;
+
+        fig.ambientReflection = tempColor;
+
         for(auto face : fig.faces){
             Vector3D v0 = fig.points[face.point_indexes[0]];
             Vector3D v1 = fig.points[face.point_indexes[1]];
             Vector3D v2 = fig.points[face.point_indexes[2]];
-            Color1 c = fig.color;
-            image.draw_zbuf_triangle(Zbuf, v0, v1, v2, d, dx, dy, c);
+            image.draw_zbuf_triangle(Zbuf, v0, v1, v2, d, dx, dy, lights, fig.reflectionCoefficient, fig.ambientReflection, fig.diffuseReflection, fig.specularReflection);
         }
     }
 
@@ -93,22 +114,28 @@ std::vector<Face> triangulate(const Face face) {
 }
 
 void doTriangulation(Figures3D& figures, img::EasyImage& image, ZBuffer& zbuf, double d, double dx, double dy) {
-    for (Figure& figure : figures) {
-        std::vector<Face> facesNew;
-        for (Face& face : figure.faces) {
-            std::vector<Face> newFaces = triangulate(face);
-            facesNew.insert(facesNew.end(), newFaces.begin(), newFaces.end());
+    for(auto it = figures.begin(); it != figures.end(); it++){
+        std::list<Face> newFaces;
+        for(auto it1 = (*it).faces.begin(); it1 != (*it).faces.end(); it1++){
+            std::list<Face> newFace;
+            std::vector<Face> tempVector = triangulate((*it1));
+            newFace.insert(newFace.begin(), tempVector.begin(), tempVector.end());
+            //TODO weg
+            if(newFaces.size() == 0){
+                newFaces = newFace;
+            }
+            else {
+                if(newFace.size() != 0){
+                    newFaces.insert(newFaces.begin(),newFace.begin(), newFace.end());
+                }
+                else{
+                    newFaces.push_back(*it1);
+                }
+            }
         }
-        figure.faces = facesNew;
 
-        for (Face& face : figure.faces) {
-            Vector3D v0 = figure.points[face.point_indexes[0]];
-            Vector3D v1 = figure.points[face.point_indexes[1]];
-            Vector3D v2 = figure.points[face.point_indexes[2]];
-            Color1 c = figure.color;
-
-            image.draw_zbuf_triangle(zbuf, v0, v1, v2, d, dx, dy, c);
-        }
+        std::vector<Face> newFacesVector(newFaces.begin(), newFaces.end());
+        (*it).faces = newFacesVector;
     }
 }
 
@@ -117,7 +144,7 @@ void doTriangulation(Figures3D& figures, img::EasyImage& image, ZBuffer& zbuf, d
 
 
 void img::EasyImage::draw_zbuf_triangle(ZBuffer &zbuf, Vector3D &A, Vector3D &B, Vector3D &C, double d, double dx,
-                                        double dy, Color1 color) {
+                                        double dy, Lights3D lights, double reflectionCoefficient, Color1 ambientLight, Color1 diffuseLight, Color1 specularLight) {
     double Axp = (d * A.x) / (-A.z) + dx;
     double Ayp = (d * A.y) / (-A.z) + dy;
     Point2D Ap = Point2D(Axp, Ayp);
@@ -130,9 +157,9 @@ void img::EasyImage::draw_zbuf_triangle(ZBuffer &zbuf, Vector3D &A, Vector3D &B,
     double Cyp = (d * C.y) / (-C.z) + dy;
     Point2D Cp = Point2D(Cxp, Cyp);
 
-    Line2D AB = Line2D(Ap, Bp, color);
-    Line2D AC = Line2D(Ap, Cp, color);
-    Line2D BC = Line2D(Bp, Cp, color);
+    Line2D AB = Line2D(Ap, Bp, Color1(0,0,0));
+    Line2D AC = Line2D(Ap, Cp, Color1(0,0,0));
+    Line2D BC = Line2D(Bp, Cp, Color1(0,0,0));
 
     double yMinTemp = std::min(Ayp, Byp);
     int yMin = round(std::min(yMinTemp, Cyp)+ 0.5);
@@ -150,6 +177,12 @@ void img::EasyImage::draw_zbuf_triangle(ZBuffer &zbuf, Vector3D &A, Vector3D &B,
     double dzdx = w1/(-(d*k));
     double dzdy = w2/(-(d*k));
 
+    //Color color after lights DIFFUSE
+    Color ambienLightColor = Color(ambientLight.red, ambientLight.green, ambientLight.blue);
+    Color diffuseLightColor = Color(diffuseLight.red*255, diffuseLight.green*255, diffuseLight.blue*255);
+    Color specularLightColor = Color(specularLight.red, specularLight.green, specularLight.blue);
+
+    Color colorAfterLights = calculateDiffuseInfLightColor(ambienLightColor,diffuseLightColor, specularLightColor, lights, Vector3D::cross(u,v), reflectionCoefficient);
 
     for(int yi = yMin; yi <= yMax; yi++){
         double XLab, XLac, XLbc;
@@ -188,10 +221,11 @@ void img::EasyImage::draw_zbuf_triangle(ZBuffer &zbuf, Vector3D &A, Vector3D &B,
         for(int x = xl; x <= xr; x++){
             double oneOverZ = 1.0001 * oneOverzg + (x - xg)*dzdx + (yi - yg)*dzdy;
             if(oneOverZ < zbuf.v[x][yi]){
-                img::Color color1 = Color(color.red*255,color.green*255,color.blue*255);
-                (*this)(x, yi) = color1;
+                Color newColor = calculateDiffusePointColor(colorAfterLights,diffuseLightColor, specularLightColor, lights, Vector3D::cross(u, v), x-dx,yi-dy,oneOverZ,d,reflectionCoefficient);
+                (*this)(x, yi) = newColor;
                 zbuf.v[x][yi] = oneOverZ;
             }
         }
     }
 }
+

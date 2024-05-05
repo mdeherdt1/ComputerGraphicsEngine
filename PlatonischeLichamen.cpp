@@ -392,21 +392,22 @@ void generateFractal(Figure &figure, Figures3D &fractal, int nr_iterations, doub
     fractalBool = true;
     figure.fractal = true;
     if (nr_iterations == 0) {
-        fractal.push_back(figure);  // Base case: add original figure to fractal if no more iterations
+        fractal.push_back(figure);
         return;
     }
     for (size_t j = 0; j < figure.points.size(); j++) {
         Figure newFigure = figure;
-        Matrix scaleMatrix = scaleFigure(1 / scale);  // Create a scaling matrix
+        Matrix scaleMatrix = scaleFigure(1 / scale);
 
-        applyTransformation(&newFigure, scaleMatrix);  // Scale the new figure
+        applyTransformation(&newFigure, scaleMatrix);
 
         Vector3D translationVector = figure.points[j] - newFigure.points[j];
         Matrix translationMatrix = translate(translationVector);
 
-        applyTransformation(&newFigure, translationMatrix);  // Apply the translation
+        applyTransformation(&newFigure, translationMatrix);
 
-        generateFractal(newFigure, fractal, nr_iterations - 1, scale,fractalBool);  // Decrement iterations
+        generateFractal(newFigure, fractal, nr_iterations - 1, scale,fractalBool);
+
     }
 }
 

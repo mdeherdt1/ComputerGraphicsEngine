@@ -17,6 +17,13 @@ public:
     std::vector<Face> faces;
     Color1 color;
 
+    Color1 ambientReflection;
+    Color1 diffuseReflection;
+    Color1 specularReflection;
+
+    double reflectionCoefficient;
+
+
     Matrix totalMatrix;
     bool firstTime = true;
 
@@ -26,10 +33,13 @@ public:
     double scale;
     Vector3D center;
     Vector3D eyePoint;
+    Matrix eyepointMatrix;
 
     bool fractal = false;
 
     explicit Figure(const Color1 &color);
+
+    Figure();
 
     Figure copy();
 };

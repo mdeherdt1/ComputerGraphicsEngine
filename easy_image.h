@@ -23,6 +23,8 @@
 #include "ZBuffer.h"
 #include "Figure.h"
 #include "Color1.h"
+#include "vector3d.h"
+#include "lightClass.h"
 /**
  * \brief The namespace of the EasyImage class
  */
@@ -225,8 +227,17 @@ namespace img
 
             void draw_zbuf_line(ZBuffer &zbuf, unsigned int x0, unsigned int y0,double z0, unsigned int x1, unsigned int y1, double z1, Color color);
 
-            void draw_zbuf_triangle(ZBuffer &zbuf, Vector3D &A, Vector3D &B, Vector3D &C, double d, double dx, double dy, Color1 color);
+			Color calculateDiffusePointColor(const Color & color, const Color & diffuse_light_color, const Color & specular_light_color, const Lights3D & list, const Vector3D & cross,
+			                               double x, double x1, double one_over_z, double d, double reflection_coefficient);
 
+            void draw_zbuf_triangle(ZBuffer &zbuf, Vector3D &A, Vector3D &B, Vector3D &C, double d, double dx, double dy, Lights3D lights, double reflectionCoefficient, Color1 ambientLight, Color1 diffuseLight, Color1 specularLight);
+
+
+			img::Color calculateDiffuseInfLightColor(img::Color &ambientColor,img::Color &diffuseReflection ,img::Color &specularLight , Lights3D &lights, Vector3D w, double ms);
+
+
+			img::Color calculateDiffusePointLightColor(img::Color &ambientColorAnddiffuseInfColor,img::Color &diffuseReflection,img::Color &specularLight ,
+													   Light &lights, Vector3D w, double x, double y, double z, double d, double ms);
 
             private:
 			friend std::istream& operator>>(std::istream& in, EasyImage & image);

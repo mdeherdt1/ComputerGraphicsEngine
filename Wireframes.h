@@ -27,7 +27,7 @@
 #include "draw3DLsystem.h"
 #include "ZBuffer.h"
 
-Figures3D configure3D(const ini::Configuration &confg, int& size, img::Color &backGroundColor, Vector3D &eyeCords);
+Figures3D configure3D(const ini::Configuration &confg, int& size, img::Color &backGroundColor, Vector3D &eyeCords, bool lighted = false);
 img::EasyImage CreateZBufferedWireframe(const ini::Configuration &configuration, int size);
 
 

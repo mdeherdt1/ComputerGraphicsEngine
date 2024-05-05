@@ -25,6 +25,7 @@
 #include "draw3DLsystem.h"
 #include "Wireframes.h"
 #include "ZBuffering.h"
+#include "lightedZbuffering.h"
 
 
 
@@ -303,6 +304,10 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
     }
     else if(type == "ZBuffering"){
         return zBuffering(confg);
+    }
+
+    else if (type == "LightedZBuffering"){
+        return lightedZBuffering( confg);
     }
 
     return image;

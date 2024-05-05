@@ -16,3 +16,5 @@ Figure Figure::copy() {
     figure.rotateZ = rotateZ;
     return figure;
 }
+
+Figure::Figure() {}

@@ -41,6 +41,10 @@ set(engine_sources
 		Wireframes.cpp
 		ZBuffer.cpp
 		ZBuffering.cpp
+		lightClass.cpp
+		lightClass.h
+		lightedZbuffering.cpp
+		lightedZbuffering.h
 )
 
 ############################################################

@@ -6,12 +6,14 @@
 
 
 
-Figures3D configure3D(const ini::Configuration &confg, int& size, img::Color &backGroundColor, Vector3D &eyeCords){
+Figures3D configure3D(const ini::Configuration &confg, int& size, img::Color &backGroundColor, Vector3D &eyeCords, bool lighted) {
     ini::DoubleTuple BackGroundINI = confg["General"]["backgroundcolor"];
     backGroundColor = img::Color(BackGroundINI[0]*255, BackGroundINI[1]*255, BackGroundINI[2]*255);
     int nrOfFigures = confg["General"]["nrFigures"].as_int_or_die();
     ini::DoubleTuple eyeCordsINI = confg["General"]["eye"].as_double_tuple_or_die();
     eyeCords = Vector3D::point(eyeCordsINI[0], eyeCordsINI[1], eyeCordsINI[2]);
+
+
 
 
     Figures3D figures3D;
@@ -31,9 +33,22 @@ Figures3D configure3D(const ini::Configuration &confg, int& size, img::Color &ba
         std::string figureString = "Figure" + std::to_string(i);
         std::string type2 = confg[figureString]["type"];
 
-        Figure figure = Figure(Color1(confg[figureString]["color"].as_double_tuple_or_die()[0],
-                                      confg[figureString]["color"].as_double_tuple_or_die()[1],
-                                      confg[figureString]["color"].as_double_tuple_or_die()[2]));
+        Figure figure;
+        figure.color = Color1(confg[figureString]["color"].as_double_tuple_or_default({1,1,1})[0],
+                              confg[figureString]["color"].as_double_tuple_or_default({1,1,1})[1],
+                              confg[figureString]["color"].as_double_tuple_or_default({1,1,1})[2]);
+
+        std::vector<double> ambientReflection = confg[figureString]["ambientReflection"].as_double_tuple_or_default(std::vector<double>({figure.color.red, figure.color.green, figure.color.blue}));
+        figure.ambientReflection = Color1(ambientReflection[0], ambientReflection[1], ambientReflection[2]);
+
+        std::vector<double> diffuseReflection = confg[figureString]["diffuseReflection"].as_double_tuple_or_default(std::vector<double>({1,1,1}));
+        figure.diffuseReflection = Color1(diffuseReflection[0], diffuseReflection[1], diffuseReflection[2]);
+
+        std::vector<double> specularReflection = confg[figureString]["specularReflection"].as_double_tuple_or_default(std::vector<double>({0,0,0}));
+        figure.specularReflection = Color1(specularReflection[0], specularReflection[1], specularReflection[2]);
+
+        double reflectionCoefficient = confg[figureString]["reflectionCoefficient"].as_double_or_default(0);
+        figure.reflectionCoefficient = reflectionCoefficient;
 
         if (type2 == "LineDrawing") {
             rotateX = confg[figureString]["rotateX"].as_double_or_die();
@@ -173,24 +188,19 @@ Figures3D configure3D(const ini::Configuration &confg, int& size, img::Color &ba
         if(fractal){
             for(int j = 0; j < figures3D.size(); j++){
                 if(figures3D[j].fractal){
-                    figures3D[j].color = Color1(confg[figureString]["color"].as_double_tuple_or_die()[0],
-                                                confg[figureString]["color"].as_double_tuple_or_die()[1],
-                                                confg[figureString]["color"].as_double_tuple_or_die()[2]);
                     configFigureTranslations(figures3D[j], rotateX, rotateY, rotateZ, scale, center, eyeCords);
                     calculateTotalMatrix(figures3D[j]);
                     applyTransformation(&figures3D[j], figures3D[j].totalMatrix);
+                    figures3D[j].eyepointMatrix = eyePointTrans(figures3D[j].eyePoint);
                     applyTransformation(&figures3D[j], eyePointTrans(figures3D[j].eyePoint));
                 }
             }
         }
         else {
-            figure.color = Color1(confg[figureString]["color"].as_double_tuple_or_die()[0],
-                                  confg[figureString]["color"].as_double_tuple_or_die()[1],
-                                  confg[figureString]["color"].as_double_tuple_or_die()[2]);
-
             configFigureTranslations(figure, rotateX, rotateY, rotateZ, scale, center, eyeCords);
             calculateTotalMatrix(figure);
             applyTransformation(&figure, figure.totalMatrix);
+            figure.eyepointMatrix = eyePointTrans(figure.eyePoint);
             applyTransformation(&figure, eyePointTrans(figure.eyePoint));
             figures3D.push_back(figure);
         }
