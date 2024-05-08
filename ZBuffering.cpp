@@ -90,6 +90,11 @@ img::EasyImage drawTriangulateFaces(Figures3D figures3D, int size, img::Color bg
 
         fig.ambientReflection = tempColor;
 
+        fig.specularReflection.red = fig.specularReflection.red * 255;
+        fig.specularReflection.green = fig.specularReflection.green * 255;
+        fig.specularReflection.blue = fig.specularReflection.blue * 255;
+
+
         for(auto face : fig.faces){
             Vector3D v0 = fig.points[face.point_indexes[0]];
             Vector3D v1 = fig.points[face.point_indexes[1]];
@@ -217,7 +222,6 @@ void img::EasyImage::draw_zbuf_triangle(ZBuffer &zbuf, Vector3D &A, Vector3D &B,
         double xg = (Axp + Bxp + Cxp)/3;
         double yg = (Ayp + Byp + Cyp)/3;
         double oneOverzg = 1/(3 * A.z) + 1 / (3 * B.z) + 1 / (3 * C.z);
-
         for(int x = xl; x <= xr; x++){
             double oneOverZ = 1.0001 * oneOverzg + (x - xg)*dzdx + (yi - yg)*dzdy;
             if(oneOverZ < zbuf.v[x][yi]){

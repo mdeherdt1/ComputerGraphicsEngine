@@ -515,6 +515,10 @@ img::Color img::EasyImage::calculateDiffusePointColor(const Color &colorAfterLig
 	const Color &specularLightColor, const Lights3D &lights, const Vector3D &w, double x, double y,
 	double z, double d, double reflection_coefficient) {
 
+	if(i == 63792) {
+		std::cout<< "help" << std::endl;
+	}
+
 	Color newColor(0.0,0.0,0.0);
     Vector3D n = Vector3D::normalise(w);
 
@@ -546,26 +550,34 @@ img::Color img::EasyImage::calculateDiffusePointColor(const Color &colorAfterLig
                     calc = cosA;
                 }
 
-                redDiffusePoint = diffuseLightColor.red * (*it).diffuseLight.red * calc;
-                greenDiffusePoint = diffuseLightColor.red * (*it).diffuseLight.green * calc;
-                blueDiffusePoint = diffuseLightColor.red * (*it).diffuseLight.blue * calc;
+            	double diffRed = calcDouble(diffuseLightColor.red);
+            	double diffGreen = calcDouble(diffuseLightColor.green);
+            	double diffBlue = calcDouble(diffuseLightColor.blue);
+
+                redDiffusePoint = diffRed * (*it).diffuseLight.red * calc;
+                greenDiffusePoint = diffGreen * (*it).diffuseLight.green * calc;
+                blueDiffusePoint = diffBlue * (*it).diffuseLight.blue * calc;
 
 
                 Vector3D r  = Vector3D::normalise(2 * n * cosA - vectorL);
                 Vector3D camera = Vector3D::normalise(-PointP);
                 double cosB = (r.x * camera.x) + (r.y * camera.y) + (r.z * camera.z);
 
+            	double specRed = calcDouble(specularLightColor.red);
+            	double specGreen = calcDouble(specularLightColor.green);
+            	double specBlue = calcDouble(specularLightColor.blue);
+
                 if(cosB > 0){
                     // cout << specularLight.red << "*" <<(*it)->specularLight.red << "*"  << cosB << endl;
                     cosB = pow(cosB,reflection_coefficient);
-                    redReflextionPoint = specularLightColor.red * (*it).specularLight.red * cosB;
-                    greenReflextionPoint = specularLightColor.green * (*it).specularLight.green * cosB;
-                    blueReflextionPoint = specularLightColor.blue * (*it).specularLight.blue * cosB;
+                    redReflextionPoint = specRed * (*it).specularLight.red * cosB;
+                    greenReflextionPoint = specGreen * (*it).specularLight.green * cosB;
+                    blueReflextionPoint = specBlue * (*it).specularLight.blue * cosB;
                 }
             }
-            newColor.red = (newColor.red + redDiffusePoint + redReflextionPoint);
-            newColor.green = (newColor.green + greenDiffusePoint + greenReflextionPoint);
-            newColor.blue = (newColor.blue + blueDiffusePoint + blueReflextionPoint);
+            newColor.red = newColor.red + (redDiffusePoint + redReflextionPoint)*255;
+            newColor.green = newColor.green + (greenDiffusePoint + greenReflextionPoint)*255;
+            newColor.blue = (newColor.blue + blueDiffusePoint + blueReflextionPoint)*255;
         }
         else if((*it).lightType == infinity2){
             Vector3D vectorL = (*it).ldVector;
@@ -581,9 +593,6 @@ img::Color img::EasyImage::calculateDiffusePointColor(const Color &colorAfterLig
                     redReflextionPoint = specularLightColor.red * (*it).specularLight.red * cosB;
                     greenReflextionPoint = specularLightColor.green * (*it).specularLight.green * cosB;
                     blueReflextionPoint = specularLightColor.blue * (*it).specularLight.blue * cosB;
-                	if(redReflextionPoint != 0 || greenReflextionPoint != 0 || blueReflextionPoint != 0) {
-                		std::cout<< "redReflextionPoint: " << redReflextionPoint << std::endl;
-                	}
                 }
             }
             newColor.red = newColor.red + redDiffusePoint + redReflextionPoint;
@@ -592,17 +601,28 @@ img::Color img::EasyImage::calculateDiffusePointColor(const Color &colorAfterLig
         }
     }
 
-    newColor.red = (newColor.red + colorAfterLights.red);
-    newColor.green = (newColor.green + colorAfterLights.green);
-    newColor.blue = (newColor.blue + colorAfterLights.blue);
+	int red;
+	int green;
+	int blue;
+    red  = (newColor.red + colorAfterLights.red);
+    green = (newColor.green + colorAfterLights.green);
+    blue = (newColor.blue + colorAfterLights.blue);
 
-	// if(newColor.green != 63) {
-	// 	std::cout << i << std::endl;
-	// }
-	// i++;
+	if(red > 255) {
+		red = 255;
+	}
+	if(green > 255) {
+		green = 255;
+	}
+	if(blue > 255) {
+		blue = 255;
+	}
 
+	newColor.red = red;
+	newColor.green = green;
+	newColor.blue = blue;
 
-    return newColor;
+	return newColor;
 
 }
 
