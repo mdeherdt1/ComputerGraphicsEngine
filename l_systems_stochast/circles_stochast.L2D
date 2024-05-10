@@ -1,0 +1,30 @@
+Alphabet = {F, G, X}
+
+Draw = {
+        F -> 1,
+        G -> 1,
+        X -> 1
+}
+
+Rules = {
+        F -> "FF",
+        G -> "G",
+        X -> "GF+FFF+FFF+FFF+FGF+FFF+FFF+FFF+FX"
+}
+
+Initiator     = "X"
+Angle         = 45
+StartingAngle = 0
+Iterations    = 10
+
+StochasticRules = {
+        F -> {
+                "F(-F)(+G)" : 0.8,
+                "G(++)(F)" : 0.2
+        },
+        X -> {
+                "FFG-G+XXG---+++" : 0.8,
+                "B(+F)" : 0.2
+        }
+
+}

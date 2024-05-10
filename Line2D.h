@@ -18,6 +18,8 @@ public:
     double z1 = p1.z;
     double z2 = p2.z;
 
+    bool draw = true;
+
     Line2D(const Point2D &p1, const Point2D &p2, const Color1 &color);
 
 };

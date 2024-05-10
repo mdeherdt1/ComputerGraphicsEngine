@@ -14,7 +14,7 @@ img::EasyImage ColorRectangle(const std::string &type,const int &w, const int &h
         {
             image(i,j).red = i;
             image(i,j).green = j;
-            image(i,j).blue = (i+j)%256;
+            image(i,j).blue = (i+j)%255;
         }
     }
     return image;

@@ -261,6 +261,10 @@ namespace LParser
 			 * */
 			double get_starting_angle() const;
 
+			bool getDrawFunction(char c) const {
+				return drawfunction.at(c);
+			}
+
 		protected:
 			friend std::istream& operator>>(std::istream& in, LSystem2D& system);
 			/**

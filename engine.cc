@@ -31,12 +31,13 @@
 
 
 img::EasyImage draw2DLines(const Lines2D &lines, const int size, img::Color background = img::Color(0, 0, 0), bool zBuffer = false) {
+
+    //Theorie Pagina 8 van de Handboek
+
     std::vector<double> xjes ;
     std::vector<double>ytjes;
 
-
-
-    //push alles in de vectoren om min en max te bepalen
+    //bereken de minimale en maximale x en y waarden (nodig voor de grootte van de afbeelding)
     for (Line2D lijn:lines) {
         xjes.push_back(lijn.p1.x);
         xjes.push_back(lijn.p2.x);
@@ -66,20 +67,20 @@ img::EasyImage draw2DLines(const Lines2D &lines, const int size, img::Color back
     }
     double x_range = x_max - x_min;
     double y_range = y_max - y_min;
-    double width = size * (x_range / (std::max(x_range,y_range)));
-    double height = size * (y_range / (std::max(x_range,y_range)));
+    double image_x = size * (x_range / (std::max(x_range,y_range))); //formule van de handboek
+    double image_y = size * (y_range / (std::max(x_range,y_range)));
 
-    img::EasyImage image(width,height,background);
+    img::EasyImage image(image_x,image_y,background);
 
-    double d = 0.95 * (width / x_range);
+    double d = 0.95 * (image_x / x_range);
 
     double DCx = d * ((x_min + x_max) / 2);
     double DCy = d * ((y_min + y_max) / 2);
 
-    double dx = width / 2 - DCx;
-    double dy = height / 2 - DCy;
+    double dx = image_x / 2 - DCx;
+    double dy = image_y / 2 - DCy;
 
-    ZBuffer Zbuf = ZBuffer(width, height);
+    ZBuffer Zbuf = ZBuffer(image_x, image_y);
 
     for (Line2D lijn:lines) {
         lijn.p1.x = round(lijn.p1.x * d + dx);
@@ -182,7 +183,11 @@ Lines2D drawLSystem(const LParser::LSystem2D &l_system, Color1 lijnKleur = Color
                 if (alfabet.find(c) != alfabet.end()) { // Teken een lijn als het karakter in het alfabet zit
                     double newX = x + cos(currentAngle);
                     double newY = y + sin(currentAngle);
-                    lijnen.push_back(Line2D(Point2D(x, y), Point2D(newX, newY), lijnKleur));
+                    //ga na of de drawfunctie van c 1 of 0 is
+                    bool draw  = l_system.getDrawFunction(c);
+                    if(draw){
+                        lijnen.push_back(Line2D(Point2D(x, y), Point2D(newX, newY), lijnKleur));
+                    }
                     x = newX;
                     y = newY;
                 }

@@ -484,7 +484,7 @@ void img::EasyImage::draw_zbuf_line(ZBuffer &f, unsigned int x0, unsigned int y0
 
 
 
-img::Color img::EasyImage::calculateDiffuseInfLightColor(img::Color &ambientColor,img::Color &diffuseReflection ,img::Color &specularLight , Lights3D &lights, Vector3D w, double reflection_coefficient) {
+img::Color img::EasyImage::get_color_after_lights(img::Color &ambientColor,img::Color &diffuseReflection , Lights3D &lights, Vector3D w) {
 
 	Color newColor(0.0,0.0,0.0);
 	Vector3D n = Vector3D::normalise(w);
@@ -511,7 +511,7 @@ img::Color img::EasyImage::calculateDiffuseInfLightColor(img::Color &ambientColo
 	return newColor;
 }
 
-img::Color img::EasyImage::calculateDiffusePointColor(const Color &colorAfterLights, const Color &diffuseLightColor,
+img::Color img::EasyImage::get_diffuse_point_color(const Color &colorAfterLights, const Color &diffuseLightColor,
 	const Color &specularLightColor, const Lights3D &lights, const Vector3D &w, double x, double y,
 	double z, double d, double reflection_coefficient) {
 
@@ -520,7 +520,7 @@ img::Color img::EasyImage::calculateDiffusePointColor(const Color &colorAfterLig
 	}
 
 	Color newColor(0.0,0.0,0.0);
-    Vector3D n = Vector3D::normalise(w);
+    Vector3D n = Vector3D::normalise(w); //Normal vector
 
     double Ze = 1/(double)z;
     double Xe = (x * (-Ze))/(d);
@@ -528,79 +528,79 @@ img::Color img::EasyImage::calculateDiffusePointColor(const Color &colorAfterLig
     Vector3D PointP = Vector3D::point(Xe, Ye, Ze);
 
     for(auto it = lights.begin(); it != lights.end(); it++){
-        double redDiffusePoint = 0;
-        double greenDiffusePoint = 0;
-        double blueDiffusePoint= 0;
-        double redReflextionPoint = 0;
-        double greenReflextionPoint = 0;
-        double blueReflextionPoint = 0;
+        double redDiffuse = 0;
+        double greenDiffuse = 0;
+        double blueDiffuse= 0;
+        double redReflect = 0;
+        double greenReflect = 0;
+        double blueReflect = 0;
 
-        if((*it).lightType == point) {
-            double As = ((*it).spotAngle) * (3.14159265359/180);
+        if((*it).lightType == point) { //als het een point light is dan moet je de spotangle berekenen
+            double As = ((*it).spotAngle) * (M_PI/180);
             Vector3D location = (*it).location;
             Vector3D vectorL = Vector3D::normalise(location - PointP);
 
             double cosA = (n.x * vectorL.x) + (n.y * vectorL.y) + (n.z * vectorL.z);
             if(cosA > 0){
-                double calc = 0;
-                if((*it).spotAngle != 360 && cosA > cos(As)){
-                    calc = 1-(1-cosA)/(1-cos(As));
+                double Angle = 0;
+                if((*it).spotAngle != 360 && cosA > cos(As)){ //360 is standaard
+                    Angle = 1-(1-cosA)/(1-cos(As));
                 }
                 else if((*it).spotAngle == 360){
-                    calc = cosA;
+                    Angle = cosA;
                 }
 
             	double diffRed = calcDouble(diffuseLightColor.red);
             	double diffGreen = calcDouble(diffuseLightColor.green);
             	double diffBlue = calcDouble(diffuseLightColor.blue);
 
-                redDiffusePoint = diffRed * (*it).diffuseLight.red * calc;
-                greenDiffusePoint = diffGreen * (*it).diffuseLight.green * calc;
-                blueDiffusePoint = diffBlue * (*it).diffuseLight.blue * calc;
+                redDiffuse = diffRed * (*it).diffuseLight.red * Angle;
+                greenDiffuse = diffGreen * (*it).diffuseLight.green * Angle;
+                blueDiffuse = diffBlue * (*it).diffuseLight.blue * Angle;
 
 
-                Vector3D r  = Vector3D::normalise(2 * n * cosA - vectorL);
-                Vector3D camera = Vector3D::normalise(-PointP);
-                double cosB = (r.x * camera.x) + (r.y * camera.y) + (r.z * camera.z);
+            	Vector3D cam = Vector3D::normalise(-PointP);
+                Vector3D r  = Vector3D::normalise(2 * n * cosA - vectorL); //reflection vector
+
+            	double cosB = (r.x * cam.x) + (r.y * cam.y) + (r.z * cam.z);
 
             	double specRed = calcDouble(specularLightColor.red);
             	double specGreen = calcDouble(specularLightColor.green);
             	double specBlue = calcDouble(specularLightColor.blue);
 
                 if(cosB > 0){
-                    // cout << specularLight.red << "*" <<(*it)->specularLight.red << "*"  << cosB << endl;
-                    cosB = pow(cosB,reflection_coefficient);
-                    redReflextionPoint = specRed * (*it).specularLight.red * cosB;
-                    greenReflextionPoint = specGreen * (*it).specularLight.green * cosB;
-                    blueReflextionPoint = specBlue * (*it).specularLight.blue * cosB;
+                    cosB = pow(cosB,reflection_coefficient); //reflection coefficient
+                    redReflect = specRed * (*it).specularLight.red * cosB;
+                    greenReflect = specGreen * (*it).specularLight.green * cosB;
+                    blueReflect = specBlue * (*it).specularLight.blue * cosB;
                 }
             }
-            newColor.red = newColor.red + (redDiffusePoint + redReflextionPoint)*255;
-            newColor.green = newColor.green + (greenDiffusePoint + greenReflextionPoint)*255;
-            newColor.blue = (newColor.blue + blueDiffusePoint + blueReflextionPoint)*255;
+            newColor.red = newColor.red + (redDiffuse + redReflect)*255;
+            newColor.green = newColor.green + (greenDiffuse + greenReflect)*255;
+            newColor.blue = newColor.blue + (blueDiffuse + blueReflect)*255;
         }
         else if((*it).lightType == infinity2){
             Vector3D vectorL = (*it).ldVector;
             double cosA = (n.x * vectorL.x) + (n.y * vectorL.y) + (n.z * vectorL.z);
             if(cosA > 0) {
-                //Reflextions:
                 Vector3D r  = Vector3D::normalise(2 * n * cosA - vectorL);
                 Vector3D camera = Vector3D::normalise(-PointP);
                 double cosB = (r.x * camera.x) + (r.y * camera.y) + (r.z * camera.z);
 
                 if(cosB > 0){
                     cosB = pow(cosB,reflection_coefficient);
-                    redReflextionPoint = specularLightColor.red * (*it).specularLight.red * cosB;
-                    greenReflextionPoint = specularLightColor.green * (*it).specularLight.green * cosB;
-                    blueReflextionPoint = specularLightColor.blue * (*it).specularLight.blue * cosB;
+                    redReflect = specularLightColor.red * (*it).specularLight.red * cosB;
+                    greenReflect = specularLightColor.green * (*it).specularLight.green * cosB;
+                    blueReflect = specularLightColor.blue * (*it).specularLight.blue * cosB;
                 }
             }
-            newColor.red = newColor.red + redDiffusePoint + redReflextionPoint;
-            newColor.green = newColor.green + greenDiffusePoint + greenReflextionPoint;;
-            newColor.blue = newColor.blue + blueDiffusePoint + blueReflextionPoint;
+            newColor.red = newColor.red + redDiffuse + redReflect;
+            newColor.green = newColor.green + greenDiffuse + greenReflect;;
+            newColor.blue = newColor.blue + blueDiffuse + blueReflect;
         }
     }
 
+	//for some reason als ik 129 + 127 doe krijg in 0 terug dus omweg
 	int red;
 	int green;
 	int blue;
@@ -621,6 +621,8 @@ img::Color img::EasyImage::calculateDiffusePointColor(const Color &colorAfterLig
 	newColor.red = red;
 	newColor.green = green;
 	newColor.blue = blue;
+
+	i++;
 
 	return newColor;
 

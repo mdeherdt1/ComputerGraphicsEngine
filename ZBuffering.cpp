@@ -187,7 +187,7 @@ void img::EasyImage::draw_zbuf_triangle(ZBuffer &zbuf, Vector3D &A, Vector3D &B,
     Color diffuseLightColor = Color(diffuseLight.red*255, diffuseLight.green*255, diffuseLight.blue*255);
     Color specularLightColor = Color(specularLight.red, specularLight.green, specularLight.blue);
 
-    Color colorAfterLights = calculateDiffuseInfLightColor(ambienLightColor,diffuseLightColor, specularLightColor, lights, Vector3D::cross(u,v), reflectionCoefficient);
+    Color colorAfterLights = get_color_after_lights(ambienLightColor,diffuseLightColor, lights, Vector3D::cross(u,v));
 
     for(int yi = yMin; yi <= yMax; yi++){
         double XLab, XLac, XLbc;
@@ -225,7 +225,7 @@ void img::EasyImage::draw_zbuf_triangle(ZBuffer &zbuf, Vector3D &A, Vector3D &B,
         for(int x = xl; x <= xr; x++){
             double oneOverZ = 1.0001 * oneOverzg + (x - xg)*dzdx + (yi - yg)*dzdy;
             if(oneOverZ < zbuf.v[x][yi]){
-                Color newColor = calculateDiffusePointColor(colorAfterLights,diffuseLightColor, specularLightColor, lights, Vector3D::cross(u, v), x-dx,yi-dy,oneOverZ,d,reflectionCoefficient);
+                Color newColor = get_diffuse_point_color(colorAfterLights,diffuseLightColor, specularLightColor, lights, Vector3D::cross(u, v), x-dx,yi-dy,oneOverZ,d,reflectionCoefficient);
                 (*this)(x, yi) = newColor;
                 zbuf.v[x][yi] = oneOverZ;
             }
