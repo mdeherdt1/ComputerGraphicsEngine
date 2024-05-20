@@ -126,5 +126,14 @@ Lines2D doProjection(const Figures3D &figuren3D) {
             }
         }
     }
+    // unsigned int i = 0;
+    // for(auto it = lines.begin(); it != lines.end(); it++){
+    //     std::cout<< "lijn " << i << std::endl;
+    //     std::cout<< it->p1.x << std::endl;
+    //     std::cout<< it->p1.y << std::endl;
+    //     std:: cout << it->p2.x << std::endl;
+    //     std::cout << it->p2.y << std::endl;
+    //     i++;
+    // }
     return lines;
 }

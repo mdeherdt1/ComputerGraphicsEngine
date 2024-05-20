@@ -398,6 +398,7 @@ std::istream& img::operator>>(std::istream& in, EasyImage & image)
 	return in;
 }
 
+int test_count = 0;
 void img::EasyImage::draw_zbuf_line(ZBuffer &f, unsigned int x0, unsigned int y0, double z0,
                                     unsigned int x1, unsigned int y1, double z1, img::Color color) {
 
@@ -413,6 +414,8 @@ void img::EasyImage::draw_zbuf_line(ZBuffer &f, unsigned int x0, unsigned int y0
             if((zi) < (f.v[x0][i])){
                 (*this)(x0, i) = color;
                 f.v[x0][i] = zi;
+            	//std::cout << "x0: " << x0 << " y0: " << i << " z: " << zi << std::endl;
+
             }
         }
     }
@@ -428,6 +431,8 @@ void img::EasyImage::draw_zbuf_line(ZBuffer &f, unsigned int x0, unsigned int y0
             if((zi) < (f.v[i][y0])){
                 (*this)(i, y0) = color;
                 f.v[i][y0] = zi;
+            	//std::cout << "x0: " << x0 << " y0: " << i << " z: " << zi << std::endl;
+
             }
         }
     }
@@ -450,6 +455,8 @@ void img::EasyImage::draw_zbuf_line(ZBuffer &f, unsigned int x0, unsigned int y0
                 if((zi) < (f.v[x0 + i][(unsigned int) round(y0 + m * i)])){
                     (*this)(x0 + i, (unsigned int) round(y0 + m * i)) = color;
                     f.v[x0 + i][(unsigned int) round(y0 + m * i)] = zi;
+                	//std::cout << "x0: " << x0 << " y0: " << i << " z: " << zi << std::endl;
+
                 }
             }
         }
@@ -463,6 +470,8 @@ void img::EasyImage::draw_zbuf_line(ZBuffer &f, unsigned int x0, unsigned int y0
                 if((zi) < (f.v[(unsigned int) round(x0 + (i / m))][y0 + i])){
                     (*this)((unsigned int) round(x0 + (i / m)), y0 + i) = color;
                     f.v[(unsigned int) round(x0 + (i / m))][y0 + i] = zi;
+                	// std::cout << "x0: " << x0 << " y0: " << i << " z: " << zi << std::endl;
+
                 }
             }
         }
@@ -476,10 +485,14 @@ void img::EasyImage::draw_zbuf_line(ZBuffer &f, unsigned int x0, unsigned int y0
                 if((zi) < (f.v[(unsigned int) round(x0 - (i / m))][y0 - i])){
                     (*this)((unsigned int) round(x0 - (i / m)), y0 - i) = color;
                     f.v[(unsigned int) round(x0 - (i / m))][y0 - i] = zi;
+                	// std::cout << "x0: " << x0 << " y0: " << i << " z: " << zi << std::endl;
                 }
             }
         }
     }
+	// std::cout << "test_count: " << test_count << std::endl;
+	// test_count++;
+
 }
 
 
@@ -515,9 +528,9 @@ img::Color img::EasyImage::get_diffuse_point_color(const Color &colorAfterLights
 	const Color &specularLightColor, const Lights3D &lights, const Vector3D &w, double x, double y,
 	double z, double d, double reflection_coefficient) {
 
-	if(i == 63792) {
-		std::cout<< "help" << std::endl;
-	}
+	// if(i == 63792) {
+	// 	std::cout<< "help" << std::endl;
+	// }
 
 	Color newColor(0.0,0.0,0.0);
     Vector3D n = Vector3D::normalise(w); //Normal vector

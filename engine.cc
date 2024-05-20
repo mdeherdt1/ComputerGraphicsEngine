@@ -34,6 +34,11 @@ img::EasyImage draw2DLines(const Lines2D &lines, const int size, img::Color back
 
     //Theorie Pagina 8 van de Handboek
 
+    //print alle informatie voor de debug
+// for (Line2D lijn:lines) {
+//         std::cout << "Lijn: " << lijn.p1.x << " " << lijn.p1.y << " " << lijn.p2.x << " " << lijn.p2.y << std::endl;
+//     }
+
     std::vector<double> xjes ;
     std::vector<double>ytjes;
 
@@ -80,6 +85,7 @@ img::EasyImage draw2DLines(const Lines2D &lines, const int size, img::Color back
     double dx = image_x / 2 - DCx;
     double dy = image_y / 2 - DCy;
 
+
     ZBuffer Zbuf = ZBuffer(image_x, image_y);
 
     for (Line2D lijn:lines) {
@@ -91,12 +97,15 @@ img::EasyImage draw2DLines(const Lines2D &lines, const int size, img::Color back
         img::Color kleur = img::Color(lijn.color.red*255,lijn.color.green*255,lijn.color.blue*255);
 
         if(zBuffer){
+            // std::cout << "Zbuffer" << std::endl;
+            // std::cout << "x1: " << lijn.p1.x << " y1: " << lijn.p1.y << " z1: " << lijn.z1 << std::endl;
+            // std::cout << "x2: " << lijn.p2.x << " y2: " << lijn.p2.y << " z2: " << lijn.z2 << std::endl;
+
             image.draw_zbuf_line(Zbuf, lijn.p1.x, lijn.p1.y, lijn.z1, lijn.p2.x, lijn.p2.y, lijn.z2, kleur);
         }
         else{
             image.draw_line(lijn.p1.x,lijn.p1.y,lijn.p2.x,lijn.p2.y, kleur);
         }
-
     }
 
 
@@ -302,7 +311,7 @@ img::EasyImage generate_image(const ini::Configuration &confg) {
         img::Color backGroundColor = img::Color();
         Vector3D eyeCords = Vector3D();
 
-        Figures3D figures3D = configure3D(confg,size,backGroundColor,eyeCords);
+        Figures3D figures3D = configure3D(confg,size,backGroundColor,eyeCords, false);
 
 
         return createWireFrame(size, backGroundColor, eyeCords, figures3D, true);
