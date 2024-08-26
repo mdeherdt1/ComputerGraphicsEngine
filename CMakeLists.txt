@@ -15,36 +15,36 @@ set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${OWN_GXX_FLAGS}")
 # List all sources
 ############################################################
 set(engine_sources
-	easy_image.cc
-	engine.cc
-	ini_configuration.cc
-		Color1.cpp
-		Color1.h
-		Point2D.cpp
-		Point2D.h
-		Line2D.cpp
-		Line2D.h
-		introduction.cpp
-		introduction.h
-		l_parser.cc
-		StochasticRule.cpp
-        Figure.cpp
-        Figure.h
-		Face.cpp
-		Face.h
-		vector3d.cc
-        PlatonischeLichamen.cpp
-        PlatonischeLichamen.h
-		translations.cpp
-		translations.h
-		draw3DLsystem.cpp
-		Wireframes.cpp
-		ZBuffer.cpp
-		ZBuffering.cpp
-		lightClass.cpp
-		lightClass.h
-		lightedZbuffering.cpp
-		lightedZbuffering.h
+        src/easy_image.cc
+        src/engine.cc
+        src/ini_configuration.cc
+        src/Color1.cpp
+        src/Color1.h
+        src/Point2D.cpp
+        src/Point2D.h
+        src/Line2D.cpp
+        src/Line2D.h
+        src/introduction.cpp
+        src/introduction.h
+        src/l_parser.cc
+        src/StochasticRule.cpp
+        src/Figure.cpp
+        src/Figure.h
+        src/Face.cpp
+        src/Face.h
+        src/vector3d.cc
+        src/PlatonischeLichamen.cpp
+        src/PlatonischeLichamen.h
+        src/translations.cpp
+        src/translations.h
+        src/draw3DLsystem.cpp
+        src/Wireframes.cpp
+        src/ZBuffer.cpp
+        src/ZBuffering.cpp
+        src/lightClass.cpp
+        src/lightClass.h
+        src/lightedZbuffering.cpp
+        src/lightedZbuffering.h
 )
 
 ############################################################
